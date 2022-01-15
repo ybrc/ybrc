@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>vim的笔记 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="vim的笔记" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/21/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-19T15:13:31+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="vim的笔记"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/21/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/20/" /><link rel="next" href="https://ybrc.github.io/zh-cn/22/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "vim的笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/21\/"
+        },"genre": "posts","keywords": "编辑器, Vim","wordcount":  3366 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/21\/","datePublished": "2021-12-19T15:13:31+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/21/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/21/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981868789 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981868789 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">vim的笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"><i class="far fa-folder fa-fw"></i>编辑器</a>&nbsp;<a href="/zh-cn/categories/vim/"><i class="far fa-folder fa-fw"></i>vim</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-19">2021-12-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3366 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#vim简介">vim简介</a></li>
+    <li><a href="#常用简写">常用简写</a></li>
+    <li><a href="#宏">宏</a></li>
+    <li><a href="#正则">正则</a>
+      <ul>
+        <li><a href="#magic">magic</a>
+          <ul>
+            <li><a href="#vvery-magic">v(very magic)</a></li>
+          </ul>
+        </li>
+        <li><a href="#元字符">元字符</a></li>
+        <li><a href="#需要转义的元字符">需要转义的元字符:</a></li>
+        <li><a href="#量词">量词</a></li>
+        <li><a href="#位置">位置</a></li>
+        <li><a href="#贪婪匹配">贪婪匹配</a></li>
+      </ul>
+    </li>
+    <li><a href="#批量替换字符串">批量替换字符串</a>
+      <ul>
+        <li><a href="#addr">[addr]</a></li>
+        <li><a href="#s-表示替换操作">s: 表示替换操作</a></li>
+        <li><a href="#optin">[optin]</a></li>
+        <li><a href="#特别注意">特别注意</a></li>
+      </ul>
+    </li>
+    <li><a href="#vim插件">vim插件</a></li>
+    <li><a href="#vimrc">vimrc</a></li>
+    <li><a href="#vim插件-1">vim插件</a>
+      <ul>
+        <li><a href="#vim-surround">vim-surround</a></li>
+        <li><a href="#ale">ale</a></li>
+        <li><a href="#nerdtree">nerdtree</a></li>
+        <li><a href="#youcompleteme">YouCompleteMe</a>
+          <ul>
+            <li><a href="#在vimrc中安装后并不能使用">在vimrc中安装后并不能使用</a>
+              <ul>
+                <li><a href="#进入ycm目录">进入ycm目录</a></li>
+                <li><a href="#给予可执行权限任选其一">给予可执行权限(任选其一)</a></li>
+                <li><a href="#安装任选其一">安装(任选其一)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#markdown-previewnvim">markdown-preview.nvim</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# vim的笔记
+<h2 id="vim简介">vim简介</h2>
+<p>略</p>
+<p>总之就是非常好用且效率高</p>
+<p>建议自己谷歌</p>
+<h2 id="常用简写">常用简写</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">简写</th>
+<th style="text-align:left">原意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">w</td>
+<td style="text-align:left">word</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td style="text-align:left">back</td>
+</tr>
+<tr>
+<td style="text-align:left">ctrl+v</td>
+<td style="text-align:left">可视</td>
+</tr>
+<tr>
+<td style="text-align:left">ctrl + v</td>
+<td style="text-align:left">块模式</td>
+</tr>
+<tr>
+<td style="text-align:left">zz</td>
+<td style="text-align:left">切换成中心位置</td>
+</tr>
+<tr>
+<td style="text-align:left">ciw/ci’</td>
+<td style="text-align:left">change in word/change in ‘’</td>
+</tr>
+<tr>
+<td style="text-align:left">shift +i/a</td>
+<td style="text-align:left">在行首/行尾插入</td>
+</tr>
+<tr>
+<td style="text-align:left">(ctrl + v选中多行) +$/0 + shift + i/a</td>
+<td style="text-align:left">在多行行首/行尾插入</td>
+</tr>
+<tr>
+<td style="text-align:left">f</td>
+<td style="text-align:left">find</td>
+</tr>
+<tr>
+<td style="text-align:left">d3</td>
+<td style="text-align:left">删除三个字符</td>
+</tr>
+<tr>
+<td style="text-align:left">sr</td>
+<td style="text-align:left">打开分屏</td>
+</tr>
+<tr>
+<td style="text-align:left">ctrl + w + h/l</td>
+<td style="text-align:left">切换成左/右分屏</td>
+</tr>
+<tr>
+<td style="text-align:left">v : normal A/I</td>
+<td style="text-align:left">对模块行首/行尾添加</td>
+</tr>
+<tr>
+<td style="text-align:left">ctrl + o</td>
+<td style="text-align:left">回到上一个位置</td>
+</tr>
+<tr>
+<td style="text-align:left">:w ! sudo tee %</td>
+<td style="text-align:left">强制保存</td>
+</tr>
+<tr>
+<td style="text-align:left">s</td>
+<td style="text-align:left">光标所在行</td>
+</tr>
+<tr>
+<td style="text-align:left">.,$s</td>
+<td style="text-align:left">光标所在行到行末</td>
+</tr>
+</tbody>
+</table>
+<h2 id="宏">宏</h2>
+<p>简单来说,就是把需要执行的操作录制下来,交给vim</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">q寄存器名</td>
+<td style="text-align:left">开始录制,并保存在某寄存器中</td>
+</tr>
+<tr>
+<td style="text-align:left">操作</td>
+<td style="text-align:left">被录制的操作</td>
+</tr>
+<tr>
+<td style="text-align:left">次数@寄存器名</td>
+<td style="text-align:left">执行某寄存器的命令一定的次数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="正则">正则</h2>
+<h3 id="magic">magic</h3>
+<p>这是一个用来规定哪些元字符需要+’\‘东西</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">magic (\m)：除了$ . * ^ 之外其他元字符都要加反斜杠。
+nomagic (\M)：除了 $ ^ 之外其他元字符都要加反斜杠。
+</code></pre></td></tr></table>
+</div>
+</div><p>两个例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/\m.* # 查找任意字符串 
+/\M.* # 查找字符串 .* （点号后面跟个星号）
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="vvery-magic">v(very magic)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">\v （very magic）：任何元字符都不用加反斜杠
+\V （very nomagic）：任何元字符都必须加反斜杠
+</code></pre></td></tr></table>
+</div>
+</div><p>几个例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/\v(a.c){3}$ # 查找行尾的abcaccadc 
+/\m(a.c){3}$ # 查找行尾的(abc){3} 
+/\M(a.c){3}$ # 查找行尾的(a.c){3} 
+/\V(a.c){3}$ # 查找任意位置的(a.c){3}$
+</code></pre></td></tr></table>
+</div>
+</div><p>其实默认就好,默认为magic的设置</p>
+<h3 id="元字符">元字符</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">元字符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.</code></td>
+<td style="text-align:left">匹配任意一个字符,如<code>p*p</code>可以匹配字符串<code>pep</code>, <code>pip</code>或者<code>pcp</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[abc]</code></td>
+<td style="text-align:left">匹配方括号中的任意一个字符。可以使用-表示字符范围</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[a-z0-9]</code></td>
+<td style="text-align:left">匹配小写字母和阿拉伯数字</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[^abc]</code></td>
+<td style="text-align:left">在方括号内开头使用<code>^</code>符号，表示匹配除方括号中字符之外的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\d</code></td>
+<td style="text-align:left">匹配阿拉伯数字，等同于<code>[0-9]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\D</code></td>
+<td style="text-align:left">匹配阿拉伯数字之外的任意字符，等同于<code>[^0-9]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\x</code></td>
+<td style="text-align:left">匹配十六进制数字，等同于<code>[0-9A-Fa-f]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\w</code></td>
+<td style="text-align:left">匹配单词字母，等同于<code>[0-9A-Za-z_]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\W</code></td>
+<td style="text-align:left">匹配单词字母之外的任意字符，等同于<code>[^0-9A-Za-z_]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\t</code></td>
+<td style="text-align:left">匹配<code>&lt;TAB&gt;</code>字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\s</code></td>
+<td style="text-align:left">匹配空白字符，等同于<code>[ \t]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\S</code></td>
+<td style="text-align:left">匹配非空白字符，等同于<code>[^ \t]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\a</code></td>
+<td style="text-align:left">所有的字母字符. 等同于<code>[a-zA-Z]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\l</code></td>
+<td style="text-align:left">小写字母<code>[a-z]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\L</code></td>
+<td style="text-align:left">非小写字母<code>[^a-z]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\u</code></td>
+<td style="text-align:left">大写字母 <code>[A-Z]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\U</code></td>
+<td style="text-align:left">非大写字幕<code>[^A-Z]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="需要转义的元字符">需要转义的元字符:</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">原字符</th>
+<th style="text-align:left">转意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">*</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">.</td>
+</tr>
+<tr>
+<td style="text-align:left">/</td>
+<td style="text-align:left">/</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left">\</td>
+</tr>
+<tr>
+<td style="text-align:left">[</td>
+<td style="text-align:left">[</td>
+</tr>
+</tbody>
+</table>
+<h3 id="量词">量词</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>*</code></td>
+<td style="text-align:left">匹配<code>0</code>个或多个(匹配优先)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\+</code></td>
+<td style="text-align:left">匹配<code>1</code>个或多个(匹配优先)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\{n,m}</code></td>
+<td style="text-align:left">匹配<code>n</code>个到<code>m</code>个(匹配优先),如<code>\d{1, 3}</code>可以匹配<code>1</code>到<code>3</code>个数字,类似<code>11</code>, <code>1</code>, <code>333</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\{n,}</code></td>
+<td style="text-align:left">最少<code>n</code>个(匹配优先)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\{,m}</code></td>
+<td style="text-align:left">最多<code>m</code>个(匹配优先)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\{n}</code></td>
+<td style="text-align:left">恰好<code>n</code>个</td>
+</tr>
+</tbody>
+</table>
+<h3 id="位置">位置</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字符</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>$</code></td>
+<td style="text-align:left">匹配行尾,如<code>here:$</code>只会匹配出位于一行结尾的<code>here:</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>^</code></td>
+<td style="text-align:left">匹配行首,如<code>^Part</code>只会匹配出位于一行开头的<code>Part</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\&lt;</code> <code>\&gt;</code></td>
+<td style="text-align:left">会匹配出以某些字符开头的(<code>\&lt;</code>)或结尾(<code>\&gt;</code>)的单词.<code>\&lt;ac</code>只会匹配出以<code>ac</code>开头的单词,如<code>action</code>,而<code>ac&gt;/</code>只会匹配出以<code>ac</code>结尾的单词,如<code>maniac</code>.<code>\&lt;action\&gt;</code>会匹配出<code>action</code>这个单词.单词的开头和结尾,是用标点符号或空格来分隔的.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="贪婪匹配">贪婪匹配</h3>
+<p>默认使用贪婪匹配</p>
+<p>可以使用”-“关闭
+| 个数|贪婪模式|非贪婪模式|
+|–|–|–|
+|大于等于0个 | {}，相当于 * | 非贪婪模式{-}，把0省略了|
+|大于等于1个 | {1,}， 相当于 + |非贪婪模式{-1,}|
+|0个或1个， | {0,1}，相当于 = | 非贪婪模式{-,1}|</p>
+<h2 id="批量替换字符串">批量替换字符串</h2>
+<p>基本语法: <code>:[addr]s/src/des/[option]</code></p>
+<h3 id="addr">[addr]</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1,20</td>
+<td style="text-align:left">1到20行</td>
+</tr>
+<tr>
+<td style="text-align:left">1,$</td>
+<td style="text-align:left">整个文件</td>
+</tr>
+<tr>
+<td style="text-align:left">%</td>
+<td style="text-align:left">整个文件</td>
+</tr>
+<tr>
+<td style="text-align:left">.,$</td>
+<td style="text-align:left">当前行到文件结尾</td>
+</tr>
+</tbody>
+</table>
+<h3 id="s-表示替换操作">s: 表示替换操作</h3>
+<h3 id="optin">[optin]</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">g</td>
+<td style="text-align:left">全局替换</td>
+</tr>
+<tr>
+<td style="text-align:left">i</td>
+<td style="text-align:left">忽略大小写</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特别注意">特别注意</h3>
+<p>查找时<code>\n</code>代表换行
+替换时<code>\r</code>代表换行
+即</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">:%s/\n/\r/g
+</code></pre></td></tr></table>
+</div>
+</div><p>文件不变</p>
+<h2 id="vim插件">vim插件</h2>
+<p>vim最强大的地方之一在于高度可定制性</p>
+<p>主要体现在两个方面</p>
+<ul>
+<li>vim丰富的插件</li>
+<li>vimrc的各类设置</li>
+</ul>
+<p>其中vim插件可以通过以下命令安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yay -S vim-plug
+</code></pre></td></tr></table>
+</div>
+</div><p>然后只需要在vimrc文件里的写入以下句子即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">call plug#begin()
+# 完整的GitHub仓库地址
+Plug &#39;https://github.com/junegunn/vim-github-dashboard.git&#39;
+# 简写形式，只写username/repo即可
+Plug &#39;junegunn/fzf&#39;
+call plug#end()
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在命令模式下输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">:PlugInstall
+</code></pre></td></tr></table>
+</div>
+</div><p>即可安装</p>
+<p>此外还有插件更新操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">:PlugUpdate
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="vimrc">vimrc</h2>
+<p>这是一个可以规定vim操作的文件</p>
+<p>类似于vim的设置</p>
+<p>以下是我的vimrc(已添加注释)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&#34;vim的设置
+
+&#34;     __     __  ___   __  __   ____     ____
+&#34;     \ \   / / |_ _| |  \/  | |  _ \   / ___|
+&#34;      \ \ / /   | |  | |\/| | | |_) | | |
+&#34;       \ V /    | |  | |  | | |  _ &lt;  | |___
+&#34;        \_/    |___| |_|  |_| |_| \_\  \____|
+
+
+&#34;显示模式
+set showmode
+&#34;共享剪贴板
+set clipboard=unnamedplus
+&#34;自动语法高亮
+set syntax=on
+&#34;高亮显示匹配的括号([{和}])&#34;
+set showmatch
+&#34;高亮搜索
+set hlsearch
+&#34;输入的命令显示出来&#34;
+set showcmd
+&#34;显示颜色
+set t_Co=256
+&#34;打开鼠标
+set mouse=a
+&#34;显示相对行号
+set relativenumber
+&#34;命令模式下允许自动补全命令
+set wildmenu
+&#34;高亮当前行
+set cursorline
+&#34;实时匹配
+set incsearch
+&#34;搜索时忽略大小写
+set ignorecase 
+&#34;智能大小写(输入大写时就对大小写敏感,否则不敏感)
+set smartcase  
+&#34;自动切换到当前文件的目录
+set autochdir
+&#34;光标移动到buffer的顶部底部保持3行
+set scrolloff=3
+&#34;检测文件类型
+filetype on
+&#34;显示行号
+set number
+&#34;自动缩进
+set smartindent
+&#34;自动缩进的空格数
+set shiftwidth=4
+&#34;tab的空格数
+set tabstop=4
+&#34;按下tab自动转化为空格
+set expandtab
+&#34;tab被转化为共个的数目
+set softtabstop=4
+&#34;vim的编码方式
+set fileencodings=utf-8,gbk
+&#34;折叠方式
+set foldmethod=manual
+&#34;更新时间
+set updatetime=10
+
+
+
+&#34;plug插件管理设置
+call plug#begin(&#39;~/.vim/plugged&#39;)
+
+Plug &#39;mhinz/vim-startify&#39;
+Plug &#39;scrooloose/nerdtree&#39;, { &#39;on&#39;: &#39;NERDTreeToggle&#39; }
+Plug &#39;Xuyuanp/nerdtree-git-plugin&#39;
+Plug &#39;Valloric/YouCompleteMe&#39;
+Plug &#39;tpope/vim-surround&#39;
+Plug &#39;iamcco/markdown-preview.nvim&#39;, { &#39;do&#39;: { -&gt; mkdp#util#install() }, &#39;for&#39;: [&#39;markdown&#39;, &#39;vim-plug&#39;]}
+
+Plug &#39;godlygeek/tabular&#39;
+Plug &#39;plasticboy/vim-markdown&#39;
+
+call plug#end()
+
+
+
+&#34;自定义的快捷键
+
+map S :w&lt;CR&gt;
+map D :q&lt;CR&gt;
+map Q :q!&lt;CR&gt;
+map sr : set splitright&lt;CR&gt;:vsplit&lt;CR&gt;
+map sn : set nosplitright&lt;CR&gt;:vsplit&lt;CR&gt;
+map sb : set splitblow&lt;CR&gt;:vsplit&lt;CR&gt;
+map tt : NERDTreeToggle&lt;CR&gt;
+cmap w!! w !sudo tee &gt; /dev/null %
+
+
+&#34; markdown-preview&#39;s config
+&#34;--------------start-------------
+&#34; set to 1, nvim will open the preview window after entering the markdown buffer
+let g:mkdp_auto_start = 1
+
+&#34; set to 1, the nvim will auto close current preview window when change
+let g:mkdp_auto_close = 1
+
+&#34; set to 1, the vim will refresh markdown when save the buffer or
+let g:mkdp_refresh_slow = 1
+
+&#34; set to 1, the MarkdownPreview command can be use for all files,
+let g:mkdp_command_for_global = 0
+
+&#34; set to 1, preview server available to others in your network
+let g:mkdp_open_to_the_world = 0
+
+&#34; use custom IP to open preview page
+let g:mkdp_open_ip = &#39;127.0.0.1&#39;
+
+&#34; specify browser to open preview page
+&#34; let g:mkdp_browser = &#39;chromium&#39;
+let g:mkdp_browser = &#39;google-chrome-stable&#39;
+
+
+let g:mkdp_preview_options = {
+    \ &#39;mkit&#39;: {},
+    \ &#39;katex&#39;: {},
+    \ &#39;uml&#39;: {},
+    \ &#39;maid&#39;: {},
+    \ &#39;disable_sync_scroll&#39;: 0,
+    \ &#39;sync_scroll_type&#39;: &#39;middle&#39;,
+    \ &#39;hide_yaml_meta&#39;: 1,
+    \ &#39;sequence_diagrams&#39;: {},
+    \ &#39;flowchart_diagrams&#39;: {},
+    \ &#39;content_editable&#39;: v:false,
+    \ &#39;disable_filename&#39;: 0
+    \ }
+
+&#34; use a custom port to start server or random for empty
+let g:mkdp_port = &#39;8080&#39;
+
+&#34; preview page title
+let g:mkdp_page_title = &#39;「${name}」&#39;
+
+&#34; recognized filetypes
+let g:mkdp_filetypes = [&#39;markdown&#39;]
+
+let g:mkdp_path_to_chrome = &#39;/usr/bin/chromium&#39;
+
+&#34; Whether to enable synchronization
+let g:mkdp_preview_options.disable_sync_scroll = 0
+
+&#34;--------------end-------------
+
+
+&#34; youcompeleteme&#39;setting
+&#34;--------------start-------------
+&#34;let g:ycm_global_ycm_extra_conf = &#34;~/.vim/.ycm_extra_conf.py&#34;
+&#34;2个字符后开始补全
+let g:ycm_min_num_identifier_candidate_chars = 2
+&#34;tab键不弹出函数定义
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
+set completeopt-=preview
+
+let g:ycm_auto_hover=&#39;&#39;
+
+
+
+&#34;补全列表的颜色(灰色)
+highlight PMenu    ctermbg=242 ctermfg=0 guifg=black    guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+&#34;--------------end-------------
+
+
+&#34;##### auto fcitx  ###########
+&#34;--------------start-------------
+let g:input_toggle = 1
+function! Fcitx2en()
+   let s:input_status = system(&#34;fcitx-remote&#34;)
+   if s:input_status == 2
+      let g:input_toggle = 1
+      let l:a = system(&#34;fcitx-remote -c&#34;)
+   endif
+endfunction
+
+function! Fcitx2zh()
+   let s:input_status = system(&#34;fcitx-remote&#34;)
+   if s:input_status != 2 &amp;&amp; g:input_toggle == 1
+      let l:a = system(&#34;fcitx-remote -o&#34;)
+      let g:input_toggle = 0
+   endif
+endfunction
+
+set ttimeoutlen=150
+&#34;退出插入模式
+autocmd InsertLeave * call Fcitx2en()
+&#34;进入插入模式
+&#34;--------------end-------------
+
+&#34; vim-markdown
+&#34; 禁用折叠
+let g:vim_markdown_folding_disabled=1
+&#34; latex公式高亮
+let g:vim_markdown_math = 1
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="vim插件-1">vim插件</h2>
+<h3 id="vim-surround">vim-surround</h3>
+<p>主要用于操作成对的符号,例如<code>()</code>,<code> []</code>, <code>{}</code>,<code> &lt;&gt;</code>,<code> ‘’</code>, <code>“”</code>这类符号</p>
+<p>主要命令如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ds</td>
+<td style="text-align:left">删除一个配对符号 (delete a surrounding)</td>
+</tr>
+<tr>
+<td style="text-align:left">cs</td>
+<td style="text-align:left">更改一个配对符号 (change a surrounding)</td>
+</tr>
+<tr>
+<td style="text-align:left">ys</td>
+<td style="text-align:left">增加一个配对符号 (yank a surrounding)</td>
+</tr>
+<tr>
+<td style="text-align:left">yS</td>
+<td style="text-align:left">在新的行增加一个配对符号并进行缩进</td>
+</tr>
+<tr>
+<td style="text-align:left">yss</td>
+<td style="text-align:left">在整行增加一个配对符号</td>
+</tr>
+<tr>
+<td style="text-align:left">ySs/Yss</td>
+<td style="text-align:left">在整行增加一个配对符号，配对符号单独成行并进行缩进</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ale">ale</h3>
+<p>vim下的自动查错工具,在写某些需要编译的语言很好用</p>
+<p>优势如下:</p>
+<ul>
+<li>**实时检测。**为了让代码可以在编辑时进行实时的检测，ale 的运行方式是将代码做为 stdin 导入检测工具（不支持的话使用临时文件），这样做的好处是我们可以更早的发现错误。</li>
+<li>**并发运行。**ale 默认使用所有可用的检测工具并发执行检测，譬如说我们有时需要同时对 javascript 运行 <a href="https://zhuanlan.zhihu.com/p/eslint.org" target="_blank" rel="noopener noreffer">eslint</a> 以及 jscs。</li>
+<li>标识栏、状态栏以及命令行消息支持。</li>
+</ul>
+<h3 id="nerdtree">nerdtree</h3>
+<p>vim下的树形浏览文件工具</p>
+<p>使用tt命令打开,效果如下</p>
+<h3 id="youcompleteme">YouCompleteMe</h3>
+<p>自动补全工具,功能强大,支持各类语言</p>
+<h4 id="在vimrc中安装后并不能使用">在vimrc中安装后并不能使用</h4>
+<p>还需要按照如下步骤:</p>
+<h5 id="进入ycm目录">进入ycm目录</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd ~/.vim/plugged/YouCompleteMe
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="给予可执行权限任选其一">给予可执行权限(任选其一)</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chmod +x install.py
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chmod +x install.sh
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="安装任选其一">安装(任选其一)</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo python install.py
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo bash install.sh
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="markdown-previewnvim">markdown-preview.nvim</h3>
+<p>可以通过浏览器实时预览md文件,具有极高的自定义功能</p>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/98.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/21/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E7%BC%96%E8%BE%91%E5%99%A8/">编辑器</a>,&nbsp;<a href="/zh-cn/tags/vim/">vim</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/20/" class="prev" rel="prev" title="Win11安装跳过TPM的方法"><i class="fas fa-angle-left fa-fw"></i>Win11安装跳过TPM的方法</a>
+            <a href="/zh-cn/22/" class="next" rel="next" title="如何才算有章法？什么是非线性思维？有条理和有章法是一件事吗？">如何才算有章法？什么是非线性思维？有条理和有章法是一件事吗？<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-19T15:13:31+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"vim的笔记"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

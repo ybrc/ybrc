@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>异或运算XOR教程 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="异或运算XOR教程" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-06T14:35:18+08:00" />
+<meta property="article:modified_time" content="2021-12-06T14:35:18+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="异或运算XOR教程"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" /><link rel="next" href="https://ybrc.github.io/zh-cn/8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "异或运算XOR教程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B\/"
+        },"genre": "posts","keywords": "异或运算","wordcount":  1540 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B\/","datePublished": "2021-12-06T14:35:18+08:00","dateModified": "2021-12-06T14:35:18+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981868789 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981868789 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">异或运算XOR教程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/"><i class="far fa-folder fa-fw"></i>异或运算</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-06">2021-12-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1540 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一含义">一、含义</a></li>
+    <li><a href="#二运算定律">二、运算定律</a></li>
+    <li><a href="#三应用">三、应用</a>
+      <ul>
+        <li><a href="#31-简化计算">3.1 简化计算</a></li>
+        <li><a href="#32-交换值">3.2 交换值</a></li>
+        <li><a href="#33-加密">3.3 加密</a></li>
+        <li><a href="#34-数据备份">3.4 数据备份</a></li>
+      </ul>
+    </li>
+    <li><a href="#四一道面试题">四、一道面试题</a></li>
+    <li><a href="#五参考链接">五、参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# 异或运算 XOR 教程
+<p>大家比较熟悉的逻辑运算，主要是&quot;与运算&quot;（AND）和&quot;或运算&quot;（OR），还有一种&quot;异或运算&quot;（XOR），也非常重要。</p>
+<p>本文介绍异或运算的含义和应用。</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.wangbase.com/blogimg/asset/202101/bg2021012602.jpg"
+        data-srcset="https://www.wangbase.com/blogimg/asset/202101/bg2021012602.jpg, https://www.wangbase.com/blogimg/asset/202101/bg2021012602.jpg 1.5x, https://www.wangbase.com/blogimg/asset/202101/bg2021012602.jpg 2x"
+        data-sizes="auto"
+        alt="https://www.wangbase.com/blogimg/asset/202101/bg2021012602.jpg"
+        title="img"
+    /></p>
+<h2 id="一含义">一、含义</h2>
+<p>XOR 是 exclusive OR 的缩写。英语的 exclusive 意思是&quot;专有的，独有的&quot;，可以理解为 XOR 是更单纯的 OR 运算。</p>
+<p>我们知道，OR 运算的运算子有两种情况，计算结果为<code>true</code>。</p>
+<p>（1）一个为 true，另一个为 false;</p>
+<p>（2）两个都为 true。</p>
+<p>上面两种情况，有时候需要明确区分，所以引入了 XOR。</p>
+<p>XOR 排除了第二种情况，只有第一种情况（一个运算子为<code>true</code>，另一个为<code>false</code>）才会返回 true，所以可以看成是更单纯的 OR 运算。也就是说， <strong>XOR 主要用来判断两个值是否不同。</strong></p>
+<p>XOR 一般使用插入符号（caret）<code>^</code>表示。如果约定<code>0</code> 为 false，<code>1</code> 为 true，那么 XOR 的运算真值表如下。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="mi">0</span> <span class="o">^</span> <span class="mi">0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">^</span> <span class="mi">0</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h2 id="二运算定律">二、运算定律</h2>
+<p>XOR 运算有以下的运算定律。由于非常简单，这里就省略证明了。</p>
+<p>（1）<strong>一个值与自身的运算，总是为 false。</strong></p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>（2）<strong>一个值与 0 的运算，总是等于其本身。</strong></p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="mi">0</span> <span class="o">=</span> <span class="nx">x</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>（3）<strong>可交换性</strong></p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">^</span> <span class="nx">x</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>（4）<strong>结合性</strong></p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="p">(</span><span class="nx">y</span> <span class="o">^</span> <span class="nx">z</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span><span class="p">)</span> <span class="o">^</span> <span class="nx">z</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h2 id="三应用">三、应用</h2>
+<p>根据上面的这些运算定律，可以得到异或运算的很多重要应用。</p>
+<h3 id="31-简化计算">3.1 简化计算</h3>
+<p>多个值的异或运算，可以根据运算定律进行简化。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">a</span> <span class="o">^</span> <span class="nx">b</span> <span class="o">^</span> <span class="nx">c</span> <span class="o">^</span> <span class="nx">a</span> <span class="o">^</span> <span class="nx">b</span>
+<span class="o">=</span> <span class="nx">a</span> <span class="o">^</span> <span class="nx">a</span> <span class="o">^</span> <span class="nx">b</span> <span class="o">^</span> <span class="nx">b</span> <span class="o">^</span> <span class="nx">c</span>
+<span class="o">=</span> <span class="mi">0</span> <span class="o">^</span> <span class="mi">0</span> <span class="o">^</span> <span class="nx">c</span>
+<span class="o">=</span> <span class="nx">c</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h3 id="32-交换值">3.2 交换值</h3>
+<p>两个变量连续进行三次异或运算，可以互相交换值。</p>
+<p>假设两个变量是<code>x</code>和<code>y</code>，各自的值是<code>a</code>和<code>b</code>。下面就是<code>x</code>和<code>y</code>进行三次异或运算，注释部分是每次运算后两个变量的值。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span> <span class="c1">// (a ^ b, b)
+</span><span class="c1"></span><span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span> <span class="c1">// (a ^ b, a ^ b ^ b) =&gt; (a ^ b, a)
+</span><span class="c1"></span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span> <span class="c1">// (a ^ b ^ a, a) =&gt; (b, a)
+</span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>这是两个变量交换值的最快方法，不需要任何额外的空间。</p>
+<h3 id="33-加密">3.3 加密</h3>
+<p>异或运算可以用于加密。</p>
+<p>第一步，明文（text）与密钥（key）进行异或运算，可以得到密文（cipherText）。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">text</span> <span class="o">^</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">cipherText</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>第二步，密文与密钥再次进行异或运算，就可以还原成明文。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">cipherText</span> <span class="o">^</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">text</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>原理很简单，如果明文是 x，密钥是 y，那么 x 连续与 y 进行两次异或运算，得到自身。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span><span class="p">)</span> <span class="o">^</span> <span class="nx">y</span>
+<span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="p">(</span><span class="nx">y</span> <span class="o">^</span> <span class="nx">y</span><span class="p">)</span>
+<span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="mi">0</span>
+<span class="o">=</span> <span class="nx">x</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h3 id="34-数据备份">3.4 数据备份</h3>
+<p>异或运算可以用于数据备份。</p>
+<p>文件 x 和文件 y 进行异或运算，产生一个备份文件 z。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">z</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>以后，无论是文件 x 或文件 y 损坏，只要不是两个原始文件同时损坏，就能根据另一个文件和备份文件，进行还原。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">x</span> <span class="o">^</span> <span class="nx">z</span>
+<span class="o">=</span> <span class="nx">x</span> <span class="o">^</span> <span class="p">(</span><span class="nx">x</span> <span class="o">^</span> <span class="nx">y</span><span class="p">)</span> 
+<span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">^</span> <span class="nx">x</span><span class="p">)</span> <span class="o">^</span> <span class="nx">y</span>
+<span class="o">=</span> <span class="mi">0</span> <span class="o">^</span> <span class="nx">y</span>
+<span class="o">=</span> <span class="nx">y</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>上面的例子是 y 损坏，x 和 z 进行异或运算，就能得到 y。</p>
+<h2 id="四一道面试题">四、一道面试题</h2>
+<p>一些面试的算法题，也能使用异或运算快速求解。</p>
+<p>请看下面这道题。</p>
+<blockquote>
+<p>一个数组包含 n-1 个成员，这些成员是 1 到 n 之间的整数，且没有重复，请找出缺少的那个数字。</p>
+</blockquote>
+<p>最快的解答方法，就是把所有数组成员（A[0] 一直到 A[n-2]）与 1 到 n 的整数全部放在一起，进行异或运算。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="nx">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="p">...</span> <span class="o">^</span> <span class="nx">A</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">^</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">...</span> <span class="o">^</span> <span class="nx">n</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>上面这个式子中，每个数组成员都会出现两次，相同的值进行异或运算就会得到 0。只有缺少的那个数字出现一次，所以最后得到的就是这个值。</p>
+<p>你可能想到了，加法也可以解这道题。</p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span>  <span class="p">...</span> <span class="o">+</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">...</span> <span class="o">-</span> <span class="nx">A</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>但是，加法的速度没有异或运算快，而且需要额外的空间。如果数字比较大，还有溢出的可能。</p>
+<p>下面是一道类似的题目，大家可以作为练习。</p>
+<blockquote>
+<p>一个数组包含 n+1 个成员，这些成员是 1 到 n 之间的整数。只有一个成员出现了两次，其他成员都只出现一次，请找出重复出现的那个数字。</p>
+</blockquote>
+<h2 id="五参考链接">五、参考链接</h2>
+<ul>
+<li><a href="https://florian.github.io/xor-trick/" target="_blank" rel="noopener noreffer">That XOR Trick</a></li>
+</ul>
+<p>（完）</p>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/7.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97xor%E6%95%99%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/">异或运算</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="prev" rel="prev" title="汇编语言入门教程"><i class="fas fa-angle-left fa-fw"></i>汇编语言入门教程</a>
+            <a href="/zh-cn/8/" class="next" rel="next" title="xCode下自动打包为ipa文件">xCode下自动打包为ipa文件<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-06T14:35:18+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"异或运算XOR教程"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

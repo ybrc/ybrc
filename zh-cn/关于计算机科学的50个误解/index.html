@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>关于计算机科学的50个误解 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="关于计算机科学的50个误解" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-05T18:47:02+08:00" />
+<meta property="article:modified_time" content="2021-12-05T18:47:02+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="关于计算机科学的50个误解"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/5-3/" /><link rel="next" href="https://ybrc.github.io/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "关于计算机科学的50个误解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3\/"
+        },"genre": "posts","keywords": "计算机科学","wordcount":  1248 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3\/","datePublished": "2021-12-05T18:47:02+08:00","dateModified": "2021-12-05T18:47:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">关于计算机科学的50个误解</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"><i class="far fa-folder fa-fw"></i>计算机科学</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-05">2021-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1248 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# 关于计算机科学的50个误解
+<p>计算机科学（Computer Science，简称 CS）是大学的热门专业。但是，社会上对这个专业有很多误解，甚至本专业的学生也有误解。</p>
+<p>一个美国的 CS 老师写了<a href="https://www.netmeister.org/blog/cs-falsehoods.html" target="_blank" rel="noopener noreffer">一份清单</a>，列出了许多关于计算机科学的伪命题。它们都是 CS 学生信以为真，以后才慢慢明白，这些都是不正确或不完全正确的命题。</p>
+<p>下面就是计算机科学的50个常见误解，欢迎补充。</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.wangbase.com/blogimg/asset/201911/bg2019110306.jpg"
+        data-srcset="https://www.wangbase.com/blogimg/asset/201911/bg2019110306.jpg, https://www.wangbase.com/blogimg/asset/201911/bg2019110306.jpg 1.5x, https://www.wangbase.com/blogimg/asset/201911/bg2019110306.jpg 2x"
+        data-sizes="auto"
+        alt="https://www.wangbase.com/blogimg/asset/201911/bg2019110306.jpg"
+        title="img"
+    /></p>
+<p>1、</p>
+<p>CS 毕业生懂 C 和 C ++ 语言。</p>
+<p>2、</p>
+<p>Java 语言是几乎所有编程任务的合理选择。</p>
+<p>3、</p>
+<p>懂得编程 == 懂得计算机科学。</p>
+<p>4、</p>
+<p>CS 毕业生是优秀程序员。</p>
+<p>5、</p>
+<p>CS 毕业生会编程。</p>
+<p>6、</p>
+<p>CS 教授懂编程。</p>
+<p>7、</p>
+<p>CS 教授会使用计算机，或者懂得互联网原理。</p>
+<p>8、</p>
+<p>如果一个软件可以运行在我的笔记本电脑上，就可以运行在其他人的笔记本电脑上。</p>
+<p>9、</p>
+<p>StackOverflow 问答社区的答案都是可信的。</p>
+<p>10、</p>
+<p>如果一段代码出现到互联网上，就意味着你可以使用它。</p>
+<p>11、</p>
+<p>开源软件意味着更少的错误并且更加安全。</p>
+<p>12、</p>
+<p>开源软件（open software）和自由软件（free software）是同义词。</p>
+<p>13、</p>
+<p>git 和 GitHub 是同义词。</p>
+<p>14、</p>
+<p>Unix 和 Linux 是同义词。</p>
+<p>15、</p>
+<p>bash 和 sh 是同义词。</p>
+<p>16、</p>
+<p>AWS 和&quot;云服务&quot;是同义词。</p>
+<p>17、</p>
+<p>&ldquo;隐私&quot;和&quot;秘密&quot;是同义词。</p>
+<p>18、</p>
+<p>&ldquo;加密&quot;和&quot;安全&quot;是同义词。</p>
+<p>19、</p>
+<p>聪明的程序员会写出聪明的代码。</p>
+<p>20、</p>
+<p>编程能力是一名优秀软件工程师的最重要品质。</p>
+<p>21、</p>
+<p>拥有 CS 学位是成为一名优秀软件工程师的必要和充分条件。</p>
+<p>22、</p>
+<p>计算机解析时间和日期是轻而易举的。</p>
+<p>23、</p>
+<p>CS 毕业生知道如何验证电子邮件地址。</p>
+<p>24、</p>
+<p>雇主关心 CS 学生选修了哪些课程。</p>
+<p>25、</p>
+<p>分布式网络是可靠的。</p>
+<p>26、</p>
+<p>第三方服务是可靠的。</p>
+<p>27、</p>
+<p>AWS 云服务是可靠的。</p>
+<p>28、</p>
+<p>你可以将整个文件读入内存。</p>
+<p>29、</p>
+<p>在<code>fork</code>命令之后，父进程始终先执行。</p>
+<p>30、</p>
+<p>删除文件需要对该文件具有写权限。</p>
+<p>31、</p>
+<p>线程竞争很少发生。</p>
+<p>32、</p>
+<p>面向对象编程是最好和最常见的编程范式。</p>
+<p>33、</p>
+<p>CS 毕业生不会被黑客钓鱼，因为他们了解计算机。</p>
+<p>34、</p>
+<p>CS 毕业生了解计算机。</p>
+<p>35、</p>
+<p>CS 毕业生已经学过大多数的重要课程。</p>
+<p>36、</p>
+<p>电子表格和 Powerpoint 只适用于商业活动。</p>
+<p>37、</p>
+<p>程序员大部分时间都花在编程上。</p>
+<p>38、</p>
+<p>计算机可以按照指令进行操作。</p>
+<p>39、</p>
+<p>技术和算法是中立的。</p>
+<p>40、</p>
+<p>学习人文学科是浪费时间。</p>
+<p>41、</p>
+<p>你的职业生涯需要使用大量数学。</p>
+<p>42、</p>
+<p>如果谷歌使用它，那么别的公司也应该使用它。</p>
+<p>43、</p>
+<p>如果一种技术很先进，就应该使用它。</p>
+<p>44、</p>
+<p>如果一种技术超过5年，就不是新技术。</p>
+<p>45、</p>
+<p>只为了能够用上红黑树或某个高级算法，重写代码是值得的。</p>
+<p>46、</p>
+<p>大学毕业后，你还有机会遇到霍夫曼编码。</p>
+<p>47、</p>
+<p>具有 CS 学位的两个人，将具有非常相似的背景和知识。</p>
+<p>48、</p>
+<p>算法复杂性和大 O 表示法在现实世界中一直使用。</p>
+<p>49、</p>
+<p>学术界某种程度上跟现实世界不一样。</p>
+<p>50、</p>
+<p>没有人会输入这种数据，或者这样写代码。</p>
+<p>（完）</p>
+</div>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/2.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%8450%E4%B8%AA%E8%AF%AF%E8%A7%A3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/5-3/" class="prev" rel="prev" title="接收带有RTL-SDR和LNB的STARLINK信标"><i class="fas fa-angle-left fa-fw"></i>接收带有RTL-SDR和LNB的STARLINK信标</a>
+            <a href="/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" class="next" rel="next" title="如何阅读汇编语言">如何阅读汇编语言<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-05T18:47:02+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"关于计算机科学的50个误解"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux网络管理命令 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="Linux网络管理命令" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/14-1/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-14T14:27:09+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Linux网络管理命令"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/14-1/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/14/" /><link rel="next" href="https://ybrc.github.io/zh-cn/14-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux网络管理命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/14-1\/"
+        },"genre": "posts","keywords": "Linux, 网络, 命令","wordcount":  1066 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/14-1\/","datePublished": "2021-11-14T14:27:09+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/14-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/14-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux网络管理命令</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/linux/"><i class="far fa-folder fa-fw"></i>Linux</a>&nbsp;<a href="/zh-cn/categories/%E7%BD%91%E7%BB%9C/"><i class="far fa-folder fa-fw"></i>网络</a>&nbsp;<a href="/zh-cn/categories/%E5%91%BD%E4%BB%A4/"><i class="far fa-folder fa-fw"></i>命令</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-14">2021-11-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1066 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#命令对照表">命令对照表</a></li>
+    <li><a href="#ip命令">ip命令</a>
+      <ul>
+        <li><a href="#配置ip或者接口">配置ip或者接口</a></li>
+        <li><a href="#配置路由">配置路由</a></li>
+      </ul>
+    </li>
+    <li><a href="#ss命令">ss命令</a>
+      <ul>
+        <li><a href="#ss命令使用实例">SS命令使用实例</a></li>
+        <li><a href="#用tcp-状态过滤sockets">用TCP 状态过滤Sockets</a></li>
+      </ul>
+    </li>
+    <li><a href="#networkmanager">NetworkManager</a>
+      <ul>
+        <li><a href="#nmcli">nmcli</a></li>
+        <li><a href="#nmtui">nmtui</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="linux网络管理命令">Linux网络管理命令</h1>
+<blockquote>
+<p>2009年 Debian 开发者邮件列表宣布放弃使用缺乏维护的net-tools工具包，net-tools包含历史悠久的ifconfig, netstat等网络相关的命令
+iproute2用于取代net-tools，在大部分的发行版都自带了。命令有ip, ss, net等命令替代了之前的网络操作命令。</p>
+</blockquote>
+<h2 id="命令对照表">命令对照表</h2>
+<table>
+<thead>
+<tr>
+<th>net-tools</th>
+<th>iproute2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arp -na</td>
+<td>ip neigh</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>ip link</td>
+</tr>
+<tr>
+<td>ifconfig -a</td>
+<td>ip addr show</td>
+</tr>
+<tr>
+<td>ifconfig -s</td>
+<td>ip -s link</td>
+</tr>
+<tr>
+<td>ifconfig eth0 up</td>
+<td>ip link set eth0 up</td>
+</tr>
+<tr>
+<td>ipmaddr</td>
+<td>ip maddr</td>
+</tr>
+<tr>
+<td>iptunnel</td>
+<td>ip tunnel</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>ss</td>
+</tr>
+<tr>
+<td>netstat -i</td>
+<td>ip -s link</td>
+</tr>
+<tr>
+<td>netstat -g</td>
+<td>ip maddr</td>
+</tr>
+<tr>
+<td>netstat -l</td>
+<td>ss -l</td>
+</tr>
+<tr>
+<td>netstat -r</td>
+<td>ip route</td>
+</tr>
+<tr>
+<td>route add</td>
+<td>ip route add</td>
+</tr>
+<tr>
+<td>route del</td>
+<td>ip route del</td>
+</tr>
+<tr>
+<td>route -n</td>
+<td>ip route show</td>
+</tr>
+<tr>
+<td>vconfig</td>
+<td>ip link</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ip命令">ip命令</h2>
+<h3 id="配置ip或者接口">配置ip或者接口</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip a</td>
+<td>显示所有网络接口</td>
+</tr>
+<tr>
+<td>ip -4 a</td>
+<td>显示所有 IPv4 相关网络接口</td>
+</tr>
+<tr>
+<td>ip a show eth0</td>
+<td>查看特定的网络接口</td>
+</tr>
+<tr>
+<td>ip a add 192.168.80.174 dev eth0</td>
+<td>添加ip地址</td>
+</tr>
+<tr>
+<td>ip a del 192.168.80.174 dev eth0</td>
+<td>删除ip地址</td>
+</tr>
+<tr>
+<td>ip -s -s a f to 192.168.1.0/24</td>
+<td>清除所有接口上的所有地址</td>
+</tr>
+<tr>
+<td>ip link set dev eth0 address 00:0c:29:33:4e:aa</td>
+<td>添加MAC地址</td>
+</tr>
+<tr>
+<td>ip link set eth0 down</td>
+<td>禁用网络接口</td>
+</tr>
+<tr>
+<td>ip link set eth0 up</td>
+<td>启用网络接口</td>
+</tr>
+<tr>
+<td>ip link ls up</td>
+<td>列出正在运行的网络接口</td>
+</tr>
+<tr>
+<td>ip link set dev eth0 arp on</td>
+<td>启用ARP协议</td>
+</tr>
+<tr>
+<td>ip link set txqueuelen 10000 dev eth0</td>
+<td>设置队列传输长度</td>
+</tr>
+<tr>
+<td>ip link set mtu 9000 dev eth0</td>
+<td>设置最大传输单元</td>
+</tr>
+</tbody>
+</table>
+<h3 id="配置路由">配置路由</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看所有路由表 ip r # 添加/删除默认的网关 ip route add default via 192.168.1.254 # 添加路由 ip route add 192.168.1.0/24 dev eth0 ip route add 192.168.1.0/24 via 192.168.1.1 # 删除路由 ip route del 192.168.1.0/24 dev eth0 ip route del 192.168.1.0/24 via 192.168.1.1 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="ss命令">ss命令</h2>
+<blockquote>
+<p>ss是Socket Statistics的缩写，用来获取socket统计信息，可以显示和netstat类似的内容。ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比netstat更快速更高效。</p>
+</blockquote>
+<h3 id="ss命令使用实例">SS命令使用实例</h3>
+<table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ss -t -a</td>
+<td>显示TCP连接</td>
+</tr>
+<tr>
+<td>ss -s</td>
+<td>显示 Sockets 摘要</td>
+</tr>
+<tr>
+<td>ss -l</td>
+<td>列出所有打开的网络连接端口</td>
+</tr>
+<tr>
+<td>ss -pl</td>
+<td>查看进程使用的socket</td>
+</tr>
+<tr>
+<td>ss -u -a</td>
+<td>显示所有UDP Sockets</td>
+</tr>
+<tr>
+<td>ss -anltp</td>
+<td>显示所有监听的tcp端口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="用tcp-状态过滤sockets">用TCP 状态过滤Sockets</h3>
+<p>显示所有状态为Established的HTTP连接（http可以换成ssh或数字）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ss -anltp state established &#39;( dport = :http or sport = :http )&#39; 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>state 可选的有</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">established syn-sent syn-recv fin-wait-1 fin-wait-2 time-wait closed close-wait last-ack listen closing all :           所有以上状态 connected :     除了listen and closed的所有状态 synchronized :  所有已连接的状态除了syn-sent bucket :        显示状态为maintained as minisockets,如：time-wait和syn-recv big :           和bucket相反 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="networkmanager">NetworkManager</h2>
+<blockquote>
+<p>NetworkManager 是一个守护进程，用户不与 NetworkManager 系统服务直接互动，而是通过图形及命令行用户界面工具执行网络配置任务。Red Hat Enterprise Linux 7 中有以下工具可用：
+nmtui nmcli 和一些图形界面管理工具等</p>
+</blockquote>
+<p>参考文档: <a href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/networking_guide/ch-introduction_to_rhel_networking" target="_blank" rel="noopener noreffer">https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/networking_guide/ch-introduction_to_rhel_networking</a></p>
+<p>查看NetworkManager状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl status NetworkManager 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nmcli">nmcli</h3>
+<p>常用命令，connection可以简写成c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">nmcli c reload                      重新加载配置文件 nmcli connection show               要显示所有链接 nmcli device status                 显示由 NetworkManager 识别到设备及其状态： nmcli dev disconnect iface bond0    停止网络接口 nmcli con up ens33                  激活网络连接 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nmtui">nmtui</h3>
+<p>安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install NetworkManager-tui
+</code></pre></td></tr></table>
+</div>
+</div><meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/19.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/14-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/linux/">Linux</a>,&nbsp;<a href="/zh-cn/tags/%E7%BD%91%E7%BB%9C/">网络</a>,&nbsp;<a href="/zh-cn/tags/%E5%91%BD%E4%BB%A4/">命令</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/14/" class="prev" rel="prev" title="安装 Docker"><i class="fas fa-angle-left fa-fw"></i>安装 Docker</a>
+            <a href="/zh-cn/14-2/" class="next" rel="next" title="常用IDA脚本开发API">常用IDA脚本开发API<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-14T14:27:09+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"Linux网络管理命令"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

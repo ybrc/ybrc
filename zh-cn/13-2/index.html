@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>DeepFaceLab3：视频换脸完整流程 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="DeepFaceLab3：视频换脸完整流程" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/13-2/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-13T11:59:54+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="DeepFaceLab3：视频换脸完整流程"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/13-2/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/13-1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/13-3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DeepFaceLab3：视频换脸完整流程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/13-2\/"
+        },"genre": "posts","keywords": "AI 换脸","wordcount":  4500 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/13-2\/","datePublished": "2021-12-13T11:59:54+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/13-2/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/13-2/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">DeepFaceLab3：视频换脸完整流程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/ai-%E6%8D%A2%E8%84%B8/"><i class="far fa-folder fa-fw"></i>AI 换脸</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-13">2021-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4500 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装软件">安装软件</a></li>
+    <li><a href="#执行步骤"><strong>执行步骤</strong></a>
+      <ul>
+        <li><a href="#step1源视频转图片">Step1：源视频转图片</a></li>
+        <li><a href="#step2目标视频转图片">Step2：目标视频转图片</a></li>
+        <li><a href="#step3提取源头像">Step3：提取源头像</a></li>
+        <li><a href="#step4提取目标头像">Step4：提取目标头像</a></li>
+        <li><a href="#step5训练模型">Step5：训练模型</a></li>
+        <li><a href="#step6应用模型">Step6：应用模型</a></li>
+        <li><a href="#step7合成视频">Step7：合成视频</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# DeepFaceLab3：视频换脸完整流程
+<p>对于刚入门的朋友来说，你给他直接上心法肯定没啥有，最直接的还是教招式。实操，才有感觉嘛！DeepFaceLab虽然版本一直在升级，但是整体步骤和执行逻辑并没有太大变化。所以老教程现在一样能用了。但是为了教程的完整性，我就全部重写一遍，稍作改进。</p>
+<h2 id="安装软件">安装软件</h2>
+<p>安装过程其实非常简单。一般发布的软件包都是.exe结尾，本质上其实就是一个用7z压缩的压缩包而已。所以安装只要双击就好了，大家都会的！</p>
+<p>安装的时候需要注意几个点。</p>
+<p><strong>第一</strong>：杀毒软件可能会有木马警报，添加信任就好。杀毒软件可能会无警报删文件，导致执行的时候出现未知错误。这种情况可以先退杀毒软件，安装完了就不受影响。</p>
+<p><strong>第二</strong>：安装的时候记得选好路径</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/6e4426342f9e9f45e03652429eca745c.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/6e4426342f9e9f45e03652429eca745c.png, https://img-blog.csdnimg.cn/img_convert/6e4426342f9e9f45e03652429eca745c.png 1.5x, https://img-blog.csdnimg.cn/img_convert/6e4426342f9e9f45e03652429eca745c.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/6e4426342f9e9f45e03652429eca745c.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>路径并没有硬性要求，默认是解压到安装包所在路径。有不少人对路径并不是很敏感。比如通过QQ群文件下载的，就直接解压在路径超深的QQ缓存目录中，这样可能会出问题，而且不好找。最好是放在C盘外的其他盘的根目录。文件路径不强制英文，但是依旧不推荐中文。文件名不要用特殊字符，降低出错概率。</p>
+<p><strong>第三：</strong></p>
+<p>输入密码</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/a7ef0672e1d46cd133e4d7c91d1af9fa.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/a7ef0672e1d46cd133e4d7c91d1af9fa.png, https://img-blog.csdnimg.cn/img_convert/a7ef0672e1d46cd133e4d7c91d1af9fa.png 1.5x, https://img-blog.csdnimg.cn/img_convert/a7ef0672e1d46cd133e4d7c91d1af9fa.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/a7ef0672e1d46cd133e4d7c91d1af9fa.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>我发布的文件如果有密码，就都是deepfaker.xyz。不管哪个版本直接输入就好了。当然，你任性，也可以不输入。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/1239e27e1971e3f81ec7e9d78be20450.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/1239e27e1971e3f81ec7e9d78be20450.png, https://img-blog.csdnimg.cn/img_convert/1239e27e1971e3f81ec7e9d78be20450.png 1.5x, https://img-blog.csdnimg.cn/img_convert/1239e27e1971e3f81ec7e9d78be20450.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/1239e27e1971e3f81ec7e9d78be20450.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>不输入就是上面这种结果。然后你点1，2，3，4每个步骤都点不动。因为不看英文或者大意，犯这个错误的也不少。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/d6f4f79c9210e99e10a6d55157b90235.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/d6f4f79c9210e99e10a6d55157b90235.png, https://img-blog.csdnimg.cn/img_convert/d6f4f79c9210e99e10a6d55157b90235.png 1.5x, https://img-blog.csdnimg.cn/img_convert/d6f4f79c9210e99e10a6d55157b90235.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/d6f4f79c9210e99e10a6d55157b90235.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>正确的打开方式是这样的。里面会有_internal和workplace文件夹。前者放的是源代码和软件相关的内容，后者是工作目录，上一篇有讲过。除此之外还有一堆.bat结尾的文件。可以把这些称为脚本或者批处理文件。里面是一行行的DOS命令。</p>
+<p>批处理文件打开方式和EXE一模一样，Double kill ~~Double click  双击打开！每一个批处理文件都干一件事情，我们要做的就是按一定的顺序点击这些文件，就能完成换脸。是不是挺简单？</p>
+<h2 id="执行步骤"><strong>执行步骤</strong></h2>
+<p>DFL换脸的思路是，想将视频转换成图，从图片中提取人脸，从人脸中学习特征。然后应用模型，先对图片进行换脸，然后把图片合成视频，同时带上原视频的音轨。</p>
+<p>具体来说可以分为如下几步：</p>
+<ul>
+<li>源视频转图片</li>
+<li>目标视频转图片</li>
+<li>提取源头像</li>
+<li>提取目标头像</li>
+<li>训练模型</li>
+<li>应用模型</li>
+<li>合成视频</li>
+</ul>
+<p>批处理文件步骤如下：</p>
+<ul>
+<li>源视频转图片 extract images from video data_src.bat</li>
+<li>目标视频转图片 extract images from video data_dst FULL FPS.bat</li>
+<li>提取源头像 data_src faceset extract.bat</li>
+<li>目标头像提取 data_dst faceset extract.bat</li>
+<li>训练轻量级模型 train Quick96.bat/SAE/AMP</li>
+<li>应用轻量级模型 merge Quick96.bat /SAE/AMP</li>
+<li>合成 MP4 视频 merged to mp4.bat</li>
+</ul>
+<p>杂七杂八交代清楚了就可以开始操作，本文会将每一个步骤截图说明。但是为了控制文章的体型，以操作为主。一些常见错误或者参数详解，会在后续文章中完成。关于操作，这里做一个重点提示：遇事不决按回车！</p>
+<h3 id="step1源视频转图片">Step1：源视频转图片</h3>
+<p>双击批处理文件源视频转图片 extract images from video data_src.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/81ed22db83e0acb440da09bbb6ba0d2c.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/81ed22db83e0acb440da09bbb6ba0d2c.png, https://img-blog.csdnimg.cn/img_convert/81ed22db83e0acb440da09bbb6ba0d2c.png 1.5x, https://img-blog.csdnimg.cn/img_convert/81ed22db83e0acb440da09bbb6ba0d2c.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/81ed22db83e0acb440da09bbb6ba0d2c.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>跳出黑色窗口，输入10回车，然后输入jpg回车，就会自动开始将视频分解为图片。</p>
+<p>FPS：视频有一个指标叫帧率，常见有24，30，60等，代表一秒钟有几张。第一个参数输入10指的是一秒钟只取10张；不输入直接回车，默认帧率是30就取30张。因为很多影视剧画面相对固定，没必要全部取，否则后面会浪费大量提取时间，而且模型训练压力也会加大。</p>
+<p>Format:  图片格式，主要是jpg和png。png是无损格式，但是JPG能在保证画质的情况下减少巨量的空间。所以如果不是要求特别变态，一般都用jpg。这样可以减少空间，节省时间</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/641d90f1b53f509209736b3a36bcb4a3.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/641d90f1b53f509209736b3a36bcb4a3.png, https://img-blog.csdnimg.cn/img_convert/641d90f1b53f509209736b3a36bcb4a3.png 1.5x, https://img-blog.csdnimg.cn/img_convert/641d90f1b53f509209736b3a36bcb4a3.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/641d90f1b53f509209736b3a36bcb4a3.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>正常情况下，这个步骤执行非常快，出现“搞定/done” 的字样就是执行完成了。完成后，workplace/data_src下面就会出现很多图片，这就是从视频里分解出来的图片。文件名一般为0000x.jpg，其实这里面命名可以随意，没有强制要求。这里还有一个aligned的文件夹，是为后面步骤准备的。</p>
+<h3 id="step2目标视频转图片">Step2：目标视频转图片</h3>
+<p>双击批处理文件目标视频转图片 extract images from video data_dst FULL FPS.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/6f843721f093b1fcc9528a31eecf8302.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/6f843721f093b1fcc9528a31eecf8302.png, https://img-blog.csdnimg.cn/img_convert/6f843721f093b1fcc9528a31eecf8302.png 1.5x, https://img-blog.csdnimg.cn/img_convert/6f843721f093b1fcc9528a31eecf8302.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/6f843721f093b1fcc9528a31eecf8302.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>和上面的步骤类似，这次处理的是dst视频。因为dst必须一帧不落，所以没有FPS选项，只有图片格式这一个选项。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/01ec7e62b2309d7bc4ab2044ebfe7a5a.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/01ec7e62b2309d7bc4ab2044ebfe7a5a.png, https://img-blog.csdnimg.cn/img_convert/01ec7e62b2309d7bc4ab2044ebfe7a5a.png 1.5x, https://img-blog.csdnimg.cn/img_convert/01ec7e62b2309d7bc4ab2044ebfe7a5a.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/01ec7e62b2309d7bc4ab2044ebfe7a5a.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>处理完后的图片保存在workspace/data_dst里面。</p>
+<h3 id="step3提取源头像">Step3：提取源头像</h3>
+<p>双击批处理文件提取源头像 data_src faceset extract.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/a211f6be3a2d6f19b3745cb2afa5d3e4.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/a211f6be3a2d6f19b3745cb2afa5d3e4.png, https://img-blog.csdnimg.cn/img_convert/a211f6be3a2d6f19b3745cb2afa5d3e4.png 1.5x, https://img-blog.csdnimg.cn/img_convert/a211f6be3a2d6f19b3745cb2afa5d3e4.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/a211f6be3a2d6f19b3745cb2afa5d3e4.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这一步的作用是提取源素材图片中的人脸。这里有六个参数，一般只需一路回车即可。第一次使用需要缓存GPU内核，需要稍微等一等。开始提取后底部有显示进度，当进度到100%，会显示图片数量和提取到的人脸数量，并出现“搞定！！！” 就证明已经出来成功并且处理完成。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/ca4745f8ed1b59a961187999db90d176.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/ca4745f8ed1b59a961187999db90d176.png, https://img-blog.csdnimg.cn/img_convert/ca4745f8ed1b59a961187999db90d176.png 1.5x, https://img-blog.csdnimg.cn/img_convert/ca4745f8ed1b59a961187999db90d176.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/ca4745f8ed1b59a961187999db90d176.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>处理完成后，头像保存在data_src/aligned下面。</p>
+<p>不少人在这个环节会遇到问题。</p>
+<p>常见问题是：</p>
+<ul>
+<li>驱动不够新，去官网下载更新到最新版本即可。</li>
+<li>软件不够新，deepfaker.xyz 上获取新版</li>
+<li>显卡软件不匹配， A卡用Directx12，不要用rtx3000版。</li>
+</ul>
+<p>提取完之后，如果src素材比较复杂，就需要做一些筛选。这个筛选可以写一篇很长的文章。这里简要说一下。主要是把一些不需要的素材删除：</p>
+<ul>
+<li>很模糊的可以直接删除</li>
+<li>不是目标人物的可以直接删除</li>
+<li>图片残缺的删除</li>
+<li>脸部有遮挡的删除</li>
+<li>脸部光照差异特别大的删除</li>
+<li>…..</li>
+</ul>
+<h3 id="step4提取目标头像">Step4：提取目标头像</h3>
+<p>双击批处理文件目标头像提取 data_dst faceset extract.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/6080386203d204c35fee87201698292c.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/6080386203d204c35fee87201698292c.png, https://img-blog.csdnimg.cn/img_convert/6080386203d204c35fee87201698292c.png 1.5x, https://img-blog.csdnimg.cn/img_convert/6080386203d204c35fee87201698292c.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/6080386203d204c35fee87201698292c.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这一步的作用是提取目标素材图片中的人脸。和上一步非常类似，这里就是少了一个“保存调试图片”的参数。其实也不是少了，而是默认就执行了。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/1e0dc000737f6eacd127a4a3a382ace1.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/1e0dc000737f6eacd127a4a3a382ace1.png, https://img-blog.csdnimg.cn/img_convert/1e0dc000737f6eacd127a4a3a382ace1.png 1.5x, https://img-blog.csdnimg.cn/img_convert/1e0dc000737f6eacd127a4a3a382ace1.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/1e0dc000737f6eacd127a4a3a382ace1.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>提取的头像保存在data_dst/aligned的文件夹里。</p>
+<p>提取完之后也要对素材进行一个筛选。</p>
+<p>把不是目标人物的素材删掉，把头像旋转的图片删掉。一般来说文件名后缀_1的都可以删掉。dst的删除核心原则是要换的人脸留下，不要换的统统删掉。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/cff389b6604253517cd10386a5635f88.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/cff389b6604253517cd10386a5635f88.png, https://img-blog.csdnimg.cn/img_convert/cff389b6604253517cd10386a5635f88.png 1.5x, https://img-blog.csdnimg.cn/img_convert/cff389b6604253517cd10386a5635f88.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/cff389b6604253517cd10386a5635f88.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这些图标保存在aligned_debug里面</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/ca186f97279475d47fc5a8eccfe31fb8.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/ca186f97279475d47fc5a8eccfe31fb8.png, https://img-blog.csdnimg.cn/img_convert/ca186f97279475d47fc5a8eccfe31fb8.png 1.5x, https://img-blog.csdnimg.cn/img_convert/ca186f97279475d47fc5a8eccfe31fb8.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/ca186f97279475d47fc5a8eccfe31fb8.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>大概其中一张图片，可以看到人脸上有三种颜色的线框。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/20851eb286bd3a2103f8fa8feecf16fa.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/20851eb286bd3a2103f8fa8feecf16fa.png, https://img-blog.csdnimg.cn/img_convert/20851eb286bd3a2103f8fa8feecf16fa.png 1.5x, https://img-blog.csdnimg.cn/img_convert/20851eb286bd3a2103f8fa8feecf16fa.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/20851eb286bd3a2103f8fa8feecf16fa.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>红色就是头像截取的区域，蓝色是面部区域，绿色是人脸轮廓，以及五官定位的点。其实就是人脸的landmark。通过debug你可以直观的看到人脸识别算法识别了哪些区域，有没有识别正确。</p>
+<h3 id="step5训练模型">Step5：训练模型</h3>
+<p>双击批处理文件 训练轻量级模型 train Quick96.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/4c119848bd07f9616cd87c367afa1dd7.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/4c119848bd07f9616cd87c367afa1dd7.png, https://img-blog.csdnimg.cn/img_convert/4c119848bd07f9616cd87c367afa1dd7.png 1.5x, https://img-blog.csdnimg.cn/img_convert/4c119848bd07f9616cd87c367afa1dd7.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/4c119848bd07f9616cd87c367afa1dd7.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这一步是训练模型，所有步骤中最重要，最难，也是最耗时间的部分。目前新版本中主要包含三类模型，分别是Quick96,SAEHD,AMP 。</p>
+<p>我把Quick96翻译为轻量级模型，优点是所需配置低，显存低，速度快，操作简单。缺点是不能自定义，像素比较低，合成效果差一些。</p>
+<p>这个模型很简单，所以也非常适合拿来入门。所以本文就用这个来举例。SAEHD和AMP模型和模型训练的知识会另起一篇文章来介绍。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/fc63d1139fc5caba34b2414513aac8b3.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/fc63d1139fc5caba34b2414513aac8b3.png, https://img-blog.csdnimg.cn/img_convert/fc63d1139fc5caba34b2414513aac8b3.png 1.5x, https://img-blog.csdnimg.cn/img_convert/fc63d1139fc5caba34b2414513aac8b3.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/fc63d1139fc5caba34b2414513aac8b3.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>Quick96使用非常简单，双击批处理文件后，选择执行设备即可，这里一般都是选显卡，直接回车即可。设备选择完成之后，程序就会自动加载素材，并显示模型的参数，底部会有跳动的数字，然后会跳出一个预览窗口。</p>
+<p>先来说说底部的数字，总共五列，分别代表：模型保存时间，迭代次数，单次迭代时间，源损失，目标损失。迭代次数是越多越好，损失是越低越好，零就是无损了嘛~不过，不可能达到！</p>
+<p>下面来说说预览窗口</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/bcef275a5973f64f036e324a5292aace.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/bcef275a5973f64f036e324a5292aace.png, https://img-blog.csdnimg.cn/img_convert/bcef275a5973f64f036e324a5292aace.png 1.5x, https://img-blog.csdnimg.cn/img_convert/bcef275a5973f64f036e324a5292aace.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/bcef275a5973f64f036e324a5292aace.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>预览窗口包含操作提示、loss曲线，人脸区域。人脸区域总共五列。第一列是src，第三列是dst。第二，四，五列为算法生成列，刚开始是纯色，啥头像都没有。随着训练的进行，会慢慢出现轮廓，鼻子，眼睛，然后慢慢变清晰。</p>
+<p>训练的过程就是等待这几列变清晰的过程，最后一列就是换脸后的效果。</p>
+<p>这一个步骤并不会自动结束，需要自己判断，然后手动结束。可以通过损失值和预览图来进行判断。一般来说损失值（loss）值到了0.1x就差不多了。但是素材质量和数量不一样，会影响这个指标的变化速度。比如素材特别少，这个值降的特别快，特别低。图片不是很清晰，这个值也降的特别快，特别低。反过来，图片质量高，数量多，这个就很难降低。但是这样情况下训练出来的模型更好。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/adef243a854f2aa3e6b3dc7eba1a248b.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/adef243a854f2aa3e6b3dc7eba1a248b.png, https://img-blog.csdnimg.cn/img_convert/adef243a854f2aa3e6b3dc7eba1a248b.png 1.5x, https://img-blog.csdnimg.cn/img_convert/adef243a854f2aa3e6b3dc7eba1a248b.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/adef243a854f2aa3e6b3dc7eba1a248b.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>相比数字而已，通过预览图来判断就更加直观了。只要观察第二列是否无限接近第一列，第四列是否无限接近第三列。第五列的表情是否无限接近第四列。所有列的图片是否都足够清晰。如果答案是“Yes” ，那么按回车或者直接关闭窗口，进入下一步。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/f4b4392cef459f41cdcd4513bed44cf5.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/f4b4392cef459f41cdcd4513bed44cf5.png, https://img-blog.csdnimg.cn/img_convert/f4b4392cef459f41cdcd4513bed44cf5.png 1.5x, https://img-blog.csdnimg.cn/img_convert/f4b4392cef459f41cdcd4513bed44cf5.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/f4b4392cef459f41cdcd4513bed44cf5.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>正常情况下模型会过几十分钟保存一次，也可以手动按S直接保存。关闭后，可以重新点击批处理文件继续训练，不用担心丢失进度。当然，要防止意外关机和重启，可能会损坏模型。</p>
+<h3 id="step6应用模型">Step6：应用模型</h3>
+<p>双击批处理文件 应用轻量级模型 merge Quick96.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/b8399f936de9a0b4e0bce4d43e1004e0.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/b8399f936de9a0b4e0bce4d43e1004e0.png, https://img-blog.csdnimg.cn/img_convert/b8399f936de9a0b4e0bce4d43e1004e0.png 1.5x, https://img-blog.csdnimg.cn/img_convert/b8399f936de9a0b4e0bce4d43e1004e0.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/b8399f936de9a0b4e0bce4d43e1004e0.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这个步骤要做的是将图片进行换脸。应用Quick96模型也很简单。启动直接按回车选中或者输入对应的数字选中上一步已经训练好的模型。然后软件就会加载模型并显示模型参数。</p>
+<p>然后需要配置两个参数：</p>
+<p>一个是是否启用交互模式，直接回车，默认启用。</p>
+<p>一个是线程数量，输入小于等于8的数字，回车。注意，如果你核心特别多，默认回车会报错的！</p>
+<p>稍等一会儿会弹出帮助界面。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/db63dfb6d19ad46b501b3d716cb4f623.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/db63dfb6d19ad46b501b3d716cb4f623.png, https://img-blog.csdnimg.cn/img_convert/db63dfb6d19ad46b501b3d716cb4f623.png 1.5x, https://img-blog.csdnimg.cn/img_convert/db63dfb6d19ad46b501b3d716cb4f623.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/db63dfb6d19ad46b501b3d716cb4f623.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这个界面并没有任何功能上的用处，只是显示了这个环节可以使用的快捷键。每个快捷键旁边都有中文注释，可以看个大概，具体的参数含义我会在后面的文章中做一个详细的介绍。</p>
+<p>点击这个界面，确保输入法为英文，按下键盘上的Tab，就可以进入合成预览界面</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/47c6c54cea5986b1b88557f3e55da95d.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/47c6c54cea5986b1b88557f3e55da95d.png, https://img-blog.csdnimg.cn/img_convert/47c6c54cea5986b1b88557f3e55da95d.png 1.5x, https://img-blog.csdnimg.cn/img_convert/47c6c54cea5986b1b88557f3e55da95d.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/47c6c54cea5986b1b88557f3e55da95d.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>进来后，默认情况下都会有人皮面具的感觉，这是正常现象。因为我们参数还没有调整！就这个素材来说，只要调整W/S，E/D 快捷键即可。调整后的效果如下：</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/3d4ef2e2aa8f61ea41f45ccc14bfb378.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/3d4ef2e2aa8f61ea41f45ccc14bfb378.png, https://img-blog.csdnimg.cn/img_convert/3d4ef2e2aa8f61ea41f45ccc14bfb378.png 1.5x, https://img-blog.csdnimg.cn/img_convert/3d4ef2e2aa8f61ea41f45ccc14bfb378.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/3d4ef2e2aa8f61ea41f45ccc14bfb378.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>确认效果OK之后，按下快捷键shift+？（向后应用到所有帧） 然后再按下shift+&gt;（自动合成） 就开始自动合成了。也可以通过键盘上的&lt; 和 &gt;进行手动切换，查看前后帧的合成效果。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/e2fb37d9f8b6d326140f8e1a05644c85.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/e2fb37d9f8b6d326140f8e1a05644c85.png, https://img-blog.csdnimg.cn/img_convert/e2fb37d9f8b6d326140f8e1a05644c85.png 1.5x, https://img-blog.csdnimg.cn/img_convert/e2fb37d9f8b6d326140f8e1a05644c85.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/e2fb37d9f8b6d326140f8e1a05644c85.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>黑色窗口会显示所有的合成参数，并且显示进度条，等100%完成之后，手动关闭窗口即可。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/1613185a082bd5ff6a4e1b1547e587fd.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/1613185a082bd5ff6a4e1b1547e587fd.png, https://img-blog.csdnimg.cn/img_convert/1613185a082bd5ff6a4e1b1547e587fd.png 1.5x, https://img-blog.csdnimg.cn/img_convert/1613185a082bd5ff6a4e1b1547e587fd.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/1613185a082bd5ff6a4e1b1547e587fd.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>此时，在data_dst下面已经多了两个文件，一个是merged，一个是merged_mask</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/a62d78d6629238075a3567645beb759d.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/a62d78d6629238075a3567645beb759d.png, https://img-blog.csdnimg.cn/img_convert/a62d78d6629238075a3567645beb759d.png 1.5x, https://img-blog.csdnimg.cn/img_convert/a62d78d6629238075a3567645beb759d.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/a62d78d6629238075a3567645beb759d.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>进入merged可以看到很多图，这些图片中的人脸已经完全换脸。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/079f598450b7f0d8b02a72bb2f4718a5.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/079f598450b7f0d8b02a72bb2f4718a5.png, https://img-blog.csdnimg.cn/img_convert/079f598450b7f0d8b02a72bb2f4718a5.png 1.5x, https://img-blog.csdnimg.cn/img_convert/079f598450b7f0d8b02a72bb2f4718a5.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/079f598450b7f0d8b02a72bb2f4718a5.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>进入merged_mask可以看到一些黑色的图片，中间有一个白色的区域。这些文件是为了方便后期制作。我们单纯使用DFL的不用太关心。</p>
+<h3 id="step7合成视频">Step7：合成视频</h3>
+<p>双击批处理文件 合成 MP4 视频 merged to mp4.bat</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/0d3a946000c1d265de87a6b9bd0bc124.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/0d3a946000c1d265de87a6b9bd0bc124.png, https://img-blog.csdnimg.cn/img_convert/0d3a946000c1d265de87a6b9bd0bc124.png 1.5x, https://img-blog.csdnimg.cn/img_convert/0d3a946000c1d265de87a6b9bd0bc124.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/0d3a946000c1d265de87a6b9bd0bc124.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>这个步骤是将已经换好脸的图片转换成视频，并且会自动读取源视频的配置信息，包括帧率，音轨这些。这个环节只有一个输出码率的参数，常规来说3就够了。</p>
+<p>除了合成mp4之外，还可以合成无损视频，AVI ，MOV等格式，便于后期处理。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/a19e6d1629ac317e2ca121165fd9e3d5.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/a19e6d1629ac317e2ca121165fd9e3d5.png, https://img-blog.csdnimg.cn/img_convert/a19e6d1629ac317e2ca121165fd9e3d5.png 1.5x, https://img-blog.csdnimg.cn/img_convert/a19e6d1629ac317e2ca121165fd9e3d5.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/a19e6d1629ac317e2ca121165fd9e3d5.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>执行完成后，workspace下面多了两个文件，分别是result.mp4 和 result_mask.mp4 。前者就是我们需要的最终视频，后者是遮罩视频，供后期使用。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/3dc0aa95cbd80b943f12da27d29b5388.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/3dc0aa95cbd80b943f12da27d29b5388.png, https://img-blog.csdnimg.cn/img_convert/3dc0aa95cbd80b943f12da27d29b5388.png 1.5x, https://img-blog.csdnimg.cn/img_convert/3dc0aa95cbd80b943f12da27d29b5388.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/3dc0aa95cbd80b943f12da27d29b5388.png"
+        title="0"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        data-srcset="data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 1.5x, data:image/gif;base64%2cR0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== 2x"
+        data-sizes="auto"
+        alt="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+        title="点击并拖拽以移动"
+    /></p>
+<p>双击打开视频，就可以看到最终效果啦。</p>
+<p>步骤其实不难，细节很多。有些是可以直接照搬别人经验的。有些需要自己不断摸索。这并不是什么傻瓜软件，要做出好的效果肯定是要花时间研究。就像即便送你PS，PR，你没有一定的学习积累不可能做出酷炫的效果。但是我可以保证，市面上几乎所有神乎其技的换脸视频都是基于DFL，有些可能专门准备了道具场景并使用了后期制作。</p>
+<p>DeepFaceLab3系列</p>
+<p><a href="https://ybrc.github.io/zh-cn/13" target="_blank" rel="noopener noreffer">DeepFaceLab3：软硬件以及系统要求</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-1" target="_blank" rel="noopener noreffer">DeepFaceLab3：工作目录和基本概念</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-2" target="_blank" rel="noopener noreffer">DeepFaceLab3：视频换脸完整流程详解！</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-3" target="_blank" rel="noopener noreffer">DeepFaceLab3：模型的异同，选择，基础操作！</a></p>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/81.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/13-2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/ai-%E6%8D%A2%E8%84%B8/">AI 换脸</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/13-1/" class="prev" rel="prev" title="DeepFaceLab3：工作目录和基本概念"><i class="fas fa-angle-left fa-fw"></i>DeepFaceLab3：工作目录和基本概念</a>
+            <a href="/zh-cn/13-3/" class="next" rel="next" title="DeeFaceLab3：模型的异同，选择，基础操作！">DeeFaceLab3：模型的异同，选择，基础操作！<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-13T11:59:54+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"DeepFaceLab3：视频换脸完整流程"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

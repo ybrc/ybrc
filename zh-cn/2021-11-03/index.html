@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>数学深渊图解(概述和分解)(典藏版5k字)  - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="数学深渊图解(概述和分解)(典藏版5k字) " />
+<meta property="og:description" content="**数学深渊图解(概述和分解)(典藏版5k字) **" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/2021-11-03/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-01T14:49:40+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="数学深渊图解(概述和分解)(典藏版5k字) "/>
+<meta name="twitter:description" content="**数学深渊图解(概述和分解)(典藏版5k字) **"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/2021-11-03/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/31-1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/2021-01/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "数学深渊图解(概述和分解)(典藏版5k字) ",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/2021-11-03\/"
+        },"genre": "posts","keywords": "理科, 数学, 玩","wordcount":  5135 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/2021-11-03\/","datePublished": "2021-11-01T14:49:40+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/2021-11-03/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/2021-11-03/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">数学深渊图解(概述和分解)(典藏版5k字) </h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E7%90%86%E7%A7%91/"><i class="far fa-folder fa-fw"></i>理科</a>&nbsp;<a href="/zh-cn/categories/%E6%95%B0%E5%AD%A6/"><i class="far fa-folder fa-fw"></i>数学</a>&nbsp;<a href="/zh-cn/categories/%E7%8E%A9/"><i class="far fa-folder fa-fw"></i>玩</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-01">2021-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5135 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>**数学深渊图解(概述和分解)(典藏版5k字) **</p>
+<h1 id="数学深渊图解概述和分解典藏版5k字">数学深渊图解(概述和分解)(典藏版5k字)</h1>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/336f99be15254e9cbd4ee9f18305b542.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/336f99be15254e9cbd4ee9f18305b542.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/336f99be15254e9cbd4ee9f18305b542.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/336f99be15254e9cbd4ee9f18305b542.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/336f99be15254e9cbd4ee9f18305b542.jpeg"
+        title="img"
+    /></p>
+<p>形成共同人类认知、探寻自然或社会的规律，科学研究采用可观测、可测量、可证明的方法。这意味着，人类可以<strong>观察、测量</strong>某种现象或问题，然后用<strong>数学工具</strong>形式化<strong>描述</strong>为严格准确的知识，进而找到对具体自然、社会现象或问题的规律性解释或结论，做出<strong>实证或证伪</strong>。</p>
+<p>数据相关的数学和科学、算法和程序、资源和简化、机构和活动、政策和新闻，请关注数据简化DataSimp社区！~</p>
+<p>如果有人不相信数学是简单的，那是因为他们没有意识到人生有多复杂。——冯·诺依曼.</p>
+<p>人类对自然社会寻找规律的各种认知方法中，语言文字类描述最为宽泛、随意、不确定，技术类描述最为直接、实用，数学类描述最为准确、严格、确定。科学研究领域注重实验测量；非科学研究领域不采用严格数学形式化方法，除了语文工具和技术工具，数学工具也有其应用，此处不作解读( 详情请期待拙著《数据资源概述》和《数据简化技术》)。如果研究者不具备科学思维，则只能用语言文字表达为主的识字思考型思维泛泛而谈，用语文思想理论(这种理论并非科学理论)来思维、讨论，甚至写论文、教学。我国当前缺前者，后者泛滥。总之，数学工具在人类不同认知研究中，都有举足轻重的应用和作用。下面，我们从流行全球的数学的深渊组图来认识一下数学的魅力。</p>
+<p>I. 数学深渊图解(概述)</p>
+<p>数学深渊(Mathematics trench)来自美国休斯顿大学数学系网页 <a href="%e4%b8%8b%e8%bd%bdPFD%e6%88%96%e7%82%b9%e5%87%bb%e5%8f%af%e7%9c%8b%e5%a4%a7%e5%9b%be" rel="">1-2</a>。</p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/bea0f0df044942cfa0b7f001cd4eef24.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/bea0f0df044942cfa0b7f001cd4eef24.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/bea0f0df044942cfa0b7f001cd4eef24.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/bea0f0df044942cfa0b7f001cd4eef24.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/bea0f0df044942cfa0b7f001cd4eef24.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/1aee59fa3bef4a6aa5fa7db6298af17e.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/1aee59fa3bef4a6aa5fa7db6298af17e.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/1aee59fa3bef4a6aa5fa7db6298af17e.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/1aee59fa3bef4a6aa5fa7db6298af17e.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/1aee59fa3bef4a6aa5fa7db6298af17e.jpeg"
+        title="img"
+    /></p>
+<p><strong>数学深渊图解名词</strong></p>
+<p><strong>group theory(<strong><strong>群论</strong></strong>)</strong>：一般叫它抽象代数，就是研究一种特殊的代数结构(群)以及它的性质，这个一般数学系本科生都能学到。</p>
+<p><strong>real analysis(<strong><strong>实分析</strong></strong>)</strong>：或者叫实变函数，研究测度，积分，算子等，是微积分的推广，一般数学系本科生也都能学到。</p>
+<p><strong>calculus of variations(<strong><strong>变分法</strong></strong>)</strong>：很遗憾这个我不太清楚，或者说忘了。</p>
+<p><strong>cryptography(<strong><strong>密码学</strong></strong>)</strong>：这个就顾名思义了。值得一提的是，密码学与数论的关系很紧密(比如说椭圆曲线加密etc)</p>
+<p><strong>euclidean spaces(<strong><strong>欧氏空间</strong></strong>)</strong>：就是所谓的R^n，一般提到它时也指它上面的一般的度量(拓扑)，而不仅仅是集合本身。</p>
+<p><strong>stochastic calculus(<strong><strong>随机微积分</strong></strong>)</strong>：近来很火的领域，在金融和物理中均有应用。这方面我非常外行，还是留给大神补充了。说到随机积分，就想起了ito这个日本人。</p>
+<p><strong>game theory(<strong><strong>博弈论</strong></strong>)</strong>：这个大家或多或少都了解一些，在经济学中应用很广泛。</p>
+<p><strong>combinatorics(<strong><strong>组合数学</strong></strong>)</strong>：主要是和计数以及有限结构有关系的一个领域，现在理论和应用均很广泛，也和其他学科有广泛的联系。</p>
+<p><strong>complexanalysis/function(<strong><strong>复分析</strong></strong>/<strong><strong>复变函数</strong></strong>)</strong>：狭义的单变量复变函数研究复平面(以及它的子集上)的全纯和亚纯函数的性质。</p>
+<p><strong>holomorphic functions(<strong><strong>全纯函数</strong></strong>)</strong>：在定义域(复平面的子集)上点点解析的函数。注意解析既可以用柯西-黎曼条件定义，也可以用存在幂级数展开定义。</p>
+<p><strong>topology(<strong><strong>拓扑学</strong></strong>)</strong>：研究几何空间在满足特殊性质的连续变换(例如下面的同胚)下不变的性质(例如，长度不是一个拓扑性质，但“是否有洞”是)。</p>
+<p><strong>metric space(<strong><strong>度量空间</strong></strong>)</strong>：一个在分析中的概念。简单地可以理解成一个集合上有一个符合一定条件的度量，这样我们就是衡量两点间的距离了。</p>
+<p><strong>riemann surface(<strong><strong>黎曼曲面</strong></strong>)</strong>：一维复流形，具有很多良好的性质，可以把分析，代数拓扑和代数几何的工具都运用上去。</p>
+<p><strong>homeomorphism(<strong><strong>同胚</strong></strong>)</strong>：拓扑中的概念，指两个空间相互之间有一个互逆的连续映射，例如，你可以把橡皮泥捏成一个球或者正方体。</p>
+<p><strong>homotopy(<strong><strong>同伦</strong></strong>)</strong>：拓扑中的概念，指一个函数可以“连续”地变成另一个函数。参考下图。但homotopy theory作为拓扑学的一个分支，在二战后直到现在取得了非常长足的发展，早已突破了直觉上的同伦了。(笑)</p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/478e5a9a4f99465aadba990693818e4b.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/478e5a9a4f99465aadba990693818e4b.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/478e5a9a4f99465aadba990693818e4b.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/478e5a9a4f99465aadba990693818e4b.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/478e5a9a4f99465aadba990693818e4b.jpeg"
+        title="img"
+    /></p>
+<p><strong>boolean algebra(<strong><strong>布尔代数</strong></strong>)</strong>：一个特殊的代数结构，以0，1取值，与电路设计和计算机逻辑紧密相关。</p>
+<p><strong>banach spaces/hilbertspaces(<strong><strong>巴拿赫空间</strong></strong>/<strong><strong>希尔伯特空间</strong></strong>)</strong>：满足特定条件的normed(这个中文应该怎么说？)/内积空间。都是实分析/泛函分析主要的研究对象。</p>
+<p><strong>Galois theory(<strong><strong>伽罗瓦理论</strong></strong>)</strong>：研究多项式方程的根与这些根的置换群之间的关系的学科。是现代(近代)代数数论的基础。</p>
+<p><strong>differential geometry(<strong><strong>微分几何</strong></strong>)</strong>：简单来说，我们想在更一般的曲面(流形)上做微积分的方法。黎曼几何是它的一门子领域，我国著名的数学家陈省身便是20世纪微分几何大师。</p>
+<p><strong>groupoids(<strong><strong>群胚</strong></strong>)</strong>：一个范畴学(category theory)中的概念。指每个态射均可逆的范畴。我想这个名字的意思是它(群胚)能产生群吧(笑)。</p>
+<p><strong>algebraic topology(<strong><strong>代数拓扑</strong></strong>)</strong>：一个简单(但很有野心)的问题是，我们想把所有空间分类，按照某种标准(比如上面说的，如果两个空间同胚，或者更宽松的映射)。我们关心两个空间是否同胚(或者其他的)。而代数拓扑提供了这样一些代数工具。简单来说，如果空间A,B不同胚，那么他们的某个代数量不同。例如前文所说的“洞”的个数。</p>
+<p><strong>p-adic analysis(p<strong><strong>进制分析</strong></strong>)</strong>：诞生于20世纪的学科，来源于数论的需求。简单的说，所有p进制数放在一起构成一个空间，我们想研究这个空间的性质，在这个空间上做“微积分”。但这个空间的性质与我们对欧氏，甚至一般的微分流形的直觉差异巨大。这是个相当有趣如今也相当活跃的学科。</p>
+<p><strong>smooth manifold(<strong><strong>光滑流形</strong></strong>)</strong>：微分几何的主要研究对象，意为可以给它一个“光滑结构”的流形。这个流形不光要局部看起来像欧几里得空间，它的“坐标”还要满足一些“光滑性”条件。</p>
+<p><strong>hairy ball theorem(<strong><strong>毛球定理</strong></strong>)</strong>：就是说：你永远捋不顺一个球上的毛。在数学上说，球面没有一个不为0的向量场。这个定理来源于微分几何，但也可以用代数拓扑的工具去证明。</p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/acffc687b9b34710ba8e750310c4901a.png"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/acffc687b9b34710ba8e750310c4901a.png, http://5b0988e595225.cdn.sohucs.com/images/20190831/acffc687b9b34710ba8e750310c4901a.png 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/acffc687b9b34710ba8e750310c4901a.png 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/acffc687b9b34710ba8e750310c4901a.png"
+        title="img"
+    /></p>
+<p><strong>algebraic geometry(<strong><strong>代数几何</strong></strong>)</strong>：我们希望解多项式方程，或者至少知道它的解的一些性质(代数)。而多项式方程不光是一个方程，它也能代表几何图形(几何)。这些在代数几何这门学科里得到了统一。这是20世纪乃至到现在相当火热的方向，也非常深刻和有趣。</p>
+<p><strong>projective variety(<strong><strong>射影簇</strong></strong>)</strong>：代数几何中的研究对象。射影簇由于其良好的性质(“紧”性)，成为主要研究的对象。而一般的仿射簇，我们也可以将它射影化。类似于将平面加一点就变成了球面。</p>
+<p><strong>grobner basis(grobner<strong><strong>基</strong></strong>)</strong>：一个交换代数中的概念。</p>
+<p><strong>algebraic number theory(<strong><strong>代数数论</strong></strong>)</strong>：大概可以意为研究解多项式方程的学科。在伽罗瓦理论提出后发展迅猛，在格罗滕迪克提出现代代数几何的概念后，代数数论又得到了进一步的革新。直至今天，代数数论是数学里最古老，也是发展的最快的学科之一。</p>
+<p><strong>automorphic forms(<strong><strong>自守形式</strong></strong>)</strong>：模形式的推广，代数数论中的基本工具。意为某个在上半复平面(以及无穷远点)上亚纯，并关于某个离散群作用下不变的函数。</p>
+<p><strong>lie algebras(<strong><strong>李代数</strong></strong>)</strong>：在一个向量空间上定义一个“方框”，使得它满足特定性质。lie algebra在表示论，数学物理，代数几何和代数群中应用广泛。</p>
+<p><strong>数学深渊图解问答</strong></p>
+<p>遇到一张趣图，如果想学数学，恭喜你来到深渊。其行也远，其路也艰，虽千万里，吾往矣。</p>
+<p>无知问题Q1：如何才能学好数学?</p>
+<p>无畏回答A1：Hilbert:五次，Hermann,最少五次.这是希尔伯特说的,对象是Weyl, 他认为一个数学家在教授一门课的时候要多次重复.学好一门数学课程多次重复是必要的.</p>
+<p>无知问题Q2：数学系研究生不考虑研究方向，只想学习掌握知识，那这些理论可以学完吗？或者可以自学到哪个程度？</p>
+<p>无畏回答A2：自学完全可以，但不可能“学完”，只能对其中大多数领域有粗浅的了解(像我这样)。如果要做研究就必须要选定一两个具体方向，但有意思的是不同的领域的知识往往都是交汇的。</p>
+<p>好了，在“天才少年你好”前面不用翻维基百科，我能写出来的应该就是这些了。当然这张图自然是极不合理。例如很上面的组合数学其实是研究中很热点的方向，而下面的上同调只是代数拓扑中的一个工具。欢迎大家补充and提问。</p>
+<p>无知问题Q3：哥们有什么建议指导自学吗？我今年29岁了，学历大专，数学初中还可以，高中一塌糊涂基本没有及格过。但我对数学一直不甘心？？大专毕业后自学了高数、线代、概率论，就是看了下课本了解下会做简单题的水平。现在我还是不甘心，恰巧空闲时间也多，想继续自学数学，所以哥们有什么指导建议吗？(我真不甘心数学一般般，想把数学大都掌握了，而且掌握的很好！100分可以85分以上那种的好)</p>
+<p>无畏回答A3：可以尝试先学学复变函数、实变函数和抽象代数找找感觉，这些是之后那些的基础&hellip;不过还是不要想着把数学&quot;学完&quot;&hellip;慢慢来。部分非科学研究方法的各领域博士亦需要学习。</p>
+<p>II. 数学深渊图解(分解)</p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/e88f840d737a4c978bfe1615a55ed53b.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/e88f840d737a4c978bfe1615a55ed53b.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/e88f840d737a4c978bfe1615a55ed53b.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/e88f840d737a4c978bfe1615a55ed53b.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/e88f840d737a4c978bfe1615a55ed53b.jpeg"
+        title="img"
+    /></p>
+<p><strong>遇到一张妙图,号称“数学的深渊”。</strong></p>
+<p>若非数理精通者，如看天书。</p>
+<p>匆匆一暼，尽皆术语，让人汗流浃背。</p>
+<p>数学之涩，易理之难。</p>
+<p>其行也远, 其路也艰, 虽千万里, 吾往矣。</p>
+<p><strong>原图内容略显单薄，历史脉络亦不分明。</strong></p>
+<p><strong>量子学派将其扩展整理，集纳更多理科知识。</strong></p>
+<p><strong>前后千年，共分八章。</strong></p>
+<p><strong>这是一部数学史，也是一部天才简史。</strong></p>
+<p>从万物皆数到变量数学；</p>
+<p>从欧氏几何到黎曼空间；</p>
+<p>……</p>
+<p>毕达哥拉斯、欧几里得、阿基米德、笛卡尔、费马、牛顿、莱布尼茨、欧拉、柯西、拉格朗日、伽罗瓦、拉马努金、高斯、黎曼、希尔伯特、庞加莱……</p>
+<p><strong>我们希望这张图，带你走出神秘与未知，步入这千年智慧积累，俯瞰整个数学大厦****▇ ▆ ▅ ▃ ▂ ▁</strong></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/1f7e915ccc6e4386b18d6a6fdd45fed3.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/1f7e915ccc6e4386b18d6a6fdd45fed3.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/1f7e915ccc6e4386b18d6a6fdd45fed3.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/1f7e915ccc6e4386b18d6a6fdd45fed3.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/1f7e915ccc6e4386b18d6a6fdd45fed3.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/925099724ccd4b878ce4f4b325496d2c.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/925099724ccd4b878ce4f4b325496d2c.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/925099724ccd4b878ce4f4b325496d2c.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/925099724ccd4b878ce4f4b325496d2c.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/925099724ccd4b878ce4f4b325496d2c.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/1dc956beffa54cefa7a1815b13e0d687.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/1dc956beffa54cefa7a1815b13e0d687.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/1dc956beffa54cefa7a1815b13e0d687.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/1dc956beffa54cefa7a1815b13e0d687.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/1dc956beffa54cefa7a1815b13e0d687.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/6e08fb5319004420ae5576e84efa81af.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/6e08fb5319004420ae5576e84efa81af.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/6e08fb5319004420ae5576e84efa81af.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/6e08fb5319004420ae5576e84efa81af.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/6e08fb5319004420ae5576e84efa81af.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/a27a52788bcd480d91e58dd79b0d7d6c.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/a27a52788bcd480d91e58dd79b0d7d6c.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/a27a52788bcd480d91e58dd79b0d7d6c.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/a27a52788bcd480d91e58dd79b0d7d6c.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/a27a52788bcd480d91e58dd79b0d7d6c.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/458f56ff360b46d59e35cb7cc51df4d0.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/458f56ff360b46d59e35cb7cc51df4d0.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/458f56ff360b46d59e35cb7cc51df4d0.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/458f56ff360b46d59e35cb7cc51df4d0.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/458f56ff360b46d59e35cb7cc51df4d0.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/097629b28f4547749046db80db326a72.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/097629b28f4547749046db80db326a72.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/097629b28f4547749046db80db326a72.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/097629b28f4547749046db80db326a72.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/097629b28f4547749046db80db326a72.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/5286cbdfd90b44e9b5c0e143f0bca606.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/5286cbdfd90b44e9b5c0e143f0bca606.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/5286cbdfd90b44e9b5c0e143f0bca606.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/5286cbdfd90b44e9b5c0e143f0bca606.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/5286cbdfd90b44e9b5c0e143f0bca606.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/8c39e7cf6b564cd6a60d407ecc7b3654.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/8c39e7cf6b564cd6a60d407ecc7b3654.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/8c39e7cf6b564cd6a60d407ecc7b3654.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/8c39e7cf6b564cd6a60d407ecc7b3654.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/8c39e7cf6b564cd6a60d407ecc7b3654.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/5ac7971caec44481940381578399952d.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/5ac7971caec44481940381578399952d.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/5ac7971caec44481940381578399952d.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/5ac7971caec44481940381578399952d.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/5ac7971caec44481940381578399952d.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/1c737098d8ed4fe3bb3230cc57cee9a6.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/1c737098d8ed4fe3bb3230cc57cee9a6.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/1c737098d8ed4fe3bb3230cc57cee9a6.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/1c737098d8ed4fe3bb3230cc57cee9a6.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/1c737098d8ed4fe3bb3230cc57cee9a6.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/2ee30cb9bcc044769f8a8fed8473d7fc.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/2ee30cb9bcc044769f8a8fed8473d7fc.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/2ee30cb9bcc044769f8a8fed8473d7fc.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/2ee30cb9bcc044769f8a8fed8473d7fc.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/2ee30cb9bcc044769f8a8fed8473d7fc.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/96291efd84d744cf86cfde412dd99114.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/96291efd84d744cf86cfde412dd99114.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/96291efd84d744cf86cfde412dd99114.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/96291efd84d744cf86cfde412dd99114.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/96291efd84d744cf86cfde412dd99114.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/9048dbe306ce40b3950a0ee7c7140224.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/9048dbe306ce40b3950a0ee7c7140224.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/9048dbe306ce40b3950a0ee7c7140224.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/9048dbe306ce40b3950a0ee7c7140224.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/9048dbe306ce40b3950a0ee7c7140224.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/6673f344db244853990334b7e6360f62.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/6673f344db244853990334b7e6360f62.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/6673f344db244853990334b7e6360f62.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/6673f344db244853990334b7e6360f62.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/6673f344db244853990334b7e6360f62.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/3255651b30ee4393bc01d7a3e116608f.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/3255651b30ee4393bc01d7a3e116608f.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/3255651b30ee4393bc01d7a3e116608f.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/3255651b30ee4393bc01d7a3e116608f.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/3255651b30ee4393bc01d7a3e116608f.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/1604eba07ea441ac98cc895090b9c3b2.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/1604eba07ea441ac98cc895090b9c3b2.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/1604eba07ea441ac98cc895090b9c3b2.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/1604eba07ea441ac98cc895090b9c3b2.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/1604eba07ea441ac98cc895090b9c3b2.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/4fe822e039d4468889c7409efe44be86.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/4fe822e039d4468889c7409efe44be86.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/4fe822e039d4468889c7409efe44be86.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/4fe822e039d4468889c7409efe44be86.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/4fe822e039d4468889c7409efe44be86.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/376dd9cce1ea42a6aed59cf704702d56.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/376dd9cce1ea42a6aed59cf704702d56.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/376dd9cce1ea42a6aed59cf704702d56.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/376dd9cce1ea42a6aed59cf704702d56.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/376dd9cce1ea42a6aed59cf704702d56.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/95df321533c741d2a3cdb9a105436f41.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/95df321533c741d2a3cdb9a105436f41.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/95df321533c741d2a3cdb9a105436f41.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/95df321533c741d2a3cdb9a105436f41.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/95df321533c741d2a3cdb9a105436f41.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/70afb8511cba4264b89572c929219509.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/70afb8511cba4264b89572c929219509.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/70afb8511cba4264b89572c929219509.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/70afb8511cba4264b89572c929219509.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/70afb8511cba4264b89572c929219509.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/ed916932618747aca7413d48f982ef62.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/ed916932618747aca7413d48f982ef62.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/ed916932618747aca7413d48f982ef62.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/ed916932618747aca7413d48f982ef62.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/ed916932618747aca7413d48f982ef62.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/0a2c1c7b13b44bf5b975d5aa0b58896c.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/0a2c1c7b13b44bf5b975d5aa0b58896c.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/0a2c1c7b13b44bf5b975d5aa0b58896c.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/0a2c1c7b13b44bf5b975d5aa0b58896c.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/0a2c1c7b13b44bf5b975d5aa0b58896c.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/f90160801ba84f6380fd5c828964d33c.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/f90160801ba84f6380fd5c828964d33c.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/f90160801ba84f6380fd5c828964d33c.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/f90160801ba84f6380fd5c828964d33c.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/f90160801ba84f6380fd5c828964d33c.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/c97ea6dc6e3843578aa247d7a98cb6c2.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/c97ea6dc6e3843578aa247d7a98cb6c2.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/c97ea6dc6e3843578aa247d7a98cb6c2.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/c97ea6dc6e3843578aa247d7a98cb6c2.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/c97ea6dc6e3843578aa247d7a98cb6c2.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/7c8e81c6e74f48099853d78f7da282b5.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/7c8e81c6e74f48099853d78f7da282b5.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/7c8e81c6e74f48099853d78f7da282b5.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/7c8e81c6e74f48099853d78f7da282b5.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/7c8e81c6e74f48099853d78f7da282b5.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/42bd277a14844c10b40a21e141f2e062.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/42bd277a14844c10b40a21e141f2e062.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/42bd277a14844c10b40a21e141f2e062.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/42bd277a14844c10b40a21e141f2e062.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/42bd277a14844c10b40a21e141f2e062.jpeg"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="http://5b0988e595225.cdn.sohucs.com/images/20190831/cc514aed9e1b4e7dbbd5e4235e6f8a80.jpeg"
+        data-srcset="http://5b0988e595225.cdn.sohucs.com/images/20190831/cc514aed9e1b4e7dbbd5e4235e6f8a80.jpeg, http://5b0988e595225.cdn.sohucs.com/images/20190831/cc514aed9e1b4e7dbbd5e4235e6f8a80.jpeg 1.5x, http://5b0988e595225.cdn.sohucs.com/images/20190831/cc514aed9e1b4e7dbbd5e4235e6f8a80.jpeg 2x"
+        data-sizes="auto"
+        alt="http://5b0988e595225.cdn.sohucs.com/images/20190831/cc514aed9e1b4e7dbbd5e4235e6f8a80.jpeg"
+        title="img"
+    /></p>
+<p>本期编辑｜成城</p>
+<p>本期投稿｜量子妹</p>
+<p>(注：所引相关素材[1-4]图文版权归原作者所有。)</p>
+<p><strong>素材</strong>**(910k<strong><strong>字</strong></strong>)**</p>
+<p>\1. Professor of Mathematics, Dr. Mark Tomforde. Mathematics trench.[EB/OL], University of Houston,https://www.math.uh.edu/~tomforde/Images/Abstraction.jpg, visiting date: 2019-08-30Fri</p>
+<p>\2. 虎头微分同学. 一张趣图-数学的深渊. [EB/OL], <a href="https://zengfk.com.cn/2017/07/24/%E4%B8%80%E5%BC%A0%E8%B6%A3%E5%9B%BE-%E6%95%B0%E5%AD%A6%E7%9A%84%E6%B7%B1%E6%B8%8A/,2017-0724" target="_blank" rel="noopener noreffer">https://zengfk.com.cn/2017/07/24/%E4%B8%80%E5%BC%A0%E8%B6%A3%E5%9B%BE-%E6%95%B0%E5%AD%A6%E7%9A%84%E6%B7%B1%E6%B8%8A/,2017-0724</a>, visiting date: 2019-08-30Fri</p>
+<p>\3. wom42 (10级)楼主. 对数学深渊这张图的一些补充. [EB/OL], hupu,https://bbs.hupu.com/26649408.html, 2019-04-06 06:23, visiting date: 2019-08-30Fri</p>
+<p>\4. 量子学派(ID：quantumschool)©作者：量子妹. 数学的深渊. [EB/OL], qbit,https://www.huxiu.com/article/305843.html, 2019-06-26 13:55, visiting date:2019-08-30Fri</p>
+<p>x. 秦陇纪. 西方哲学与人工智能、计算机; 人工智能编年史; 人工智能达特茅斯夏季研究项目提案(1955年8月31日)中英对照版; 人工智能研究现状及教育应用; 计算机操作系统的演进、谱系和产品发展史; 数据科学与大数据技术专业概论; 数据资源概论; 文本数据溯源与简化; 大数据简化技术体系; 数据简化社区概述. [EB/OL], 数据简化DataSimp(微信公众号),https://dsc.datasimp.org/, <a href="http://www.datasimp.org" target="_blank" rel="noopener noreffer">http://www.datasimp.org</a>, 2017-06-06.</p>
+<p>—END—</p>
+<p><strong>免责说明</strong>：公开期刊媒体资料汇编，只为学术新闻信息传播，注明出处素材可溯源。本公众号<strong>不持有任何倾向性</strong>，亦<strong>不表示认可其观点或其所述</strong>。</p>
+<p><strong>数学深渊图解</strong>**(5k<strong><strong>字</strong></strong>)**</p>
+<p>PhDS01秦陇纪©2010-2019数据简化DataSimp</p>
+<p><strong>数据简化<strong><strong>DataSimp</strong></strong>导读</strong>：数学深渊图解包括英语原图和汉译图；前期《数学体系概述、主要分支、学科分类(MSC)、构成联系和应用数学简介》和《世界十大数学猜想及其证明情况》等数学科普。分享或赞赏支持后，公号对话框发“<strong>数学深渊</strong>”可下载本文PDF。</p>
+<p><strong>数学深渊图解</strong>**(5k<strong><strong>字</strong></strong>)**</p>
+<p>目录</p>
+<p>A数学深渊图解(4k字)</p>
+<p>I. 数学深渊图解(概述)</p>
+<p>II. 数学深渊图解(分解)</p>
+<p><strong>素材</strong>**(910k<strong><strong>字</strong></strong>)**</p>
+<p>A<strong>数学深渊图解****(4k<strong><strong>字</strong></strong>)</strong></p>
+<p><strong>数学深渊图解</strong>**(<strong><strong>概述和分解</strong></strong>)**</p>
+<p>文|秦陇纪，数据简化DataSimp©20190830Fri0810Sat</p>
+<p>DataSimp223数学深渊图解DS20190830FriQinDragon.docx</p>
+<p><strong>简介</strong>：数学深渊图解。<strong>作者</strong>：秦陇纪。<strong>素材</strong>：媒体微信群聊素材附出处。<strong>下载</strong>：如需本文<strong>5k<strong><strong>字</strong></strong>34<strong><strong>图</strong></strong>34<strong><strong>页</strong></strong>PDF</strong>资料，分享或赞赏支持后，公号发“<strong>数学深渊</strong>”获取链接。<strong>版权</strong>：科普文章仅供学习，公开部分资料©版权归原作者，请勿用于商业非法目的，数据简化社区保留相应版权。有事留言或邮询QinDragon2010@qq.com。<strong>转载</strong>：请保留作者、出处、时间等信息，如“出自公号©数据简化DataSimp，作者：秦陇纪，时间：20190830Fri©数据简化SataSmip社区NC非商业授权”等.</p>
+<p>“<strong>数据简化****DataSimp</strong>”公众科普技术分享</p>
+<p><strong>社区</strong>：“数据简化DataSimp、科学Sciences、知识简化”新媒体聚集<strong>专业领域一线研究员</strong>；研究技术时也传播知识、专业视角解释和普及科学现象和原理，展现自然社会生活之科学面。PhDS01秦陇纪发起，期待您参与各领域；科学技术论文投稿邮箱DataSimp@126.com。<strong>只会</strong>敲门呐喊，不能<strong>推动领域；只有</strong>空想设计，无法实现生产，就虚度一生。<strong>工程技术能力</strong>至关重要，秦陇纪与君共勉之。欢迎科学、工程、技术、教育、传媒等业界专家投稿、加入数据简化社区！欢迎大家分享、赞赏、支持科普~~</p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/Easy%20On%20Me.m4a" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/2021-11-03/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E7%90%86%E7%A7%91/">理科</a>,&nbsp;<a href="/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>,&nbsp;<a href="/zh-cn/tags/%E7%8E%A9/">玩</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/31-1/" class="prev" rel="prev" title="平铺式窗口管理器-yabai"><i class="fas fa-angle-left fa-fw"></i>平铺式窗口管理器-yabai</a>
+            <a href="/zh-cn/2021-01/" class="next" rel="next" title="Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)">Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-01T14:49:40+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"数学深渊图解(概述和分解)(典藏版5k字) "}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

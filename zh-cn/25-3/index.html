@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/25-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-25T14:57:35+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/25-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/25-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/26/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/25-3\/"
+        },"genre": "posts","keywords": "车联网, 卫星, 定位系统, 安全, 威胁, 分析","wordcount":  3614 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/25-3\/","datePublished": "2021-11-25T14:57:35+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/25-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/25-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1987 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1987 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E8%BD%A6%E8%81%94%E7%BD%91/"><i class="far fa-folder fa-fw"></i>车联网</a>&nbsp;<a href="/zh-cn/categories/%E5%8D%AB%E6%98%9F/"><i class="far fa-folder fa-fw"></i>卫星</a>&nbsp;<a href="/zh-cn/categories/%E5%AE%9A%E4%BD%8D%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw"></i>定位系统</a>&nbsp;<a href="/zh-cn/categories/%E5%AE%89%E5%85%A8/"><i class="far fa-folder fa-fw"></i>安全</a>&nbsp;<a href="/zh-cn/categories/%E5%A8%81%E8%83%81/"><i class="far fa-folder fa-fw"></i>威胁</a>&nbsp;<a href="/zh-cn/categories/%E5%88%86%E6%9E%90/"><i class="far fa-folder fa-fw"></i>分析</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3614 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#本报告研究成果由灯塔实验室知风zhifengio安全研究团队发布httpszhifengiomonitor-报告编号c-03"><a href="https://zhifeng.io/monitor">本报告研究成果由灯塔实验室知风Zhifeng.io安全研究团队发布</a> 报告编号：C-03</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#32-协议传输规则">3.2 协议传输规则</a></li>
+    <li><a href="#33-通讯协议解析">3.3 通讯协议解析</a></li>
+    <li><a href="#34-通讯消息例示">3.4 通讯消息例示</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41车联网平台服务端与终端交互的安全风险">4.1车联网平台服务端与终端交互的安全风险</a>
+      <ul>
+        <li><a href="#411-车载终端枚举">4.1.1 车载终端枚举</a></li>
+        <li><a href="#412-车载终端异常数据伪造">4.1.2 车载终端异常数据伪造</a></li>
+        <li><a href="#413-车载终端通信伪造">4.1.3 车载终端通信伪造</a></li>
+      </ul>
+    </li>
+    <li><a href="#42-车联网平台服务端安全风险">4.2 车联网平台服务端安全风险</a>
+      <ul>
+        <li><a href="#421-服务端管理web安全风险">4.2.1 服务端管理WEB安全风险</a></li>
+        <li><a href="#422-api接口安全风险">4.2.2 API接口安全风险</a></li>
+        <li><a href="#423-平台运维管理风险">4.2.3 平台运维管理风险</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="国内在线车联网平台道路运输车辆卫星定位系统安全威胁分析">国内在线车联网平台（道路运输车辆卫星定位系统）安全威胁分析</h1>
+<h3 id="本报告研究成果由灯塔实验室知风zhifengio安全研究团队发布httpszhifengiomonitor-报告编号c-03"><a href="https://zhifeng.io/monitor" target="_blank" rel="noopener noreffer">本报告研究成果由灯塔实验室知风Zhifeng.io安全研究团队发布</a> 报告编号：C-03</h3>
+<h1 id="一前言">一、前言</h1>
+<p>车联网技术本身是指：车辆上的车载设备通过无线通信技术，对信息网络平台中的所有车辆动态信息进行有效利用，在车辆运行中提供不同的功能服务。车联网表现出以下几点特征为：能够为车与车之间的行驶提供保障，降低车辆发生碰撞事故的几率；可以帮助车主实时导航，并通过与其它车辆和网络系统的通信，提高交通运行的效率；帮助监管/监控方掌控车辆的实时、历史信息，提升车辆管控效率。</p>
+<p>一旦车载终端通讯设备或车联网终端管理平台被黑客入侵，黑客可能间接或直接监控汽车的实时运行状态和车辆行驶轨迹，甚至可能对运行参数进行修改，这都将对正在运行的汽车造成不堪设想的后果。</p>
+<h1 id="二现状">二、现状</h1>
+<p>目前车联网安全行业研究人员相对较少，远远不如传统安全行业人员众多。在开展安全研究时又因为投入成本高，有极高入门门槛，同时车联网行业的错综复杂，应用的各种通讯协议规范、平台应用众多，导致对于独立安全研究人员来说对车联网安全研究入手相对来说比较难。</p>
+<p>终端与服务端的通讯协议是车联网平台中最基础最重要的部分，起到连接和沟通两端的作用，交通部委和各省交通厅都对此制定了相关标准。而在诸多通讯协议标准中， JT/T808协议标准作为交通部牵头定制的用于规定国内道路运输车辆卫星定位系统车载终端与平台之间的通讯协议标准，对各地方性协议的制定具有指导作用，并且被车联网平台所广泛应用，具有一定的权威性和通用性。我们将从对JT/T808协议标准的分析入手，然后进一步分析车联网平台端存在的安全风险，希望能够给大家在相关车联网安全研究上提供一定的帮助。</p>
+<h1 id="三协议介绍">三、协议介绍</h1>
+<p>JT/T808全称为《道路运输车辆卫星定位系统终端通讯协议及数据格式》，其中按照年份现阶段共发布了三个相关版本分别为：JT/T808-2011、JT/T808-2013、JT/T808-2019。协议规定了道路运输车辆卫星定位系统车载终端与车联网监管/监控平台之间的通信协议与数据格式, 包括协议基础、通信连接、消息处理、协议分类与要求及数据格式。</p>
+<p>JT/T808通信协议采用TCP或UDP进行封装传输，车联网监管/监控平台（以下简称“平台”）作为服务器端，道路运输车辆卫星定位系统车载终端（以下简称“终端”）作为客户端。当数据通信链路异常时，终端可采用SMS消息方式通信，通信整体流程如下：</p>
+<p><img
+        class="lazyload"
+        data-src="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-1024x560.png"
+        data-srcset="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-1024x560.png, http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-1024x560.png 1.5x, http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-1024x560.png 2x"
+        data-sizes="auto"
+        alt="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-1024x560.png"
+        title="img"
+    /></p>
+<h2 id="32-协议传输规则">3.2 协议传输规则</h2>
+<p>协议应采用大端模式的网络字节序来传递字和双字。传输规则约定如下：</p>
+<p>BYTE的传输，按照字节流的方式传输；</p>
+<p>WORD的传输，先传递高八位，再传递低八位；</p>
+<p>DWORD的传输，先传递高二十四位，然后传递高十六位，再传递高八位，最后传递低八位。</p>
+<h2 id="33-通讯协议解析">3.3 通讯协议解析</h2>
+<p>每条消息由标识位、消息头、消息体和校验码组成，详细数据结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>标识位</th>
+<th>消息头</th>
+<th>消息体</th>
+<th>校验码</th>
+<th>标志位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>JT/T808协议采取0x7e作为数据标识位，标识位位于每条消息的首尾两端；对于除标识位之外的0x7e和0x7d则要进行转义：</p>
+<p>先7d→7d 01</p>
+<p>再7e→7d 01</p>
+<p>消息头中主要包括：消息ID、消息体属性、协议版本号、终端手机号、消息流水号、消息包封装。</p>
+<p>消息体的数据格式和内容根据对应命令进行确定，消息体的相关属性由消息头中的消息体属性来确定，具体包括：保留字段、版本标识、分包、数据加密方式、消息体长度。</p>
+<p>校验码通过异或方式计算得到。</p>
+<h2 id="34-通讯消息例示">3.4 通讯消息例示</h2>
+<p>服务端发送信息例示——车门加锁命令：</p>
+<p>7E 85 00 00 01 01 23 45 67 89 98 00 06 01 14 7E</p>
+<p>消息分析：</p>
+<table>
+<thead>
+<tr>
+<th><strong>内容</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>数据类型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7E</td>
+<td>标识位</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>85 00</td>
+<td>消息ID——车辆控制</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>00 01</td>
+<td>消息体属性</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>01 23 45 67 89 98</td>
+<td>终端手机号</td>
+<td>BCD[10]</td>
+</tr>
+<tr>
+<td>00 06</td>
+<td>流水号</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>01</td>
+<td>消息体</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>校验码</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>7E</td>
+<td>标识位</td>
+<td>BYTE</td>
+</tr>
+</tbody>
+</table>
+<p>终端发送信息例示——终端位置信息上报：</p>
+<p>7E 02 00 00 26 01 23 45 67 89 98 00 7D 02 00 00 00 01 00 00 00 02 00 BA 7F 0E 07 E4 F1 1C 00 28 00 3C 00 00 18 10 15 10 10 10 01 04 00 00 00 64 02 02 00 7D 01 13 7E</p>
+<p>消息分析：</p>
+<table>
+<thead>
+<tr>
+<th><strong>内容</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>数据类型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7E</td>
+<td>标识位</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>02 00</td>
+<td>消息ID——位置信息汇报</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>00 26</td>
+<td>消息体属性</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>01 23 45 67 89 98</td>
+<td>终端手机号</td>
+<td>BCD[10]</td>
+</tr>
+<tr>
+<td>00 7D 02（转义前00 7E）</td>
+<td>流水号</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>00 00 00 01 00 00 00 02 00 BA 7F 0E 07 E4 F1 1C 00 28 00 3C 00 00 18 10 15 10 10 10 01 04 00 00 00 64 02 02 00 7D 01</td>
+<td>消息体</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>校验码</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>7E</td>
+<td>标识位</td>
+<td>BYTE</td>
+</tr>
+</tbody>
+</table>
+<p>注：流水号中7D 02转义前为7E，消息体中7D 01转义前为7D；转义封包等规则详见《JTT 808-2019-道路运输车辆卫星定位系统终端通讯协议及数据格式》</p>
+<h1 id="四车联网平台端可能存在的安全风险分析">四、车联网平台端可能存在的安全风险分析</h1>
+<h2 id="41车联网平台服务端与终端交互的安全风险">4.1车联网平台服务端与终端交互的安全风险</h2>
+<p>车联网平台与终端在JT/T808协议时，一般的鉴权机制为：终端在未注册状态下，首先进行注册，注册成功后终端将获得鉴权码并保存，鉴权码在终端登录时使用，车辆需要拆除或更换终端前，终端应该执行注销操作，取消终端和车辆的对应关系。</p>
+<p>鉴于车联网平台开发厂家众多，在平台服务端协议栈的实现方面不同的厂家，可能存在不同的实现思路，从技术层面分析车联网平台端可能存在如下风险：</p>
+<h3 id="411-车载终端枚举">4.1.1 车载终端枚举</h3>
+<p>直接通过发送符合JT/T808协议格式的数据包到达服务端后，平台不进行相关鉴权也会返回给客户端符合JT/T808协议格式的数据包，因此可以发送携带不同的终端手机号的数据包，根据服务端的响应来对终端进行枚举，探测真实存在的终端手机号。黑客可以通过此方式实现专项渗透测试攻击，极易锁定相关目标。</p>
+<h3 id="412-车载终端异常数据伪造">4.1.2 车载终端异常数据伪造</h3>
+<p>根据JTT808协议规定，终端在正式进行使用之前，设备首先会发送注册数据通过服务端进行注册，服务端注册成功后终端将获得鉴权码，并把相关注册信息在平台保存。这一过程中看似没有相关安全风险，但是如果攻击者通过伪造注册请求或者其他符合协议的异常数据内容，服务端将会出现大量异常设备验证或鉴权操作错误日志与记录，干扰管理人员审计；并以此消耗服务器运算资源，从而可能导致服务端拒绝服务。</p>
+<h3 id="413-车载终端通信伪造">4.1.3 车载终端通信伪造</h3>
+<p>在协议通讯过程中，JT/T808服务端的开发者可能并不会对数据上报来源进行限制，因此再得知设备的终端手机号车牌号等信息的情况下，可以通过模拟设备与数据平台进行通讯，发送异常报警与位置数据。</p>
+<h2 id="42-车联网平台服务端安全风险">4.2 车联网平台服务端安全风险</h2>
+<h3 id="421-服务端管理web安全风险">4.2.1 服务端管理WEB安全风险</h3>
+<p>车联网平台为了便于使用者的访问和操作，通常使用Web服务来实现管理平台端。因此同样易受到各类Web安全风险影响，如弱口令、敏感信息泄露、未授权访问、中间件RCE等安全风险影响。</p>
+<p>我们在研究中发现“登录弱口令（初始口令）”、“数据库暴露公网，数据库弱口令（初始密码）”以及敏感信息泄露（日志文件泄露数据库连接密码、泄露车辆sim号）等风险较为常见，并以较低的利用成本威胁车联网系统信息安全。</p>
+<h3 id="422-api接口安全风险">4.2.2 API接口安全风险</h3>
+<p>一些车联网平台的移动端程序与服务端进行数据交互一般通过API接口来实现，同时API接口也被用于第三方平台请求车联网平台的数据。这些API接口可能存在着安全隐患，例如：越权，输入控制（xss、注入），接口滥用（爆破），信息泄露等。</p>
+<h3 id="423-平台运维管理风险">4.2.3 平台运维管理风险</h3>
+<p>车联网平台功能众多，操作起来相对复杂，并且平台部署涉及诸多软件和服务，对于非相关专业的管理人员和运维人员来说操作有一定难度，若没有专业的技术培训和安全培训则可能对平台带来一定风险。</p>
+<p>例如运维配置不当导致车辆信息报送漏发、错发数据造成的风险等。平台管理安全意识不足或对平台使用不理解则可能导致管理账号弱口令，下级账号权限分配不当以致信息泄露或越权操作等安全风险。</p>
+<h1 id="五在线情况分析">五、在线情况分析</h1>
+<p>目前，使用JT/T808的车载终端主要通过物联网SIM卡，经由3G、4G网络，与位于互联网的车联网平台服务端进行通讯，JT/T808协议的标准规范方面目前没有具体约定TCP/UDP传输的方式和标准的通信端口，一般用户会自行选择使用TCP或者UDP指定特定端口进行数据通信。</p>
+<p>根据Zhifeng综合分析数据显示国内车联网平台分布情况如下：</p>
+<p><img
+        class="lazyload"
+        data-src="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-china-1024x740.png"
+        data-srcset="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-china-1024x740.png, http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-china-1024x740.png 1.5x, http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-china-1024x740.png 2x"
+        data-sizes="auto"
+        alt="http://plcscan.org/blog/wp-content/uploads/2020/11/jtt808-china-1024x740.png"
+        title="img"
+    /></p>
+<h1 id="六解决方案与对应策略">六、解决方案与对应策略</h1>
+<p>根据知风安全分析团队研究发现，当前JT/T808车联网通讯协议中存在的风险主要来自三个方面，分别是：服务端厂商搭建的车联网平台WEB系统安全风险隐患与厂商根据通讯协议开发的通讯程序存在的隐患以及通讯协议中设计逻辑存在的缺陷可能导致的安全风险。</p>
+<p>我们建议在针对通讯协议层通讯数据实施安全优化，针对互联网在线的车联网平台的协议服务端针对异常逻辑的数据包不响应，有条件情况下可以尝试升级成必要的加密通讯，按照加密规范来约束各个厂商之间的实现逻辑；厂商开发的通讯程序时应严格按照协议标准规定进行开发，并应在上线前对程序进行安全测试；车联网平台WEB系统方面应该避免出现常见的弱口令、信息泄露、目录遍历、RCE等漏洞。</p>
+<h1 id="七如何确认我当前周边是否存在车联网平台">七、如何确认我当前周边是否存在车联网平台？</h1>
+<p>您可以使用移动设备浏览器登录Zhifeng.io或直接使用移动设备浏览器打开：https://zhifeng.io/mobile/online 来查看您周边是否存在车联网平台。</p>
+<h1 id="八参考链接">八、参考链接</h1>
+<p><a href="http://www.mot.gov.cn/yijianzhengji/201706/P020170629514064508301.pdf" target="_blank" rel="noopener noreffer">http://www.mot.gov.cn/yijianzhengji/201706/P020170629514064508301.pdf</a></p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/1.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/25-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a>,&nbsp;<a href="/zh-cn/tags/%E5%8D%AB%E6%98%9F/">卫星</a>,&nbsp;<a href="/zh-cn/tags/%E5%AE%9A%E4%BD%8D%E7%B3%BB%E7%BB%9F/">定位系统</a>,&nbsp;<a href="/zh-cn/tags/%E5%AE%89%E5%85%A8/">安全</a>,&nbsp;<a href="/zh-cn/tags/%E5%A8%81%E8%83%81/">威胁</a>,&nbsp;<a href="/zh-cn/tags/%E5%88%86%E6%9E%90/">分析</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/25-2/" class="prev" rel="prev" title="为什么无法突破到下一个层级？"><i class="fas fa-angle-left fa-fw"></i>为什么无法突破到下一个层级？</a>
+            <a href="/zh-cn/26/" class="next" rel="next" title="關於 Starlink">關於 Starlink<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-25T14:57:35+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"国内在线车联网平台（道路运输车辆卫星UHF定位系统）安全威胁分析"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

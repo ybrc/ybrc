@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>2021年如何阻止邻居的WiFi信号 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="2021年如何阻止邻居的WiFi信号" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/28-4/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-28T13:04:42+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="2021年如何阻止邻居的WiFi信号"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/28-4/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/28-3/" /><link rel="next" href="https://ybrc.github.io/zh-cn/28-5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "2021年如何阻止邻居的WiFi信号",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/28-4\/"
+        },"genre": "posts","wordcount":  2419 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/28-4\/","datePublished": "2021-11-28T13:04:42+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/28-4/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/28-4/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">2021年如何阻止邻居的WiFi信号</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-28">2021-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2419 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#如何阻止邻居的wifi信号">如何阻止邻居的WiFi信号</a>
+      <ul>
+        <li><a href="#我如何判断我邻居的wifi信号是否足够强大足以造成干扰">我如何判断我邻居的WiFi信号是否足够强大，足以造成干扰？</a></li>
+        <li><a href="#阻止邻居wifi信号的解决方案">阻止邻居Wifi信号的解决方案</a></li>
+        <li><a href="#解决wifi干扰的其他替代方案">解决WiFi干扰的其他替代方案</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="2021年如何阻止邻居的wifi信号">2021年如何阻止邻居的WiFi信号</h1>
+<p>您的WiFi连接有问题吗？如果它在你的家里被打乱了，这可能是由于各种因素。服务提供商可能需要修复故障，或者邻居的WiFi可能存在问题。</p>
+<p>当您邻居的WiFi信号强烈时，您的WiFi信号将中断。当信号干扰严重时，您的WiFi信号会更弱，结果可能会延迟。对于那些在家工作或参加在线课程的人来说，这种情况可能会非常恼火和恼火。你不必再就此与邻居争论了，因为你可以很容易地阻止邻居的WiFi信号。因此，为了救您，我们有一篇关于如何阻止邻居的WiFi信号的帖子。</p>
+<h2 id="如何阻止邻居的wifi信号">如何阻止邻居的WiFi信号</h2>
+<h3 id="我如何判断我邻居的wifi信号是否足够强大足以造成干扰">我如何判断我邻居的WiFi信号是否足够强大，足以造成干扰？</h3>
+<p>WiFi信号问题可以是多方面的。在假设邻居的WiFi干扰您的WiFi之前，请与您的服务提供商验证或尝试刷新路由器。如果除了邻居的WiFi经常出现在你的范围内外，一切似乎都正常，你应该把它视为潜在的破坏者。</p>
+<p>虽然您和您的邻居可能拥有不同的服务提供商，但两个相互竞争的信号将造成干扰，特别是当它们相近和重叠时。通过分析其射频频谱在您的范围内传播时，您可以确定邻居互联网连接的强度。WiFi网络的名称可能表明它是在2.4GHz（千兆赫）还是5GHz运行。您还可以检查WiFi信号栏，并将其与个人网络的信号进行比较。</p>
+<p>如果您的设备以较慢的2.4GHz频率运行，而您的邻居以更快的5GHz频段运行，则可能会出现信号干扰。</p>
+<h3 id="阻止邻居wifi信号的解决方案">阻止邻居Wifi信号的解决方案</h3>
+<p>将网络名称添加到设备的块列表中只会模糊网络名称，对信号没有影响。以下是阻止邻居WiFi信号的三种实用方法：</p>
+<p>**更改路由器在家的位置。</p>
+<p>**将路由器从邻居的路由器移开是获得良好信号的最简单技术。将其从侧壁移至房屋中更中央的区域。如果您知道邻居的WiFi在哪里，选择位置会更容易。否则，您必须一次尝试一个位置，看看是否有任何变化。</p>
+<p>这种移动路由器的方法仅适用于非拥堵区域。如果您居住在拥挤不堪的房屋或只有墙壁作为您与邻居之间隔板的公寓中，这种策略可能有效，也可能不奏效。然而，你确实有其他可能性。</p>
+<p>**转移到另一个频率。</p>
+<p>**有两个WiFi频率经常使用。2.4GHz频域更长但速度较慢，而5GHz频域更短但更快。出于三个原因，您应该切换到5GHz频段，以避免信号干扰。</p>
+<p>首先，由于5GHz频率不如2.4GHz频率流行，因此在任何特定位置的竞争更有可能减少。其次，它的射程更短。即使您和您的邻居共享相同的5GHz频段，您也可以将路由器迁移到家中，以获得更强的信号。第三，它的信道数量超过2.4GHz范围。如果很多人使用相同的频率，您可以更改为用户较少的频道。</p>
+<p>**获取领土设置</p>
+<p>**您可以使用无线网状系统来确保连续的信号和互联网连接。您不会受到邻居WiFi信号干扰的影响，但您的邻居可能会受到您的领土配置的影响。</p>
+<p>**更改频率的频道。</p>
+<p>**每个WiFi频率都有自己的一组频道。2.4GHz频率包含11个信道，而5GHz频段包含23个信道（有时更高）。由于路由器的限制，频率转移并不总是可能的。在您投资新路由器之前，请尝试切换到其他频道。认为这一战略等同于改变广播电台。</p>
+<p>要更改频道，您必须首先确定您所在地区最常使用的频道。有些应用程序和应用程序会为您分析数据。然而，您可以使用反复试验的方法。最常用的2.4GHz信道是1、6和11，而最常用的5GHz信道是36、40、44和48。应该指出，给定频率的信道不一定遵循逻辑模式。</p>
+<p>登录您的WiFi网络以更改频道。在任何网页浏览器中输入路由器的IP地址，然后按“回车”。如果打开警告消息，只需单击“高级”，后跟“继续”。您的登录名和密码是必需的。登录后，导航到“无线设置”，然后选择“频道”下拉菜单。将频道从“自动”更改为首选频道，然后保存更改。</p>
+<p>您可以随时检查您所在地区的信号速度。使用fast.com根据邻居的WiFi开/关状态确定速度。</p>
+<p>**减少连接的设备数量</p>
+<p>**如果您的网络遇到问题，您可以尝试在任何给定时刻限制连接到WiFi的设备数量。您还可以通过关闭设备上的WiFi和蓝牙来减少干扰，以提高互联网连接的效率。</p>
+<h3 id="解决wifi干扰的其他替代方案">解决WiFi干扰的其他替代方案</h3>
+<p><strong>跟你的邻居谈谈</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://private-spy.com/wp-content/uploads/2021/11/word-image-5.jpeg"
+        data-srcset="https://private-spy.com/wp-content/uploads/2021/11/word-image-5.jpeg, https://private-spy.com/wp-content/uploads/2021/11/word-image-5.jpeg 1.5x, https://private-spy.com/wp-content/uploads/2021/11/word-image-5.jpeg 2x"
+        data-sizes="auto"
+        alt="https://private-spy.com/wp-content/uploads/2021/11/word-image-5.jpeg"
+        title="如何阻止邻居的WiFi信号"
+    /></p>
+<p>出于对隐私的尊重，邻居们经常避免询问与WiFi有关的问题。对于最近搬迁的邻居来说，情况确实如此。然而，实施协作策略将增加您解决信号干扰问题的机会。你可能也给他们造成了同样的问题。您可以请求不太敏感的信息，如路由器位置、WiFi频率和WiFi通道。这些数据将帮助您对家庭网络进行必要的更改。如果你有不止一个邻居，你更有理由和邻居谈谈。信号干扰可能会更糟。</p>
+<p><strong>建造更厚的混凝土墙</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://private-spy.com/wp-content/uploads/2021/11/word-image-6.jpeg"
+        data-srcset="https://private-spy.com/wp-content/uploads/2021/11/word-image-6.jpeg, https://private-spy.com/wp-content/uploads/2021/11/word-image-6.jpeg 1.5x, https://private-spy.com/wp-content/uploads/2021/11/word-image-6.jpeg 2x"
+        data-sizes="auto"
+        alt="https://private-spy.com/wp-content/uploads/2021/11/word-image-6.jpeg"
+        title="如何阻止邻居的WiFi信号"
+    /></p>
+<p>这一战略有助于阻止来自其他来源的信号，但它需要为大楼花费资金。如果您要租房，您可能还需要获得房东的批准。</p>
+<p><strong>发送阻止信号来干扰邻居的WiFi</strong></p>
+<p>您可以使用一些明确设计的应用程序，通过发送块信号来干扰某人的WiFi信号。在一些国家，这被认为是非法的，你可能会因此被罚款。因此，很少有人利用这种策略来解决WiFi中断问题。因此，您屏蔽其WiFi的人最终会了解它。</p>
+<p><strong>开始使用以太网电缆</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://private-spy.com/wp-content/uploads/2021/11/word-image-7.jpeg"
+        data-srcset="https://private-spy.com/wp-content/uploads/2021/11/word-image-7.jpeg, https://private-spy.com/wp-content/uploads/2021/11/word-image-7.jpeg 1.5x, https://private-spy.com/wp-content/uploads/2021/11/word-image-7.jpeg 2x"
+        data-sizes="auto"
+        alt="https://private-spy.com/wp-content/uploads/2021/11/word-image-7.jpeg"
+        title="img"
+    /></p>
+<p>以太网连接不受任何形式的信号中断的影响。如果您需要做一些紧急任务，您可以轻松切换到以太网线。任何计算机商店都有适配器，可用于将笔记本电脑和手机连接到以太网。</p>
+<p><strong>结论</strong></p>
+<p>虽然您可以使用本文中的任意一项或多项技术，以避免阻塞并改善WiFi小工具的WiFi互联网连接。您还可以使用任何策略来防止WiFi中断和邻居WiFi的干扰。</p>
+<p>只需在同一WiFi频率上从一个网络通道切换到另一个网络通道，就可以大幅改变无线强度。将设备通道更改为更快的网络，就像更改射频一样。大多数时候，您可能会对为什么遇到WiFi干扰和中断感到困惑。</p>
+<p>减少WiFi连接设备的数量可以让您远离烦人的WiFi情况。此外，在不使用或不需要时，请尝试关闭蓝牙和WiFi。如果您成功使用以下任何或所有方式，您可以获得持续的WiFi信号。你不会再被邻居的家庭Wi-Fi网络打扰了。</p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/55.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/28-4/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/28-3/" class="prev" rel="prev" title="关于日常应用那些不得不说的事儿(0)"><i class="fas fa-angle-left fa-fw"></i>关于日常应用那些不得不说的事儿(0)</a>
+            <a href="/zh-cn/28-5/" class="next" rel="next" title="利用ESP32-Cam制作IP-Camera【microPython】">利用ESP32-Cam制作IP-Camera【microPython】<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-28T13:04:42+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"2021年如何阻止邻居的WiFi信号"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

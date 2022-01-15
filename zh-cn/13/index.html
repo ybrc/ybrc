@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>DeepFaceLab3：软硬件以及系统要求 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="DeepFaceLab3：软硬件以及系统要求" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/13/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-13T11:42:42+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="DeepFaceLab3：软硬件以及系统要求"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/13/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/12/" /><link rel="next" href="https://ybrc.github.io/zh-cn/13-1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DeepFaceLab3：软硬件以及系统要求",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/13\/"
+        },"genre": "posts","keywords": "AI 换脸","wordcount":  2679 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/13\/","datePublished": "2021-12-13T11:42:42+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/13/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/13/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">DeepFaceLab3：软硬件以及系统要求</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/ai-%E6%8D%A2%E8%84%B8/"><i class="far fa-folder fa-fw"></i>AI 换脸</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-13">2021-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2679 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+    <li><a href="#硬件">硬件</a></li>
+    <li><a href="#软件">软件</a></li>
+    <li><a href="#系统">系统</a></li>
+    <li><a href="#驱动">驱动</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# DeepFaceLab3：软硬件以及系统要求
+<p>好久不见，近来半年都在挖矿，种田，搞区块链。这段时间DeepFaceLab也有了不少更新，最大的更新是新出了AMP模型和实时换脸软件DeepFaceLive。所以准备详细的写一个新的系列教程。从0开始，一直写到实时换脸。</p>
+<p>DeepFaceLab并没有内置版本号，我们通常都是用发布日期来做版本区别。为了看起来更加直观，我就把2021发布的支持3000系列显卡的版本称为DeepFaceLab3.0，这个教程里面用的版本为DeepFacelab20210801中文版。</p>
+<p>工欲善其事必先利其器，想要玩转换脸，硬件，软件，系统必须跟上！先从准备工作说起。</p>
+<ul>
+<li>硬件</li>
+<li>软件</li>
+<li>系统</li>
+<li>驱动</li>
+</ul>
+<h2 id="heading"></h2>
+<h2 id="硬件">硬件</h2>
+<p>换脸软件出来也好几年了，但是目前依旧对硬件依赖比较大。想要在自己电脑上跑换脸软件就必须要一张显卡，想要轻松点，就必须要一张好显卡（今年搞一张好显卡不容易）。 显卡主要分N卡（英伟达）和A卡（AMD），一般来说是推荐N卡，N卡的支持会更好，使用场景更广泛。 在DeepFaceLab的历史版本中，曾经有支持A卡的opencl版本，中途放弃了对A卡的支持，2021终于有了支持A卡的DirectX12版本。总的来说，买一张中上水平的N卡，肯定可以玩，如果是A卡就需要确认支持DirectX12。</p>
+<p>常见的N卡有10系列，20系列，30系列。还有丽台，泰坦，特斯拉，安倍。几乎所有显存大于2G的N卡都支持。 rtx3060 12G 因为显存大，对于跑模型有优势，性价比较高。所有60结尾的卡，都是性价比比较高，功耗比较低，显存还可以。而50结尾的卡么….。如果你只在乎性能，那么可以上目前最强的游戏卡RTX3090，指导价一万出头，市场价可能两万多。除了3090，上一代的2080ti，和上上代的1080ti 也是一个不错的选择，这两张卡显存比较给力，速度也比较快，提取头像比3000系列还有优势。</p>
+<p>除了显卡之外，其实CPU最好也跟上。显卡特别快，处理器跟不上，整体速度就会下来。显卡和cpu的比较强的情况下，电源供电一定要有保障。电源不够的话，烧卡不至于，但是可能会重启，不稳定。</p>
+<p>关于硬盘，使用普通HDD完全没有问题，用SSD的话在某些情况下会更好。比如加载，写入的时候，还有大量素材图片拷贝，黏贴，删除的时候。</p>
+<p>总而言之，想要玩基于深度学习的软件，都需要中高端配置。其中显卡和显存是核心指标。</p>
+<p>除了使用本地显卡之外，也可以在云平台租用显卡，这种平台很多，比如阿里云，腾讯云，百度云，滴滴云，矩池云。这种方式好处是随时随地都可以用，不用关心散热和噪音，不用管电费，也不用本地挂机。一启动就可以让它自己修炼去，时间到了我们去摘果子就好了。通过远程桌面可以像本地电脑一样操作，非常便捷。唯一的缺点就是“贵” ，没有任何残值可言。</p>
+<p>在云端方案中google推出的Colab是极具性价比的一种方案。首选，免费用户也可以使用，只是分配到的设备比较差，一般是k80。其次，会员很便宜，9.9刀就能用上V100,P100。现在好像推出了更贵套餐。缺点是需要科学上网，需要了解脚本，脚本有执行时长限制，需要有一台电脑挂机。 这种方案是基于浏览器的，所以理论上任何有浏览器的设备都可以使用，但是还是推荐用电脑。</p>
+<p>我有在GitHub创建了一个叫DeepFaceLab_colab的项目，使用定制的脚本通过点点点就能使用colab来炼丹了，目前脚本已经更新到V5，支持最新版本。近期我会针对V5写一个详细的教程（如果不鸽~~~）</p>
+<h2 id="软件">软件</h2>
+<p>软件方面，DeepFaceLab相比之前的一些换脸软件，最大的优势就是“集成” 。如果你使用DeepFaceLab，千万不要去装什么CUDA，CUDN，除非你知道自己在干什么。</p>
+<p>软件方面主要是注意版本的问题。</p>
+<p>DeepFaceLab最早的版本可以追溯到2018年，目前比较推荐的是2020年8月份的版本，以及2021年8月份的版本。选择版本需要注意几个点。</p>
+<ul>
+<li>A卡还是N卡？ A卡只能用2019年opencl版和2021的DirectX12版。</li>
+<li>RTX3000系列么？3000系列推荐最新的版本，20系列和更早的卡推荐20200802版本。</li>
+<li>AMP模型和DeepFaceLive 需要使用最新版20210801,老版本没有导出模型的功能</li>
+</ul>
+<p>目前发布的软件中，往往都包含三个版本，每个版本都针对不同的设备。</p>
+<ul>
+<li>RTX2080ti：针对2080ti以及以下版本</li>
+<li>RTX3000：针对3000系列显卡</li>
+<li>DirectX12：针对支持DirectX12</li>
+</ul>
+<p>需要注意的是，2080ti版肯定不能用在30系列显卡上，而rtx3000可以支持老显卡。DirectX12并不针对A卡或者N卡，而是针对支持DirectX12的显卡设备。言下之意不支持DirectX12的显卡，不管你姓黄还是姓苏，都没用。大部分新卡都支持！</p>
+<h2 id="系统">系统</h2>
+<p>从大的的范畴来说，除了MacOS支持不好之外，window和linux全部可以使用。</p>
+<p>敢用Linux的反正的自己都有几把刷子，可以自己去研究。想要省点时间的可以参考我在deepfaker.xyz上面写的文章，阿里云，滴滴云，矩池云我都专门写过非常详细的文章，虽然版本升级了，但是依旧是那些套路。</p>
+<p>Window方面，主要是支持win10和win7。但是随着30系列新显卡的推出，WIN7不推荐了。使用30系列显卡的朋友需确保三件事情：</p>
+<ul>
+<li>操作系统版本Win10 20h2+</li>
+<li>驱动去官方下载更新到最新</li>
+<li>启用操作系统的GPU加速计划</li>
+</ul>
+<p>驱动不够新，提取这一步就过不了。</p>
+<p>系统不够新，没有GPU加速选项</p>
+<p>没有GPU加速选项，可能导致训练卡死。</p>
+<p>新版驱动似乎对GPU加速没有要求，但是保险起见，还是先把上面几点做好。</p>
+<p>最后提示一下，XP和32位系统请自觉回避。</p>
+<h2 id="驱动">驱动</h2>
+<p>DeepFaceLab唯一的依赖就是驱动。驱动最大的问题就是不够新，因为DFL一直在更新，往往都是针对最新的版本。所以驱动一定要跟上。用鲁大师和驱动精灵的需要注意一下，这些第三方软件安装的驱动有可能不是最新的，会出现问题。</p>
+<p>关于如何查看驱动版本，如何安装官方驱动，以及驱动的官方下载地址，我在之前的文章中都有提过，在deepfaker.xyz搜驱动就可以找到。</p>
+<p>DeepFaceLab3系列</p>
+<p><a href="https://ybrc.github.io/zh-cn/13" target="_blank" rel="noopener noreffer">DeepFaceLab3：软硬件以及系统要求</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-1" target="_blank" rel="noopener noreffer">DeepFaceLab3：工作目录和基本概念</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-2" target="_blank" rel="noopener noreffer">DeepFaceLab3：视频换脸完整流程详解！</a></p>
+<p><a href="https://ybrc.github.io/zh-cn/13-3" target="_blank" rel="noopener noreffer">DeepFaceLab3：模型的异同，选择，基础操作！</a></p>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/80.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/13/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/ai-%E6%8D%A2%E8%84%B8/">AI 换脸</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/12/" class="prev" rel="prev" title="windows 11安装安卓应用程序"><i class="fas fa-angle-left fa-fw"></i>windows 11安装安卓应用程序</a>
+            <a href="/zh-cn/13-1/" class="next" rel="next" title="DeepFaceLab3：工作目录和基本概念">DeepFaceLab3：工作目录和基本概念<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-13T11:42:42+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"DeepFaceLab3：软硬件以及系统要求"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

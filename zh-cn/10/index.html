@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>浏览器控制台命令调试——console - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="浏览器控制台命令调试——console" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/10/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-10T16:40:15+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="浏览器控制台命令调试——console"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/10/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/09/" /><link rel="next" href="https://ybrc.github.io/zh-cn/11/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "浏览器控制台命令调试——console",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/10\/"
+        },"genre": "posts","keywords": "浏览器, Web, 命令行","wordcount":  4280 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/10\/","datePublished": "2021-11-10T16:40:15+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/10/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/10/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">浏览器控制台命令调试——console</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/"><i class="far fa-folder fa-fw"></i>浏览器</a>&nbsp;<a href="/zh-cn/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a>&nbsp;<a href="/zh-cn/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/"><i class="far fa-folder fa-fw"></i>命令行</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-10">2021-11-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4280 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#方法">方法</a>
+      <ul>
+        <li><a href="#consoleassert"><code>Console.assert()</code></a></li>
+        <li><a href="#consoleclear"><code>Console.clear()</code></a></li>
+        <li><a href="#consolecount"><code>Console.count()</code></a></li>
+        <li><a href="#consoledebug"><code>Console.debug()</code></a></li>
+        <li><a href="#consoledir"><code>Console.dir()</code></a></li>
+        <li><a href="#consoledirxml"><code>Console.dirxml()</code></a></li>
+        <li><a href="#consoleerror"><code>Console.error()</code></a></li>
+        <li><a href="#consoleexception"><code>Console.exception()</code></a></li>
+        <li><a href="#consolegroup"><code>Console.group()</code></a></li>
+        <li><a href="#consolegroupcollapsed"><code>Console.groupCollapsed()</code></a></li>
+        <li><a href="#consolegroupend"><code>Console.groupEnd()</code></a></li>
+        <li><a href="#consoleinfo"><code>Console.info()</code></a></li>
+        <li><a href="#consolelog"><code>Console.log()</code></a></li>
+        <li><a href="#consoleprofile"><code>Console.profile()</code></a></li>
+        <li><a href="#consoleprofileend"><code>Console.profileEnd()</code></a></li>
+        <li><a href="#consoletable"><code>Console.table()</code></a></li>
+        <li><a href="#consoletime"><code>Console.time()</code></a></li>
+        <li><a href="#consoletimeend"><code>Console.timeEnd()</code></a></li>
+        <li><a href="#consoletimestamp"><code>Console.timeStamp()</code></a></li>
+        <li><a href="#consoletrace"><code>Console.trace()</code></a></li>
+        <li><a href="#consolewarn"><code>Console.warn()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#用法">用法</a>
+      <ul>
+        <li><a href="#将文本输出到控制台">将文本输出到控制台</a>
+          <ul>
+            <li><a href="#输出单个对象">输出单个对象</a></li>
+            <li><a href="#输出多个对象">输出多个对象</a></li>
+            <li><a href="#字符串替换">字符串替换</a></li>
+            <li><a href="#给控制台输出加样式">给控制台输出加样式</a></li>
+          </ul>
+        </li>
+        <li><a href="#在控制台中使用组">在控制台中使用组</a></li>
+        <li><a href="#计时器">计时器</a></li>
+        <li><a href="#堆栈跟踪">堆栈跟踪</a></li>
+      </ul>
+    </li>
+    <li><a href="#规范">规范</a></li>
+    <li><a href="#桌面浏览器兼容性">桌面浏览器兼容性</a></li>
+    <li><a href="#移动浏览器兼容性">移动浏览器兼容性</a></li>
+    <li><a href="#注意">注意</a></li>
+    <li><a href="#相关链接">相关链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<p>控制台命令调试时经过浏览器开发工具中的控制台命令嵌入到JavaScript中，输出特定的信息或日志，从而达到调试的目的。html</p>
+<p>咱们经常使用的Chrome和FireFox，均可以经过F12来打开开发工具。node</p>
+<p>下面简要介绍几个经常使用的控制台命令：浏览器</p>
+<p><strong>（1）常规信息输出</strong>函数</p>
+<p>console.log()是咱们最经常使用的命令，只须要将咱们但愿输出的内容传进入便可：工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.log(&#34;这是我要输出的信息&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/470_6a4_b20.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/470_6a4_b20.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/470_6a4_b20.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/470_6a4_b20.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/470_6a4_b20.png"
+        title="img"
+    /></p>
+<p>除了console.log()命令外，咱们还有其它三种命令：开发工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.info(&#34;这是我要输出的信息&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/471_e8d_637.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/471_e8d_637.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/471_e8d_637.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/471_e8d_637.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/471_e8d_637.png"
+        title="img"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.error(&#34;错误信息&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/472_a4d_2ef.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/472_a4d_2ef.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/472_a4d_2ef.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/472_a4d_2ef.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/472_a4d_2ef.png"
+        title="img"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.warn(&#34;警告信息&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/473_1af_0b0.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/473_1af_0b0.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/473_1af_0b0.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/473_1af_0b0.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/473_1af_0b0.png"
+        title="img"
+    /></p>
+<p>从这四种命令的名称就能够看出来它们的做用，它们是用来展现不一样类型信息，使得咱们的信息输出更加规范（我的观点）。spa</p>
+<p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/474_77f_80e.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/474_77f_80e.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/474_77f_80e.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/474_77f_80e.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/474_77f_80e.png"
+        title="img"
+    /></p>
+<p><strong>（2）常规信息分组输出</strong>调试</p>
+<p>大量的信息输出，咱们可使用分组输出来对它们进行分组，方便咱们查看：日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.group(&#34;第一组开始&#34;);
+console.log(&#34;第一组第一条&#34;);
+console.log(&#34;第一组第二条&#34;);
+console.groupEnd();
+
+console.group(&#34;第二组开始&#34;);
+console.log(&#34;第二组第一条&#34;);
+console.log(&#34;第二组第二条&#34;);
+console.groupEnd();
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/475_482_c70.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/475_482_c70.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/475_482_c70.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/475_482_c70.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/475_482_c70.png"
+        title="img"
+    /></p>
+<p>console.group()命令用于分组的开始，console.groupEnd()用来结束分组。code</p>
+<p><strong>（3）对象输出</strong></p>
+<p>console.dir()是专门输出对象全部方法和属性的，咱们就能够不用本身遍历就查看对象的信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var obj = {
+    name: &#34;haha&#34;,
+    desc: &#34;doubi&#34;
+};
+console.dir(obj);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="http://static.noobyard.com/static/loading.gif"
+        data-srcset="http://static.noobyard.com/static/loading.gif, http://static.noobyard.com/static/loading.gif 1.5x, http://static.noobyard.com/static/loading.gif 2x"
+        data-sizes="auto"
+        alt="http://static.noobyard.com/static/loading.gif"
+        title="img"
+    /></p>
+<p><strong>（4）DOM输出</strong></p>
+<p>console.dirxml()命令是专门输出某个节点（node）所包含的html/xml代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var div = document.getElementById(&#34;demo&#34;);
+console.dirxml(div);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="http://static.noobyard.com/static/loading.gif"
+        data-srcset="http://static.noobyard.com/static/loading.gif, http://static.noobyard.com/static/loading.gif 1.5x, http://static.noobyard.com/static/loading.gif 2x"
+        data-sizes="auto"
+        alt="http://static.noobyard.com/static/loading.gif"
+        title="img"
+    /></p>
+<p>因为内容过多，图片并无截全。</p>
+<p><strong>（5）函数调用轨迹监测</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var x = test3(1);
+
+function test(a) {
+    console.trace();
+    return a;
+}
+
+function test1(a) {
+    return test(a);
+}
+
+function test2(a) {
+    return test1(a);
+}
+
+function test3(a) {
+    return test2(a);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="http://static.noobyard.com/static/loading.gif"
+        data-srcset="http://static.noobyard.com/static/loading.gif, http://static.noobyard.com/static/loading.gif 1.5x, http://static.noobyard.com/static/loading.gif 2x"
+        data-sizes="auto"
+        alt="http://static.noobyard.com/static/loading.gif"
+        title="img"
+    /></p>
+<p><strong>（6）计时功能</strong></p>
+<p>有时咱们须要监测一段代码花费的时间，咱们一般能够这样作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var time1 = new Date();
+for (var i = 0; i &lt; 100; i++) {
+
+}
+var time2 = new Date();
+console.log(time2 - time1);
+</code></pre></td></tr></table>
+</div>
+</div><p>咱们还能够经过console.time()和console.timeEnd()帮助咱们完成这件事：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">console.time(&#34;计时器&#34;);
+for (var i = 0; i &lt; 100; i++) {
+
+}
+console.timeEnd(&#34;计时器&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://ewr1.vultrobjects.com/imgur2/000/004/096/479_024_949.png"
+        data-srcset="https://ewr1.vultrobjects.com/imgur2/000/004/096/479_024_949.png, https://ewr1.vultrobjects.com/imgur2/000/004/096/479_024_949.png 1.5x, https://ewr1.vultrobjects.com/imgur2/000/004/096/479_024_949.png 2x"
+        data-sizes="auto"
+        alt="https://ewr1.vultrobjects.com/imgur2/000/004/096/479_024_949.png"
+        title="img"
+    /></p>
+<p>须要注意的是，这两个命令里面的参数要一致，才会输出计时信息。</p>
+<p>好了，在下了解的console经常使用命令就这些啦，若是有遗漏的console相关的其它经常使用命令，也欢迎你们来补充哦。</p>
+<h1 id="console---提供了对浏览器调试控制台的访问">Console - 提供了对浏览器调试控制台的访问</h1>
+<p><strong><code>Console</code></strong> 对象提供了对浏览器调试控制台的访问（例如 Firefox 中的 Web 控制台）。其工作原理的具体细节因浏览器而异，但通常会提供_事实上_的一组功能。</p>
+<p>可以从任何全局对象访问 <code>Console</code> 对象。如 <a href="https://www.mifengjc.com/api/Window.html" target="_blank" rel="noopener noreffer"><code>Window</code></a>，<a href="https://www.mifengjc.com/api/WorkerGlobalScope.html" target="_blank" rel="noopener noreffer"><code>WorkerGlobalScope</code></a> 以及通过属性工作台提供的特殊定义。它定义为 Window.console，可以简单地通过 <code>console</code> 来引用。例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;无法打开指定的链接&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该页面记录了 <code>Console</code> 对象上可用的<a href="https://www.mifengjc.com/api/Console.html#%e6%96%b9%e6%b3%95" target="_blank" rel="noopener noreffer">方法</a>，并提供了一些<a href="https://www.mifengjc.com/api/Console.html#%e7%94%a8%e6%b3%95" target="_blank" rel="noopener noreffer">用法</a>示例。</p>
+<p><strong>注意：</strong> 此特性在 Web Worker 中可用。</p>
+<h2 id="方法">方法</h2>
+<h3 id="consoleassert"><code>Console.assert()</code></h3>
+<p>如果第一个参数是 <code>false</code>，则将消息和堆栈跟踪记录到控制台。</p>
+<h3 id="consoleclear"><code>Console.clear()</code></h3>
+<p>清空控制台。</p>
+<h3 id="consolecount"><code>Console.count()</code></h3>
+<p>输出给定的标签，调用该行的次数。</p>
+<h3 id="consoledebug"><code>Console.debug()</code></h3>
+<p>使用日志级别 <code>&quot;debug&quot;</code> 向控制台输出消息。</p>
+<blockquote>
+<p><strong>注意：</strong> 从 Chromium 58 开始，当选择级别为 “Verbose” 时，该方法的输出才在 Chromium 浏览器控制台中显示。</p>
+</blockquote>
+<h3 id="consoledir"><code>Console.dir()</code></h3>
+<p>显示指定 JavaScript 对象的属性的交互式列表。该列表允许您使用显示三角形来检查子对象的内容。</p>
+<h3 id="consoledirxml"><code>Console.dirxml()</code></h3>
+<p>如果可能，显示指定对象的 XML/HTML 元素表示，如果不可能，则显示 JavaScript 对象视图。</p>
+<h3 id="consoleerror"><code>Console.error()</code></h3>
+<p>打印一条 error 级别的信息。您可以使用<a href="https://www.mifengjc.com/api/Console.html#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%9b%bf%e6%8d%a2" target="_blank" rel="noopener noreffer">字符串替换</a>作为该方法的额外参数。</p>
+<h3 id="consoleexception"><code>Console.exception()</code></h3>
+<p><code>error()</code> 的别名。</p>
+<h3 id="consolegroup"><code>Console.group()</code></h3>
+<p>创建一个新的内联组，将所有后续输出缩进另一个级别。要退出一个级别，请调用 <code>groupEnd()</code> 。</p>
+<h3 id="consolegroupcollapsed"><code>Console.groupCollapsed()</code></h3>
+<p>创建一个新的内联组，将所有后续输出缩进另一个级别。然而，与 <code>group()</code> 不同，改内联组是默认折叠的，需要点击来展开它。要退出一个级别，请调用 <code>groupEnd()</code> 。</p>
+<h3 id="consolegroupend"><code>Console.groupEnd()</code></h3>
+<p>退出当前的内联组。</p>
+<h3 id="consoleinfo"><code>Console.info()</code></h3>
+<p>打印一条 info 级别的信息。您可以使用<a href="https://www.mifengjc.com/api/Console.html#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%9b%bf%e6%8d%a2" target="_blank" rel="noopener noreffer">字符串替换</a>作为该方法的额外参数。</p>
+<h3 id="consolelog"><code>Console.log()</code></h3>
+<p>用于记录信息的一般输出。您可以使用<a href="https://www.mifengjc.com/api/Console.html#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%9b%bf%e6%8d%a2" target="_blank" rel="noopener noreffer">字符串替换</a>作为该方法的额外参数。</p>
+<h3 id="consoleprofile"><code>Console.profile()</code></h3>
+<p>启动浏览器的内置分析器（例如，Firefox 性能工具）。您可以为分析的文件指定名称。</p>
+<h3 id="consoleprofileend"><code>Console.profileEnd()</code></h3>
+<p>停止分析器。您可以在浏览器的性能工具中查看生成的分析文件（例如，Firefox 性能工具）。</p>
+<h3 id="consoletable"><code>Console.table()</code></h3>
+<p>将表格数据显示为表格。</p>
+<h3 id="consoletime"><code>Console.time()</code></h3>
+<p>使用指定的名称启动 timer。在给定页面上最多可以运行 10,000 个同步计时器。</p>
+<h3 id="consoletimeend"><code>Console.timeEnd()</code></h3>
+<p>停止指定的 timer 并记录自启动以来经过的时间（以秒为单位）。</p>
+<h3 id="consoletimestamp"><code>Console.timeStamp()</code></h3>
+<p>在浏览器的 <a href="https://developer.chrome.com/devtools/docs/timeline" target="_blank" rel="noopener noreffer">时间轴</a> 或 Waterfall 工具中添加标记。</p>
+<h3 id="consoletrace"><code>Console.trace()</code></h3>
+<p>输出堆栈跟踪。</p>
+<h3 id="consolewarn"><code>Console.warn()</code></h3>
+<p>打印一条 warn 级别的信息。您可以使用<a href="https://www.mifengjc.com/api/Console.html#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%9b%bf%e6%8d%a2" target="_blank" rel="noopener noreffer">字符串替换</a>作为该方法的额外参数。</p>
+<h2 id="用法">用法</h2>
+<h3 id="将文本输出到控制台">将文本输出到控制台</h3>
+<p>控制台最常用的功能是记录文本和其他数据。您可以分别使用 <code>console.log()</code>，<code>console.info()</code>，<code>console.warn()</code> 和 <code>console.error()</code> 方法生成四种类型的输出。这些结果中的每一个都会导致输出在日志中的样式不同，您可以使用浏览器提供的过滤控件来仅查看您感兴趣的输出类型。</p>
+<p>每种输入方式有两种方法可以调用；你可以简单地传入一个对象列表，这些对象的字符串表示被连接成一个字符串，然后输出到控制台，或者你可以传入一个包含零个或多个替换字符串的字符串，后跟一个对象列表来替换它们。</p>
+<h4 id="输出单个对象">输出单个对象</h4>
+<p>使用日志记录方法的最简单方法是输出单个对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">str</span><span class="o">:</span> <span class="s2">&#34;Some text&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">5</span> <span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">someObject</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出看起来像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">[09:27:13.475] ({str:&#34;Some text&#34;, id:5})
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出多个对象">输出多个对象</h4>
+<p>您还可以在调用日志记录方法时通过简单地列出它们来输出多个对象，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">car</span> <span class="o">=</span> <span class="s2">&#34;Dodge Charger&#34;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">str</span><span class="o">:</span> <span class="s2">&#34;Some text&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">5</span> <span class="p">};</span> 
+<span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&#34;My first car was a&#34;</span><span class="p">,</span> <span class="nx">car</span><span class="p">,</span> <span class="s2">&#34;. The object is:&#34;</span><span class="p">,</span> <span class="nx">someObject</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出看起来像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">[09:28:22.711] My first car was a Dodge Charger . The object is: ({str:&#34;Some text&#34;, id:5})
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="字符串替换">字符串替换</h4>
+<p>Gecko 9.0 (Firefox 9.0 / Thunderbird 9.0 / SeaMonkey 2.6) 引入了对字符串替换的支持。将字符串传递给接受字符串的控制台对象的方法之一时，您可以使用这些替换字符串：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">替换字符串</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%o 或 %O</td>
+<td style="text-align:left">输出 JavaScript 对象。单击对象名称可在检查器中展开有关它的更多信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">%d 或 %i</td>
+<td style="text-align:left">输出一个整数。支持数字格式，例如 <code>console.log(&quot;Foo %.2d&quot;, 1.1)</code> 将输出数字作为两个有效数字，前导 0：<code>Foo 01</code></td>
+</tr>
+<tr>
+<td style="text-align:left">%s</td>
+<td style="text-align:left">输出一个字符串。</td>
+</tr>
+<tr>
+<td style="text-align:left">%f</td>
+<td style="text-align:left">输出浮点值。支持格式化，例如 <code>console.log(&quot;Foo %.2f&quot;, 1.1)</code> 将数字输出到 2 位小数：<code>Foo 1.10</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong> Chrome 中不支持精确格式化</p>
+</blockquote>
+<p>每个都在格式字符串离开参数列表后拉出下一个参数。例如：</p>
+<p>Each of these pulls the next argument after the format string off the parameter list. For example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello, %s. You&#39;ve called me %d times.&#34;</span><span class="p">,</span> <span class="s2">&#34;Bob&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出看起来像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">[13:14:13.481] Hello, Bob. You&#39;ve called me 1 times.
+[13:14:13.483] Hello, Bob. You&#39;ve called me 2 times.
+[13:14:13.485] Hello, Bob. You&#39;ve called me 3 times.
+[13:14:13.487] Hello, Bob. You&#39;ve called me 4 times.
+[13:14:13.488] Hello, Bob. You&#39;ve called me 5 times.
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="给控制台输出加样式">给控制台输出加样式</h4>
+<p>您可以使用 <code>%c</code> 指令将 CSS 样式应用于控制台输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;This is %cMy stylish message&#34;</span><span class="p">,</span> <span class="s2">&#34;color: yellow; font-style: italic; background-color: blue;padding: 2px&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>指令前的文本不会受到影响，但指令后面的文本将使用参数中的 CSS 声明设置样式。</p>
+<p><img
+        class="lazyload"
+        data-src="https://mdn.mozillademos.org/files/12527/CSS-styling.png"
+        data-srcset="https://mdn.mozillademos.org/files/12527/CSS-styling.png, https://mdn.mozillademos.org/files/12527/CSS-styling.png 1.5x, https://mdn.mozillademos.org/files/12527/CSS-styling.png 2x"
+        data-sizes="auto"
+        alt="https://mdn.mozillademos.org/files/12527/CSS-styling.png"
+        title="img"
+    /></p>
+<blockquote>
+<p><strong>注意：</strong> 这种方法支持相当多的 CSS 属性；你应该试验一下，看看哪些是有效的。</p>
+</blockquote>
+<h3 id="在控制台中使用组">在控制台中使用组</h3>
+<p>Requires Gecko 9.0(Firefox 9.0 / Thunderbird 9.0 / SeaMonkey 2.6)</p>
+<p>您可以使用嵌套组通过直观地组合相关材料来帮助组织输出。要创建一个新的嵌套块，请调用 <code>console.group()</code> 。 <code>console.groupCollapsed()</code> 方法也类似，但创建的是折叠的块，需要点击按钮来展开它。</p>
+<blockquote>
+<p><strong>注意：</strong> Gecko 尚不支持折叠组；目前 <code>groupCollapsed()</code> 方法与 <code>group()</code> 效果相同。</p>
+</blockquote>
+<p>要退出当前组，只需调用 <code>console.groupEnd()</code> 。例如，给定该代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;This is the outer level&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">group</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Level 2&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">group</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Level 3&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&#34;More of level 3&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">groupEnd</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Back to level 2&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">groupEnd</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&#34;Back to the outer level&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出看起来像这样：
+<img
+        class="lazyload"
+        data-src="https://u.mifengjc.com/4f9d37165ed756ff.png"
+        data-srcset="https://u.mifengjc.com/4f9d37165ed756ff.png, https://u.mifengjc.com/4f9d37165ed756ff.png 1.5x, https://u.mifengjc.com/4f9d37165ed756ff.png 2x"
+        data-sizes="auto"
+        alt="https://u.mifengjc.com/4f9d37165ed756ff.png"
+        title="img"
+    /></p>
+<h3 id="计时器">计时器</h3>
+<p>Requires Gecko 10.0(Firefox 10.0 / Thunderbird 10.0 / SeaMonkey 2.7)</p>
+<p>为了计算特定操作的持续时间，Gecko 10 在 <code>console</code> 对象中引入了定时器的支持。要启动计时器，请调用 <code>console.time()</code> 方法，为其指定一个名称作为唯一参数。要停止计时器，并以毫秒为单位获取经过的时间，只需调用 <code>console.timeEnd()</code> 方法，再次将计时器的名称作为参数传递。在给定页面上最多可同时运行 10,000 个计时器。</p>
+<p>例如，给定该代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s2">&#34;answer time&#34;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Click to continue&#34;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s2">&#34;answer time&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将记录用户查看警报框所需的时间：</p>
+<p><img
+        class="lazyload"
+        data-src="https://u.mifengjc.com/7b2e44d03d725640.png"
+        data-srcset="https://u.mifengjc.com/7b2e44d03d725640.png, https://u.mifengjc.com/7b2e44d03d725640.png 1.5x, https://u.mifengjc.com/7b2e44d03d725640.png 2x"
+        data-sizes="auto"
+        alt="https://u.mifengjc.com/7b2e44d03d725640.png"
+        title="img"
+    /></p>
+<blockquote>
+<p><strong>注意：</strong> 重要的是要注意，如果您使用它来记录网络流量的时间，计时器将报告事务的总时间，而网络面板中列出的时间只是标头所需的时间。如果启用了响应正文日志记录，则响应标题和正文组合列出的时间应与您在控制台输出中看到的时间相匹配。</p>
+</blockquote>
+<h3 id="堆栈跟踪">堆栈跟踪</h3>
+<p>控制台对象还支持输出堆栈跟踪；这将显示到达您调用 <code>console.trace()</code> 的点所需的调用路径。给出这样的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">trace</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>控制台中的输出如下所示：</p>
+<p><img
+        class="lazyload"
+        data-src="https://u.mifengjc.com/8c44873bd3c25b4b.png"
+        data-srcset="https://u.mifengjc.com/8c44873bd3c25b4b.png, https://u.mifengjc.com/8c44873bd3c25b4b.png 1.5x, https://u.mifengjc.com/8c44873bd3c25b4b.png 2x"
+        data-sizes="auto"
+        alt="https://u.mifengjc.com/8c44873bd3c25b4b.png"
+        title="img"
+    /></p>
+<h2 id="规范">规范</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">规范</th>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://console.spec.whatwg.org/" target="_blank" rel="noopener noreffer">Console API</a></td>
+<td style="text-align:left">现行的标准</td>
+<td style="text-align:left">初始定义。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="桌面浏览器兼容性">桌面浏览器兼容性</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">Chrome</th>
+<th style="text-align:center">Edge</th>
+<th style="text-align:center">Firefox</th>
+<th style="text-align:center">Internet Explorer</th>
+<th style="text-align:center">Opera</th>
+<th style="text-align:center">Safari</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">基础支持</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">8<a href="https://www.mifengjc.com/api/Console.html#compat-note-1" target="_blank" rel="noopener noreffer">1</a></td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>assert</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>clear</code></td>
+<td style="text-align:center">25</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">6.1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>count</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>countReset</code></td>
+<td style="text-align:center">68</td>
+<td style="text-align:center">79</td>
+<td style="text-align:center">62</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">55</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>debug</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dir</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dirxml</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>error</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>exception</code> (an alias for <code>error</code>)</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">13 — 79</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>group</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>groupCollapsed</code></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">5.1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>groupEnd</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>info</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>log</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>profile</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>profileEnd</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>table</code></td>
+<td style="text-align:center">27</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">34</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">6.1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>time</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeEnd</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeLog</code></td>
+<td style="text-align:center">71</td>
+<td style="text-align:center">79</td>
+<td style="text-align:center">62</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">60</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeStamp</code></td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>trace</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>warn</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">在 Worker 中可用</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">38</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+</tbody>
+</table>
+<h2 id="移动浏览器兼容性">移动浏览器兼容性</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">Android</th>
+<th style="text-align:center">Chrome for Android</th>
+<th style="text-align:center">Edge mobile</th>
+<th style="text-align:center">Firefox for Android</th>
+<th style="text-align:center">IE mobile</th>
+<th style="text-align:center">Opera Android</th>
+<th style="text-align:center">iOS Safari</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">基础支持</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>assert</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>clear</code></td>
+<td style="text-align:center">≤37</td>
+<td style="text-align:center">25</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>count</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>countReset</code></td>
+<td style="text-align:center">68</td>
+<td style="text-align:center">68</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">62</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">48</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>debug</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dir</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dirxml</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>error</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>exception</code> (an alias for <code>error</code>)</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>group</code></td>
+<td style="text-align:center">37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>groupCollapsed</code></td>
+<td style="text-align:center">37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">5.1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>groupEnd</code></td>
+<td style="text-align:center">37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>info</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>log</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>profile</code></td>
+<td style="text-align:center">≤37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>profileEnd</code></td>
+<td style="text-align:center">≤37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>table</code></td>
+<td style="text-align:center">≤37</td>
+<td style="text-align:center">27</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">34</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>time</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeEnd</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeLog</code></td>
+<td style="text-align:center">71</td>
+<td style="text-align:center">71</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">62</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>timeStamp</code></td>
+<td style="text-align:center">≤37</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">39</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>trace</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">3.2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>warn</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">在 Worker 中可用</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">38</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">未知</td>
+<td style="text-align:center">未知</td>
+</tr>
+</tbody>
+</table>
+<p>\1. 在 Internet Explorer 8 和 9 中，当未打开开发人员工具时，<code>console</code> 对象是 <code>undefined</code>。此行为已在 Internet Explorer 10 中修复。</p>
+<p>\2. 断言失败时抛出错误。</p>
+<p>\3. <code>console.log</code> 的别名</p>
+<p>\4. 不使用 Logger 记录数据。</p>
+<p>\5. <code>console.group</code> 的别名</p>
+<p>\6. <code>console.error</code> 的别名</p>
+<h2 id="注意">注意</h2>
+<p>至少在 Firefox 中，如果页面定义了一个 <code>console</code> 对象，那么该对象将覆盖 Firefox 内置的对象。</p>
+<ul>
+<li>在 Gecko 12.0 之前，控制台对象的方法仅在 Web 控制台打开时才起作用。从 Gecko 12.0 开始，输出将被缓存，直到打开 Web 控制台，然后显示。</li>
+<li>值得注意的是 Firefox 的内置 <code>Console</code> 对象与 <a href="http://getfirebug.com/" target="_blank" rel="noopener noreffer">Firebug</a> 提供的对象兼容。</li>
+</ul>
+<h2 id="相关链接">相关链接</h2>
+<ul>
+<li>Web 控制台 — Firefox 中的 Web 控制台如何处理控制台 API 调用</li>
+<li>远程调试i — 调试目标是移动设备时如何查看控制台输出</li>
+<li>设备上的控制台日志记录 — 如何在 Firefox OS 设备输出日志</li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/11.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/10/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>,&nbsp;<a href="/zh-cn/tags/web/">Web</a>,&nbsp;<a href="/zh-cn/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/">命令行</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/09/" class="prev" rel="prev" title="Xcode 快速调用终端窗口"><i class="fas fa-angle-left fa-fw"></i>Xcode 快速调用终端窗口</a>
+            <a href="/zh-cn/11/" class="next" rel="next" title="javascript Console控制台调试开发">javascript Console控制台调试开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-10T16:40:15+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"浏览器控制台命令调试——console"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

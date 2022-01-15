@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>iOS URL Schemes与漏洞的碰撞组合 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="iOS URL Schemes与漏洞的碰撞组合" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/8/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-08T01:11:46+08:00" />
+<meta property="article:modified_time" content="2022-01-08T01:11:46+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="iOS URL Schemes与漏洞的碰撞组合"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/8/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/6/" /><link rel="next" href="https://ybrc.github.io/zh-cn/9/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "iOS URL Schemes与漏洞的碰撞组合",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/8\/"
+        },"genre": "posts","keywords": "漏洞, iOS","wordcount":  3610 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/8\/","datePublished": "2022-01-08T01:11:46+08:00","dateModified": "2022-01-08T01:11:46+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/8/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/8/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">iOS URL Schemes与漏洞的碰撞组合</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E6%BC%8F%E6%B4%9E/"><i class="far fa-folder fa-fw"></i>漏洞</a>&nbsp;<a href="/zh-cn/categories/ios/"><i class="far fa-folder fa-fw"></i>IOS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-08">2022-01-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3610 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#定义">定义</a>
+      <ul>
+        <li><a href="#理解">理解</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#获取ipa包">获取IPA包</a></li>
+    <li><a href="#获取基本url-schemes">获取基本URL Schemes</a>
+      <ul>
+        <li><a href="#寻找完整url-schemes">寻找完整URL Schemes</a></li>
+        <li><a href="#从手机站点页面获取">从手机站点页面获取</a></li>
+        <li><a href="#qrlcode解析地址获取">QRLCode解析地址获取</a></li>
+        <li><a href="#逆向app">逆向APP</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#app内url跳转问题">APP内URL跳转问题</a></li>
+    <li><a href="#凭证窃取设计不当">凭证窃取（设计不当）</a>
+      <ul>
+        <li><a href="#结合漏洞扩大攻击面">结合漏洞扩大攻击面</a></li>
+      </ul>
+    </li>
+    <li><a href="#url-schemes劫持">URL Schemes劫持</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# iOS URL Schemes与漏洞的碰撞组合
+<h1 id="前言">前言</h1>
+<p>iOS URL Schemes，这个单词对于大多数人来说可能有些陌生，但是类似下面这张图的提示大部分人应该都经常看见：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/0.png"
+        title="wechat"
+    /></a></p>
+<p>今天要探究的就是：了解iOS URL Schemes、如何发现iOS URL Schemes、iOS URL Schemes结合漏洞案例。</p>
+<h1 id="ios-url-schemes">iOS URL Schemes</h1>
+<h2 id="基本概念">基本概念</h2>
+<p>抛开iOS从URL Schemes的字面意思理解，就是地址协议（<strong>Scheme一般用来表示协议，比如 http、https、ftp 等</strong>），我们所熟知的HTTP协议的URL格式就是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http(s)://user:pass@host:port/path?query
+</code></pre></td></tr></table>
+</div>
+</div><p>举个例子：<code>http://gh0st.cn/</code>，在浏览器输入这个地址，浏览器是使用HTTP协议向 <strong>gh0st.cn</strong> 请求，请求的资源就是 <strong>/</strong> 。</p>
+<p>再来看一下iOS URL Schemes的一个例子：<code>weixin://</code>，你在Safari浏览器(Mobile)输入这个网址就会提示你<code> 在&quot;微信&quot;中打开链接吗？</code>，然后由你选择”取消”或”打开”；<strong>和HTTP协议格式的URL访问流程进行对比，iOS URL Schemes 实际上就是启动一个应用的 URL</strong>，其访问流程是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">浏览器输入&#34;weixin://&#34; -&gt; iOS识别URL Schemes -&gt;询问是否跳转到微信 -&gt; 确认跳转 -&gt; 从浏览器跳转到微信端
+</code></pre></td></tr></table>
+</div>
+</div><p>那么问题就来了，以上所述流程中的”<strong>iOS识别URL Schemes</strong>“，iOS如何识别这段URL Schemes？<strong>iOS官方要求的是APP开发者需要自己定义自己APP的”URL Schemes”，只有APP本身定义(支持)了URL Schemes，iOS才会去识别然后跳转</strong>。</p>
+<h2 id="定义">定义</h2>
+<p>一个完整的 URL Schemes 应该分为 Scheme、Action、Parameter、Value 这 4 个部分，中间用冒号 <code>:</code>、斜线 <code>/</code>、问号 <code>?</code>、等号 <code>=</code> 相连接。</p>
+<p>举个例子：<code>mst://jump?url=https://gh0st.cn/&amp;title=test</code>，它对应的4部分就是如下所示：</p>
+<p>Scheme（头）: <code>mst</code>、Action（动作）: <code>jump</code>、Parameter（参数）: <code>url、title</code>、Value（值）: <code>https://gh0st.cn、test</code></p>
+<p>不同的部分之间有符号相连，它们也有一定的规则(和URL部分规则是一样的)：</p>
+<ul>
+<li>冒号<code>:</code>：在<strong>链接头</strong>和<strong>命令</strong>之间；</li>
+<li>双斜杠 <code>//</code>：在<strong>链接头和命令</strong>之间，有时会是三斜杠 <code>///</code>；</li>
+<li>问号 <code>?</code>：在<strong>命令和参数</strong>之间；</li>
+<li>等号 <code>=</code>：在<strong>参数和值</strong>之间；</li>
+<li><strong>和符号</strong> <code>&amp;</code>：在<strong>一组参数和另一组参数</strong>之间。</li>
+</ul>
+<h3 id="理解">理解</h3>
+<p>以上述所举的例子：<code>mst://jump?url=https://gh0st.cn/&amp;title=test</code>，来简单的说明下这段URL Scheme所产生的效果：</p>
+<p>1.跳转到”mst”所对应的APP</p>
+<p>2.在APP中执行jump动作（跳转网站）</p>
+<p>3.告诉APPjump动作所需的<code>url</code>和<code>title</code>参数，对应的值分别为<code>https://gh0st.cn/</code>和<code>test</code></p>
+<p><strong>可以理解为在APP应用中访问<code>https://gh0st.cn/</code>，网页标题为<code>test</code>。</strong></p>
+<h1 id="寻找ios-app的url-schemes">寻找iOS APP的URL Schemes</h1>
+<p><strong>当你学会了如何寻找APP的URL Schemes，你就算发现了半个漏洞。</strong></p>
+<h2 id="获取ipa包">获取IPA包</h2>
+<p>基本的URL Schemes可以在iOS APP中的Info.plist文件中寻找到，而一般你是无法获取到APP的ipa包的，所以需要借助软件获取到这个包。</p>
+<p>前提是你需要这两台设备：MacBook、iPhone，如果你只拥有一台iPhone的话也有办法去获取（需要Thor APP，具体方法自行寻找）。</p>
+<p>Mac上先安装Apple Configurator 2，然后你需要在该软件中登录你的Apple账户：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/1.png"
+        title="login"
+    /></a></p>
+<p>使用iPhone充电线将手机连接Mac，这时候软件中就会显示已经连接Mac的设备：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/2.png"
+        title="iphone"
+    /></a></p>
+<p>假设你需要获取微信的URL Schemes，那么你的手机已经安装过了微信，然后使用该软件进行添加，选中设备点击添加按钮，选择应用：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/3.png"
+        title="add"
+    /></a></p>
+<p>搜索微信，选中添加：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/4.png"
+        title="add wechat"
+    /></a></p>
+<p>当你下载完成看见如下提示的时候，在Finder中按快捷键<code>Command+Shift+G</code>，输入<code>~/资源库/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/</code></p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/5.png"
+        title="tip"
+    /></a></p>
+<p>软件下载的微信ipa文件就存在该文件夹中：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/6.png"
+        title="ipa"
+    /></a></p>
+<p>进入文件夹将ipa文件复制到其他地方：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/7.png"
+        title="move"
+    /></a></p>
+<p>然后回到Apple Configurator 2的提示，点击停止即可。</p>
+<h2 id="获取基本url-schemes">获取基本URL Schemes</h2>
+<p>将IPA包后缀名修改为ZIP，然后解压，进入Payload目录会看见一个.APP后缀名文件，选中文件右击显示包内容：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/8.png"
+        title="view"
+    /></a></p>
+<p>找到Info.plist文件并打开，搜索关键词<code>URLSchemes</code>：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/9.png"
+        title="find"
+    /></a></p>
+<p>被<code>String</code>标签所包含的就是微信的URL Schemes：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;string&gt;wexinVideoAPI&lt;/string&gt;
+&lt;string&gt;weixin&lt;/string&gt;
+&lt;string&gt;weixinapp&lt;/string&gt;
+&lt;string&gt;fb290293790992170&lt;/string&gt;
+&lt;string&gt;wechat&lt;/string&gt;
+&lt;string&gt;QQ41C152CF&lt;/string&gt;
+&lt;string&gt;prefs&lt;/string&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="寻找完整url-schemes">寻找完整URL Schemes</h3>
+<p>如上已经了解了如何获取最基本的URL Schemes，但是这远远不够，因为完整的URL Schemes有4部分，而目前只找到了第一部分，仅仅能做到的功能就是启动，而想找到更多的非基本URL Schemes需要其他的方法。有很多方法在这里不一一例举了，只例几个常见的思路供你参考。</p>
+<h3 id="从手机站点页面获取">从手机站点页面获取</h3>
+<p>一般网站都会有这些子域名：m\h5\mobile…</p>
+<p>打开这些子域名，利用Chrome的开发者工具(F12)切换为手机模式视图，这样就能模拟手机去访问了：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/10.png"
+        title="Chrome"
+    /></a></p>
+<p>那在这里可以在该页面的HTML代码中寻找URL Schemes（前提是你已经知道了基本的URL Schemes）</p>
+<p>在这里我从页面的JavaScript代码中发现了很多URL Schemes：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/11.png"
+        title="URL Schemes"
+    /></a></p>
+<p>有些还有参数，可以根据命名来猜这些URL Schemes的含义，例如<code>path: &quot;mst://jump/core/web/jump&quot;</code>，就可以知道这个是做Web跳转的，那跳转到哪个地址是什么参数控制呢？下面也有对应的告诉我们是<code>url</code>参数去控制，也就组成了这样一个URL Scheme: <code>mst://jump/core/web/jump?url=https://gh0st.cn</code></p>
+<h3 id="qrlcode解析地址获取">QRLCode解析地址获取</h3>
+<p>现在很多网站都支持二维码登录，就比如如下这个网站：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/12.png"
+        title="qrlcode"
+    /></a></p>
+<p>保存该二维码进行二维码解析：</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/13.png"
+        title="text"
+    /></a></p>
+<p>解析得出这是一个URL Scheme，修改json参数url的值为我的网站尝试在浏览器中打开成功的触发了跳转APP，并且在APP中访问了我的网站。</p>
+<h3 id="逆向app">逆向APP</h3>
+<p>不仅是iOS，安卓也支持URL Schemes，而一般的定义是一样的，所以你可以基于<code>获取基本URL Schemes</code>这个步骤将.APP文件的后缀去掉，这时候这个文件就变成了一个文件夹拖到Sublime里面全局搜索”<strong>weixin://</strong>“即可。</p>
+<p>至于安卓的APK的逆向可以参考我之前的一篇文章&lt; <a href="https://gh0st.cn/archives/2018-11-18/1" target="_blank" rel="noopener noreffer">打造Mac下APK逆向环境到实战接口XSS挖掘</a> &gt;，可以在源代码中、所有文件内容中搜索URL Schemes。</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/14.png"
+        title="search"
+    /></a></p>
+<h1 id="漏洞案例">漏洞案例</h1>
+<h2 id="app内url跳转问题">APP内URL跳转问题</h2>
+<p>其实严格来讲这不算是漏洞，毕竟利用有限，但又和<strong>一切能产生危害的问题都算漏洞</strong>这句话所冲突，所以在这还是选择列了出来，至于厂商觉不觉得是个安全性问题，还要看他们对“安全风险“的定义。</p>
+<p>如何发现这类问题？在上文中我提到了如何发现URL Schemes，只要你发现了这种类型的URL Schemes就可以尝试替换地址为你的地址然后使用浏览器打开查看是否能在APP内跳转到你的地址，当然利用方式也很简单，构建一个HTML页面即可，然后将网址发送给“<strong>受害者</strong>”即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;script&gt;
+window.location=&#39;URL Schemes&#39;;
+&lt;/script&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="凭证窃取设计不当">凭证窃取（设计不当）</h2>
+<p>在做一次漏洞挖掘的时候也碰见了很多次这种问题，大概的描述下就是我找到了能在APP中打开网页的入口方式（例如：二维码扫描、URL Schemes动作），让APP访问到我的地址，这样我就可以直接获取到APP中登录后的凭证信息。</p>
+<p><a href="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png"
+        data-srcset="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png 1.5x, https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png 2x"
+        data-sizes="auto"
+        alt="https://chen-blog-oss.oss-cn-beijing.aliyuncs.com/2018-12-08/15.png"
+        title="gettoken"
+    /></a></p>
+<p>利用方式和URL跳转的方式是一样的；关于这方面漏洞产生原理得出一个可能“<strong>不太严谨的结论</strong>”：<strong>APP在做HTTP请求的时候默认所有访问的都是信任域，所以带上了本身已经登录的凭证去请求了</strong>。</p>
+<h3 id="结合漏洞扩大攻击面">结合漏洞扩大攻击面</h3>
+<p>在一次APP的漏洞挖掘中发现了一个JSONP劫持的问题，但是在这里只会对APP用户产生影响，在没有二维码扫描的情况下就需要结合URL Schemes来扩大这个漏洞的影响面，而不是局限于self。</p>
+<p>利用流程：</p>
+<p>用户打开https://gh0st.cn/test.html，test.html内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;script&gt;
+window.location=&#39;mst://jump?url=https://gh0st.cn/jsonp.html&#39;;
+&lt;/script&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>用户点开之后启动<code>mst应用</code>执行<code>jump动作</code>，跳转到https://gh0st.cn/jsonp.html，jsonp.html内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;script&gt;function test(data){ document.write(JSON.stringify(data)) }&lt;/script&gt; &lt;script src=&#34;JSONP URL&#34;&gt;&lt;/script&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="url-schemes劫持">URL Schemes劫持</h2>
+<p>这个漏洞是15年在乌云爆出来的，漏洞编号为：wooyun-2015-0103233，大家可以自行去查看。</p>
+<p>这个问题说白了是一个流程上的缺陷，苹果官方没有限制APP定义的URL Schemes名字，导致其他APP也可以定义“支付宝”的URL Schems名字；又因为iOS系统判定URL Schemes优先级顺序与 Bundle ID 有关（一个 Bundle ID 对应一个应用），如果有人精心伪造 Bundle ID，iOS 就会调用恶意 App 的 URL Schemes 去接收相应的 URL Schemes 请求，这就导致了可以被劫持。</p>
+<h1 id="结尾">结尾</h1>
+<p>还有很多思路等着我们去探寻，此文仅做思路启发。</p>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@music/013691.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a>,&nbsp;<a href="/zh-cn/tags/ios/">IOS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/6/" class="prev" rel="prev" title="一个多学科高质量开放教科书库"><i class="fas fa-angle-left fa-fw"></i>一个多学科高质量开放教科书库</a>
+            <a href="/zh-cn/9/" class="next" rel="next" title="中国军工研究所分布速查">中国军工研究所分布速查<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2022-01-08T01:11:46+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"iOS URL Schemes与漏洞的碰撞组合"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

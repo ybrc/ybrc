@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>如何阅读ARM64汇编语言 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="如何阅读ARM64汇编语言" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-06T11:15:32+08:00" />
+<meta property="article:modified_time" content="2021-12-06T11:15:32+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="如何阅读ARM64汇编语言"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><link rel="next" href="https://ybrc.github.io/zh-cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "如何阅读ARM64汇编语言",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80\/"
+        },"genre": "posts","keywords": "ARM64, 汇编语言","wordcount":  5968 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80\/","datePublished": "2021-12-06T11:15:32+08:00","dateModified": "2021-12-06T11:15:32+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981868789 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981868789 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">如何阅读ARM64汇编语言</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/arm64/"><i class="far fa-folder fa-fw"></i>ARM64</a>&nbsp;<a href="/zh-cn/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><i class="far fa-folder fa-fw"></i>汇编语言</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-06">2021-12-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5968 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<img src="https://tool.lu/netcard/">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# 如何阅读ARM64汇编语言
+<p><a href="https://en.wikipedia.org/wiki/AArch64" target="_blank" rel="noopener noreffer">ARM64</a>是一种<a href="https://en.wikipedia.org/wiki/Instruction_set_architecture" target="_blank" rel="noopener noreffer">计算机架构</a>，与流行的英特尔<a href="https://en.wikipedia.org/wiki/X86-64" target="_blank" rel="noopener noreffer">x86-64</a>架构竞争，用于台式机、笔记本电脑等中的CPU。ARM64在手机<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fn:1" target="_blank" rel="noopener noreffer">1</a>以及基于<a href="https://aws.amazon.com/ec2/graviton/" target="_blank" rel="noopener noreffer">Graviton</a>的<a href="https://aws.amazon.com/ec2/" target="_blank" rel="noopener noreffer">亚马逊EC2</a>实例、<a href="https://www.raspberrypi.org/" target="_blank" rel="noopener noreffer">树莓派</a>3和4以及备受<a href="https://debugger.medium.com/why-is-apples-m1-chip-so-fast-3262b158cba2" target="_blank" rel="noopener noreffer">吹嘘的</a><a href="https://en.wikipedia.org/wiki/Apple_M1" target="_blank" rel="noopener noreffer">苹果M1</a>芯片中很常见，所以了解它可能会有用！事实上，由于iPhone，我几乎可以肯定花在ARM64上的时间比x86-64<em>多</em>。</p>
+<p>本帖是我<a href="https://ybrc.github.io/zh-cn/how-to-read-assembly-language/" target="_blank" rel="noopener noreffer">之前关于如何阅读汇编语言的帖子的</a>替代版本。它浏览了相同的示例，而是显示了ARM64组件。为了方便您阅读，说明和寄存器的解释等背景内容也会被重审。</p>
+<h1 id="说明">说明</h1>
+<p>汇编语言的基本单元是<strong>指令</strong>。每个机器指令都是一个小操作，例如添加两个数字，从内存加载一些数据，跳转到另一个内存位置（如可怕的<a href="https://en.wikipedia.org/wiki/Goto" target="_blank" rel="noopener noreffer">goto</a>语句），或从函数调用或返回。与x86-64不同，每个ARM64指令正好有4字节长，因此您只需计算指令即可判断一段ARM64代码占用了多少内存。</p>
+<h1 id="示例1矢量规范">示例1：矢量规范</h1>
+<p>我们的第一个玩具示例将让我们熟悉简单的说明。它只是计算2D矢量的<a href="https://en.wikipedia.org/wiki/Norm_%28mathematics%29#Euclidean_norm" target="_blank" rel="noopener noreffer">正方形</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="nc">Vec2</span> <span class="p">{</span>
+    <span class="kt">int64_t</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">int64_t</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int64_t</span> <span class="nf">normSquared</span><span class="p">(</span><span class="n">Vec2</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以下是从第11条带<a href="https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAM1QDsCBlZAQwBtMQBGAFlICsupVs1qhkAUgBMAISnTSAZ0ztkBPHUqZa6AMKpWAVwC2tQVvQAZPLUwA5YwCNMxEADZSAB1QLC62nsMTQS8fNTorG3sjJxd3JRUw2gYCZmICAONTTkVlTFU/ZNSCCLtHZzdFFLSMoOyFKuLrUujy1wBKRVQDYmQOAHIpAGZrZEMsAGpxQZ1kevx6KexxAAYAQRXV%2BuIDVXGANTzJSYB2WTXxi/HrAlduAH0CcYAPKbPVy6v6W4fxgE9XjbiY4AEQBaw212%2Bj1oJCMDAAjgZUph0BADsgjgA3NonN4fYiYAjdWjjTEAOie4wAVKSKZMZLTftTGWD1iC%2Bh1WCA%2BgBWPqkUx9Zb81DcnRyOTjBRdHqYemDTj8gjc4VtDoAaxAg0GZO1ev1BvcXL63H5guFpFFfX5ChAy1IyqFHNIcFgSDQRg8eHYZAoEA9Xp9IFSRkxAA4ALSjETATicZbZKjegjOW0QBwq/kOaypX7cxWkD1GLQEADytFYeadpCwRhj7EzNbwBPymMwturmCeeQMKfz/Ouyn7QjwDmIub0WGHBGIeCM/Y6NHoTDYHB4/EEwlEKAlMhHDltkA6qA8iQ7EdLg3GEbmU2BEhkckkFvieUSmm0NSypHMJSiMWCbxfDoL9ANCPw/zKFw6lyfI6EKap9EyQRXzgpIGkglpoMqIpQLqDCmn/cpOA6aVul6LhOW5PkBUbK0Q3DCNmHGaNRHGOMyWWMlOHGCBcEIEh5WycY9E9b1nCEnFxUfGQlUzNVSE1bVdQNVTtSNblTVo6srRtO0HXkl0YEQFBUDEn1yEoANxJcVjY3jRNk1TSgM2rbNaFzYcixLctK0bWt636C18BbNQ2w7C0ux7Ps%2BgLQdjQLVhR3HYhfknIKlVnedYudJdGBYBt1wESQhBjHcZPkJKD3gY9Tz8c9L2vW9BnvXdpGfG1YPfCBzDwn9tEwgDshCYD/CQ2pPCAxJBuInIEgKBo%2BtQxIEMaSIoJQxbxu/eoihm6DSJlCiSKEaizTo7knjDVwI1uFit2AdjOE47jeP4ohiCE0gRLMwMJKGSQpLauSnQUpSdTUtTTpNc6dO5PT7UdVUqL6SRYYtXSDNBjo22IHwNG4IA%3D%3D%3D" target="_blank" rel="noopener noreffer">产生的ARM64组件</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">mul</span>     <span class="no">x8</span><span class="p">,</span> <span class="no">x1</span><span class="p">,</span> <span class="no">x1</span>
+        <span class="nf">madd</span>    <span class="no">x0</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="no">x8</span>
+        <span class="nf">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第一条指令，<code>mul x8, x1, x1</code>，<a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/mul?lang=en" target="_blank" rel="noopener noreffer">执行乘法</a>。与我们之前使用的x86-64程序集语法不同，目标操作数在左侧。本<code>mul</code>指令将<code>x1</code>的内容平方，并将结果存储到<code>x8</code>。</p>
+<p>接下来，我们有<code>madd x0, x0, x0, x8</code>。<a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/madd?lang=en" target="_blank" rel="noopener noreffer"><code>madd</code></a>代表“乘法添加”：它平方<code>x0</code>，添加<code>x8</code>，并将结果存储在<code>x0</code>中。</p>
+<p>最后，<code>ret</code>从<code>normSquared</code>返回。</p>
+<h1 id="登记册">登记册</h1>
+<p>让我们绕个简短的绕道，解释一下我们在示例中看到的寄存器是什么。寄存器是装配语言的“变量”。与您最喜欢的编程语言中的变量（可能）不同，它们数量有限，它们具有标准化的名称，我们将谈论的变量最多64位大小。ARM64有31个名为<code>x0</code>到<code>x30</code>的通用寄存器。要引用它们的下32位，而不是完整的64位，我们可以写<code>w0</code>到<code>w30</code>。还有一个<a href="https://developer.arm.com/documentation/100076/0100/instruction-set-overview/overview-of-aarch64-state/stack-pointer-register" target="_blank" rel="noopener noreffer">专用</a>的<a href="https://developer.arm.com/documentation/100076/0100/instruction-set-overview/overview-of-aarch64-state/stack-pointer-register" target="_blank" rel="noopener noreffer"><code>sp</code>（堆栈指针）寄存器</a>。核心注册名称的完整文档可在ARM<a href="https://developer.arm.com/documentation/100076/0100/instruction-set-overview/overview-of-aarch64-state/predeclared-core-register-names-in-aarch64-state" target="_blank" rel="noopener noreffer">网站上找到</a>。</p>
+<h1 id="示例2堆栈">示例2：堆栈</h1>
+<p>现在，让我们扩展我们的示例，在<code>normSquared</code>中调试打印<code>Vec2</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="nc">Vec2</span> <span class="p">{</span>
+    <span class="kt">int64_t</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">int64_t</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">debugPrint</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int64_t</span> <span class="nf">normSquared</span><span class="p">(</span><span class="n">Vec2</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">debugPrint</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同样，让我们看看<a href="https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAM1QDsCBlZAQwBtMQBGAFlICsupVs1qhkAUgBMAISnTSAZ0ztkBPHUqZa6AMKpWAVwC2tEJICcpLegAyeWpgByxgEaZiIAGykADqgWE6rR6hiaCfgFqdHYOzkZuHt5KKlG0DATMxAQhxqYWisqYqkHpmQQxTq7uXooZWTlhnLVlFXEJXgCUiqgGxMgcAORSAMz2yIZYANTiwzrICgT49DPY4gAMAILrGwvEBqqTAGpFktMA7LKbk9eT9gSe3AD6BJMAHjOXGze39A/PkwBPD7bb4AN1QeHQkywLgMwAACsQ7hAOpM0LQFsDNuIzgARLFbTZ3P4vWgkIwMACOBkymHQEGOyFOoNROM%2BYIAdDC4YjkR0Cd9iJgCL1aJNQRzXpMAFTiyXTGRygEypUEnG4gZdVggAYAVgGpFMAzWBtQOp0cjkkwUPT6mAVw04BoIOpNHS6AGsQMNhhyff6A4HvNqBtwDUaTaQzQMDQoQGtSC7jZrSHBYEg0EYfHh2GQKBBM9ncyBMkZQQAOAC04xEwE4nDWTSoOYI7jjEBcroNLnsmQBOqdpEzRi0BAA8rRWP3k6QsEZa%2Bwu7O8ELiqDMHGZ5hXkUDK2Bwa7soD0I8C5iH29FgTwQkUYD10aPQmGwODx%2BIJhKIUJaZKeXHGkBdKgPipJulZjsMkyVgs6AzLiEgyHIkiRskRSpJo2gNKYTTWK0VQeE0ESBHQ2HhP4JG0Ph8TVE0aHFHQpT1PouSCPRqRMeU9iVDRhHNMxoQ4fxXGxARXBdDavT9OJQg6vqhpLtGpYVpWzBol%2BwCTPWHJrBynCTBAuCECQDpNJMehZjm7imaiFpITIzpdu6pBej6fqBh5PrBjqYYKTO0axvGiZOamMCICgqCWbm5CUIWVkeDWoj1o2pDNqwrbEO2nYzj2tB9iew6jhOU5LnOC6DJG%2BCrmo66bpG267vuAyDkeIaDqwZ4XsQAJXhVzp3g%2BqV0IwLCLu%2BAiSEItY/vZ8gdQB8DAaBQTgZB0GwfBiGyDIKGxoUDGmBA1hkbh2jUe0REUakJ2%2BFdQTnbRBQpCUdTZCxjRPehL0tNxbSPQsZQ3QDWQPYREm2tJnBanJ4aKTqrzlp4lYPOptZaZwOl6QZRlEMQpmkOZkVFtZIySLZv7SI5ybOa5vqeZ5smhrD/k6oFCZJm60MDJIzORgFwXU1066ZUEIDcEAA%3D%3D%3D" target="_blank" rel="noopener noreffer">生成的程序集</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">sub</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">sp</span><span class="p">,</span> <span class="c">#32
+</span><span class="c"></span>        <span class="no">stp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]
+</span><span class="c"></span>        <span class="no">add</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">sp</span><span class="p">,</span> <span class="c">#16
+</span><span class="c"></span>        <span class="no">stp</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x1</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">bl</span>      <span class="no">Vec2</span><span class="p">::</span><span class="no">debugPrint</span><span class="p">()</span> <span class="no">const</span>
+        <span class="nf">ldp</span>     <span class="no">x8</span><span class="p">,</span> <span class="no">x9</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span>
+        <span class="nf">ldp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]
+</span><span class="c"></span>        <span class="no">mul</span>     <span class="no">x8</span><span class="p">,</span> <span class="no">x8</span><span class="p">,</span> <span class="no">x8</span>
+        <span class="nf">madd</span>    <span class="no">x0</span><span class="p">,</span> <span class="no">x9</span><span class="p">,</span> <span class="no">x9</span><span class="p">,</span> <span class="no">x8</span>
+        <span class="nf">add</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">sp</span><span class="p">,</span> <span class="c">#32
+</span><span class="c"></span>        <span class="no">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们从一个新的寄存器开始：<code>sp</code>。与x86-64上的<code>%rsp</code>，它是“堆栈指针”，用于维护<a href="https://en.wikipedia.org/wiki/Call_stack" target="_blank" rel="noopener noreffer">函数调用堆栈</a>。它指向堆栈的底部，该堆栈在ARM64上“向下”（向下）增长。因此，我们的<code>sub sp, sp, #32</code>指令正在通过从堆栈指针中<a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/sub--immediate-?lang=en" target="_blank" rel="noopener noreffer">提取</a>，为堆栈上的四个64位整数腾出空间。接下来，<code>stp x29, x30, [sp, #16]</code>正在<a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-data-transfer-instructions/stp?lang=en" target="_blank" rel="noopener noreffer">修复一对</a>寄存器：它正在从地址<code>sp + 16</code>开始在堆栈上保存旧帧指针（<code>x29</code>）和链接寄存器（<code>x30</code>-它包含返回地址，我们将在下面看到）。（方括号表示内存访问。）我们使用<code>add x29, sp, #16</code>计算新的帧指针；它需要指向之前保存的帧指针和堆栈指针。这结束了3个指令<a href="https://en.wikipedia.org/wiki/Function_prologue" target="_blank" rel="noopener noreffer">功能的序幕</a>。</p>
+<p>Then, the following <code>stp x0, x1, [sp]</code> instruction stores the first and second arguments to <code>normSquared</code>, which are <code>v.x</code> and <code>v.y</code>, to the stack, effectively creating a copy of <code>v</code> in memory at the address in <code>sp</code>. Next, we put a pointer to that copy of <code>v</code> in <code>x0</code> with <code>mov x0, sp</code> and call <code>Vec2::debugPrint() const</code> with <code>bl</code>. <code>bl</code> is a mnemonic for <a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/bl?lang=en" target="_blank" rel="noopener noreffer">“branch with link”</a>, and it works slightly differently from the x86-64 <code>call</code> instruction: rather than pushing the return address onto the stack, it saves it in register <code>x30</code>, also known as the link register or <code>lr</code>.</p>
+<p>After <code>debugPrint</code> has returned, we <a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/ldp" target="_blank" rel="noopener noreffer">LoaD the Pair</a> of registers <code>r8</code> and <code>r9</code> with <code>v.x</code> and <code>v.y</code> from the stack. We also restore the old values of the frame pointer and stack pointer. Then, we have the same <code>mul</code>and <code>madd</code> instructions as in the previous example. Finally , we <code>add sp, sp, #32</code> to clean up the 32 bytes of stack space we allocated at the start of our function (called the <a href="https://en.wikipedia.org/wiki/Function_prologue#Epilogue" target="_blank" rel="noopener noreffer">function epilogue</a>; I would include the load of the old frame pointer and stack pointer even though it happened to come before the <code>mul</code> &amp; <code>madd</code>) and then return to our caller with <code>ret</code>.</p>
+<h1 id="示例3控制流程">示例3：控制流程</h1>
+<p>现在，让我们看看另一个例子。假设我们想打印一个大写C字符串，并且我们希望避免为小字符串进行堆分配。<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fn:2" target="_blank" rel="noopener noreffer">2</a>我们可能会写以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">copyUppercase</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">);</span>
+
+<span class="k">constexpr</span> <span class="n">size_t</span> <span class="n">MAX_STACK_ARRAY_SIZE</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">printUpperCase</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="n">sSize</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sSize</span> <span class="o">&lt;=</span> <span class="n">MAX_STACK_ARRAY_SIZE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">temp</span><span class="p">[</span><span class="n">sSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="n">copyUppercase</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+        <span class="n">puts</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// std::make_unique_for_overwrite is missing on Godbolt.
+</span><span class="c1"></span>        <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">sSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+        <span class="n">copyUppercase</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">s</span><span class="p">);</span>
+        <span class="n">puts</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是[生成的程序集](<a href="https://godbolt.org/#g:!%28%28g:!%28%28g:!%28%28h:codeEditor,i:%28fontScale:14,j:1,lang:c%2B%2B,selection:%28endColumn:74,endLineNumber:16,positionColumn:74,positionLineNumber:16,selectionStartColumn:74,selectionStartLineNumber:16,startColumn:74,startLineNumber:16%29,source:%27%23include&#43;" target="_blank" rel="noopener noreffer">https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(fontScale:14,j:1,lang:c%2B%2B,selection:(endColumn:74,endLineNumber:16,positionColumn:74,positionLineNumber:16,selectionStartColumn:74,selectionStartLineNumber:16,startColumn:74,startLineNumber:16),source:'%23include+</a> %23include+ %23include+ void+copyUppercase(char+*dest,+const+char+*src)%3B constexpr+size_t+MAX_STACK_ARRAY_SIZE+%3D+1024%3B void+printUpperCase(const+char+*s)+{ ++++auto+sSize+%3D+strlen(s)%3B ++++if+(sSize+&lt;%3D+MAX_STACK_ARRAY_SIZE)+{ ++++++++char+temp[sSize+%2B+1]%3B ++++++++copyUppercase(temp,+s)%3B ++++++++puts(temp)%3B ++++}+else+{ ++++++++//+std::make_unique_for_overwrite+is+missing+on+Compiler+Explorer. ++++++++std::unique_ptr+temp(new+char[sSize+%2B+1])%3B ++++++++copyUppercase(temp.get(),+s)%3B ++++++++puts(temp.get())%3B ++++} }'),l:&lsquo;5&rsquo;,n:&lsquo;0&rsquo;,o:&lsquo;C%2B%2B+source+%231&rsquo;,t:&lsquo;0&rsquo;)),k:43.31039755351682,l:&lsquo;4&rsquo;,n:&lsquo;0&rsquo;,o:'',s:0,t:&lsquo;0&rsquo;),(g:!((h:compiler,i:(compiler:armv8-clang1101,filters:(b:&lsquo;0&rsquo;,binary:&lsquo;1&rsquo;,commentOnly:&lsquo;0&rsquo;,demangle:&lsquo;0&rsquo;,directives:&lsquo;0&rsquo;,execute:&lsquo;1&rsquo;,intel:&lsquo;1&rsquo;,libraryCode:&lsquo;1&rsquo;,trim:&lsquo;1&rsquo;),fontScale:14,j:1,lang:c%2B%2B,libs:!(),options:'-O3+-std%3Dc%2B%2B20+-fno-vectorize+-fno-unroll-loops+-fno-exceptions',selection:(endColumn:23,endLineNumber:15,positionColumn:23,positionLineNumber:15,selectionStartColumn:23,selectionStartLineNumber:15,startColumn:23,startLineNumber:15),source:1),l:&lsquo;5&rsquo;,n:&lsquo;0&rsquo;,o:&lsquo;armv8-a+clang+11.0.1+(Editor+%231,+Compiler+%231)+C%2B%2B&rsquo;,t:&lsquo;0&rsquo;)),k:33.25435790785323,l:&lsquo;4&rsquo;,n:&lsquo;0&rsquo;,o:'',s:0,t:&lsquo;0&rsquo;),(g:!((h:compiler,i:(compiler:clang1101,filters:(b:&lsquo;0&rsquo;,binary:&lsquo;1&rsquo;,commentOnly:&lsquo;0&rsquo;,demangle:&lsquo;0&rsquo;,directives:&lsquo;0&rsquo;,execute:&lsquo;1&rsquo;,intel:&lsquo;1&rsquo;,libraryCode:&lsquo;0&rsquo;,trim:&lsquo;1&rsquo;),fontScale:14,j:2,lang:c%2B%2B,libs:!(),options:'-O3+-std%3Dc%2B%2B20+-fno-vectorize+-fno-unroll-loops+-fno-exceptions',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:&lsquo;5&rsquo;,n:&lsquo;0&rsquo;,o:&lsquo;x86-64+clang+11.0.1+(Editor+%231,+Compiler+%232)+C%2B%2B&rsquo;,t:&lsquo;0&rsquo;)),k:23.435244538629952,l:&lsquo;4&rsquo;,n:&lsquo;0&rsquo;,o:'',s:0,t:&lsquo;0&rsquo;)),l:&lsquo;2&rsquo;,n:&lsquo;0&rsquo;,o:'',t:&lsquo;0&rsquo;)),version:4)<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fn:3" target="_blank" rel="noopener noreffer">：3</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">stp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#-48]!           // 16-byte Folded Spill
+</span><span class="c"></span>        <span class="no">str</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Spill
+</span><span class="c"></span>        <span class="no">stp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Spill
+</span><span class="c"></span>        <span class="no">mov</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">mov</span>     <span class="no">x19</span><span class="p">,</span> <span class="no">x0</span>
+        <span class="nf">bl</span>      <span class="no">strlen</span>
+        <span class="nf">cmp</span>     <span class="no">x0</span><span class="p">,</span> <span class="c">#1024                       // =1024
+</span><span class="c"></span>        <span class="no">add</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="c">#1                      // =1
+</span><span class="c"></span>        <span class="no">b.hi</span>    <span class="no">.LBB0_2</span>
+        <span class="nf">add</span>     <span class="no">x9</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="c">#15                     // =15
+</span><span class="c"></span>        <span class="no">mov</span>     <span class="no">x8</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">and</span>     <span class="no">x9</span><span class="p">,</span> <span class="no">x9</span><span class="p">,</span> <span class="c">#0xfffffffffffffff0
+</span><span class="c"></span>        <span class="no">sub</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x8</span><span class="p">,</span> <span class="no">x9</span>
+        <span class="nf">mov</span>     <span class="no">x21</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">mov</span>     <span class="no">x1</span><span class="p">,</span> <span class="no">x19</span>
+        <span class="nf">bl</span>      <span class="no">copyUppercase</span><span class="p">(</span><span class="no">char</span><span class="p">*,</span> <span class="no">char</span> <span class="no">const</span><span class="p">*)</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">bl</span>      <span class="no">puts</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x21</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x29</span>
+        <span class="nf">ldp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldr</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c">#48             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ret</span>
+<span class="nl">.LBB0_2:</span>
+        <span class="nf">bl</span>      <span class="no">operator</span> <span class="no">new</span><span class="p">[](</span><span class="no">unsigned</span> <span class="no">long</span><span class="p">)</span>
+        <span class="nf">mov</span>     <span class="no">x1</span><span class="p">,</span> <span class="no">x19</span>
+        <span class="nf">mov</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x0</span>
+        <span class="nf">bl</span>      <span class="no">copyUppercase</span><span class="p">(</span><span class="no">char</span><span class="p">*,</span> <span class="no">char</span> <span class="no">const</span><span class="p">*)</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">bl</span>      <span class="no">puts</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x29</span>
+        <span class="nf">ldp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldr</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c">#48             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">b</span>       <span class="no">operator</span> <span class="no">delete</span><span class="p">[](</span><span class="no">void</span><span class="p">*)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们的函数序言要长得多，我们还有一些新的控制流程指令。让我们仔细看看序言：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">stp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#-48]!           // 16-byte Folded Spill
+</span><span class="c"></span>        <span class="no">str</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Spill
+</span><span class="c"></span>        <span class="no">stp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Spill
+</span><span class="c"></span>        <span class="no">mov</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">sp</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>正如我们之前看到的，我们正在将旧的帧指针和堆栈指针保存到堆栈。然而，我们正在使用更复杂的商店说明：<code>stp x29, x30, [sp, #-48]!</code>做两件事。首先，它将<code>x29</code>和<code>x30</code>存储到地址<code>sp - 48</code>其次，它用相同的<code>sp - 48</code>值更新堆栈指针（这就是感叹号的目的；它是<a href="https://developer.arm.com/documentation/102374/0101/Loads-and-stores---addressing" target="_blank" rel="noopener noreffer">ARM文档中</a>描述<a href="https://developer.arm.com/documentation/102374/0101/Loads-and-stores---addressing" target="_blank" rel="noopener noreffer">的</a>“索引前寻址模式”）。</p>
+<p>接下来，我们将<code>x21</code>、<code>x20</code>和<code>x19</code>保存到堆栈中；稍后我们将使用它们，并要求保留它们的当前值（换句话说，它们是“被调用者保存”的寄存器）。最后，我们在<code>x29</code>中设置了新的帧指针。</p>
+<p>（顺便说一句，编译器生成的注释中的“溢出”一词只是意味着我们正在将寄存器保存到堆栈中。）</p>
+<p>打开功能主体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">mov</span>     <span class="no">x19</span><span class="p">,</span> <span class="no">x0</span>
+        <span class="nf">bl</span>      <span class="no">strlen</span>
+        <span class="nf">cmp</span>     <span class="no">x0</span><span class="p">,</span> <span class="c">#1024                       // =1024
+</span><span class="c"></span>        <span class="no">add</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="c">#1                      // =1
+</span><span class="c"></span>        <span class="no">b.hi</span>    <span class="no">.LBB0_2</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>We save our argument, <code>s</code> (stored in <code>x0</code>) in <code>x19</code> and call <code>strlen</code> with <code>bl</code>, as we saw before. When <code>strlen</code>returns, we <a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/cmp--immediate-?lang=en" target="_blank" rel="noopener noreffer">CoMPare</a> its result against 1024 as the first step in our <code>if</code> statement. This sets the <a href="https://developer.arm.com/documentation/dui0801/a/Overview-of-AArch64-state/Conditional-execution-in-AArch64-state" target="_blank" rel="noopener noreffer">NZCV register</a> according to the result of the comparsion, and then <code>b.hi .LBB0_2</code> <a href="https://developer.arm.com/documentation/100076/0100/a64-instruction-set-reference/a64-general-instructions/b-cond?lang=en" target="_blank" rel="noopener noreffer">Branches</a> to <code>.LBB0_2</code> if it turns out that <code>x0</code> was in fact more than 1024. Because both branches of our <code>if</code> statement care about<code>sSize + 1</code> and not <code>sSize</code>, we add 1 to <code>x0</code> (which stores <code>sSize</code>) <em>before</em> the branch. In general, higher-level control-flow primitives like <code>if</code>/<code>else</code> statements and loops are implemented in assembly using conditional jump instructions.</p>
+<p>让我们先看看<code>x0 &lt;= 1024</code>的路径，然后分支到<code>.LBB0_2</code>没有被拿走。我们有一个在堆栈上创建<code>char temp[sSize + 1]</code>的说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">add</span>     <span class="no">x9</span><span class="p">,</span> <span class="no">x0</span><span class="p">,</span> <span class="c">#15                     // =15
+</span><span class="c"></span>        <span class="no">mov</span>     <span class="no">x8</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">and</span>     <span class="no">x9</span><span class="p">,</span> <span class="no">x9</span><span class="p">,</span> <span class="c">#0xfffffffffffffff0
+</span><span class="c"></span>        <span class="no">sub</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x8</span><span class="p">,</span> <span class="no">x9</span>
+        <span class="nf">mov</span>     <span class="no">x21</span><span class="p">,</span> <span class="no">sp</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x20</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们将15添加到<code>x0</code>中，并将结果放在<code>x9</code>中。然后，我们屏蔽了<code>x9</code>的下4位。这两个操作一起将目标阵列大小四舍五入到下一个16的倍数到<code>x9</code>中。然后，我们从堆栈指针中减去数组大小，将旧的堆栈指针值保存到<code>x21</code>中，并设置新的堆栈指针值。</p>
+<p>以下块只需调用<code>copyUppercase</code>，并<code>puts</code>代码写入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">mov</span>     <span class="no">x1</span><span class="p">,</span> <span class="no">x19</span>
+        <span class="nf">bl</span>      <span class="no">copyUppercase</span><span class="p">(</span><span class="no">char</span><span class="p">*,</span> <span class="no">char</span> <span class="no">const</span><span class="p">*)</span>
+        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">bl</span>      <span class="no">puts</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，我们有功能结语：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x21</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x29</span>
+        <span class="nf">ldp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldr</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c">#48             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们使用帧指针的值恢复堆栈指针。然后，我们将之前保存的寄存器加载到堆栈中。在这里，我们看到了一种新的“后索引”添加模式：<code>ldp x29, x30, [sp], #48</code>意味着从堆栈指针的当前值加载<code>x29</code>和<code>x30</code>，然后在添加48。最后，我们将控制权退还给来电者，我们就完成了。</p>
+<p>接下来，让我们看看<code>x0 &gt; 1024</code>的路径，然后我们分支到<code>.LBB0_2</code>在堆上分配我们的数组。这条路更直截了当。我们调用<code>operator new[]</code>，将结果（以<code>x0</code>返回）保存到<code>x20</code>，并调用<code>copyUppercase</code>并像以前一样<code>puts</code>。我们为这个案例有一个单独的函数结尾，它看起来有点不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">        <span class="nf">mov</span>     <span class="no">x0</span><span class="p">,</span> <span class="no">x20</span>
+        <span class="nf">mov</span>     <span class="no">sp</span><span class="p">,</span> <span class="no">x29</span>
+        <span class="nf">ldp</span>     <span class="no">x20</span><span class="p">,</span> <span class="no">x19</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#32]             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldr</span>     <span class="no">x21</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#16]                  // 8-byte Folded Reload
+</span><span class="c"></span>        <span class="no">ldp</span>     <span class="no">x29</span><span class="p">,</span> <span class="no">x30</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c">#48             // 16-byte Folded Reload
+</span><span class="c"></span>        <span class="no">b</span>       <span class="no">operator</span> <span class="no">delete</span><span class="p">[](</span><span class="no">void</span><span class="p">*)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The forst <code>mov</code> sets up <code>x0</code> with a pointer to our heap-allocated array that we saved earlier. As with the other function epilogue, we then restore the stack pointer, load our saved registers, and update it by adding 48 bytes back. Finally, we have a new instruction: <code>b operator delete[](void*)</code>. <code>b</code> (for “branch”) is just like <code>goto</code>: it transfers control to the given label or function. Unlike <code>bl</code>, it does not save the return address for a future <code>ret</code>. So, when <code>operator delete[]</code> returns, it will instead transfer control to <code>printUpperCase</code>’s caller. In essence, we’ve combined a <code>bl</code> to <code>opreator delete[]</code> with our own <code>ret</code>. This is called <a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank" rel="noopener noreffer">tail call optimization</a>.</p>
+<h1 id="进一步阅读">进一步阅读</h1>
+<p>汇编语言<a href="https://hackaday.com/2018/08/21/kathleen-booth-assembling-early-computers-while-inventing-assembly/" target="_blank" rel="noopener noreffer">可以追溯到1940年代末</a>，因此有很多资源可以学习它。就我个人而言，我第一次介绍汇编语言是在母校密歇根大学举行的<a href="https://eecs370.github.io/" target="_blank" rel="noopener noreffer">EECS 370：计算机组织入门</a>初级课程。不幸的是，该网站上链接的大多数课程材料都不公开。以下是<a href="https://www2.eecs.berkeley.edu/Courses/CS61C/" target="_blank" rel="noopener noreffer">伯克利（CS 61C）、</a><a href="https://www.cs.cmu.edu/~213/" target="_blank" rel="noopener noreffer">卡内基梅隆（15-213）、</a><a href="https://web.stanford.edu/class/cs107/index.html" target="_blank" rel="noopener noreffer">斯坦福（CS107）</a>和<a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-004-computation-structures-spring-2017/" target="_blank" rel="noopener noreffer">麻省理工学院（6.004）的</a>相应“计算机如何真正工作”课程。（如果我为这些学校推荐了错误的课程，请告诉我！）<a href="https://www.nand2tetris.org/" target="_blank" rel="noopener noreffer">Nand to Tetris</a>似乎也涵盖了类似的材料，项目和书籍章节是<a href="https://www.nand2tetris.org/course" target="_blank" rel="noopener noreffer">免费的</a>。</p>
+<p>我第一次实际接触ARM64组件，特别是通过iPhone开发。我从大学之前接触到组装的一般方法就知道了，所以我每次都只是谷歌搜索“ARM64 ldp指令”（或任何其他指令），并阅读它的作用。随着时间的推移，我记住了我学到的东西，不必再用谷歌了。</p>
+<p>如果您想对ARM64汇编语言进行更技术性的演练，<a href="https://developer.arm.com/documentation/102374/0101" target="_blank" rel="noopener noreffer">ARM网站上</a>还有一个“学习架构”指南。这可能会帮助你知道架构的官方名称实际上是AArch64，但“ARM64”似乎更常见。</p>
+<hr>
+<ol>
+<li>具体而言，自iPhone 5s以来，iPhone一直使用ARM64，显然<a href="https://www.arm.com/blogs/blueprint/android-64bit-future-mobile" target="_blank" rel="noopener noreffer">绝大多数Android手机也使用</a>ARM64。<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fnref:1" target="_blank" rel="noopener noreffer">↩︎</a></li>
+<li>还假设我们没有像<a href="https://github.com/abseil/abseil-cpp/blob/master/absl/container/fixed_array.h" target="_blank" rel="noopener noreffer">absl::FixedArray</a>这样的东西可用。我不想让这个例子进一步复杂化。<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fnref:2" target="_blank" rel="noopener noreffer">↩︎</a></li>
+<li>我用<code>-fno-exceptions</code>构建了，通过删除异常清理路径来简化示例。它出现在尾声之后，我认为这可能会令人困惑。<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fnref:3" target="_blank" rel="noopener noreffer">↩︎</a></li>
+<li>正如我们在本文的x86-64版本中<a href="https://wolchok.org/posts/how-to-read-assembly-language/#fn:8" target="_blank" rel="noopener noreffer">看到的</a>，我认为不需要这个<code>mov x21, sp</code>。<code>x21</code>直到我们<code>mov sp, x21</code>才会再次使用，但该指令之后立即伴随着<code>mov sp, x19</code>，它覆盖了<code>sp</code>。我认为我们可以通过删除<code>x21</code>的移动来改进代码。<a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/#fnref:4" target="_blank" rel="noopener noreffer">↩︎</a></li>
+</ol>
+</div>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/5.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BBarm64%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/arm64/">ARM64</a>,&nbsp;<a href="/zh-cn/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" class="prev" rel="prev" title="如何阅读汇编语言"><i class="fas fa-angle-left fa-fw"></i>如何阅读汇编语言</a>
+            <a href="/zh-cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="next" rel="next" title="汇编语言入门教程">汇编语言入门教程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-06T11:15:32+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"如何阅读ARM64汇编语言"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

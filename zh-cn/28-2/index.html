@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>推荐二款颜值逆天且功能齐全的开源Shell工具！ - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="推荐二款颜值逆天且功能齐全的开源Shell工具！" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/28-2/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-28T10:57:19+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="推荐二款颜值逆天且功能齐全的开源Shell工具！"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/28-2/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/28-1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/28-3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "推荐二款颜值逆天且功能齐全的开源Shell工具！",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/28-2\/"
+        },"genre": "posts","keywords": "开源, Shell工具","wordcount":  3183 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/28-2\/","datePublished": "2021-11-28T10:57:19+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/28-2/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/28-2/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">推荐二款颜值逆天且功能齐全的开源Shell工具！</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%BC%80%E6%BA%90/"><i class="far fa-folder fa-fw"></i>开源</a>&nbsp;<a href="/zh-cn/categories/shell%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw"></i>Shell工具</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-28">2021-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3183 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#颜值">颜值</a></li>
+    <li><a href="#自定义背景">自定义背景</a></li>
+    <li><a href="#ssh标签">SSH标签</a></li>
+    <li><a href="#文件上传">文件上传</a></li>
+    <li><a href="#命令快捷键">命令快捷键</a></li>
+    <li><a href="#云端同步">云端同步</a></li>
+    <li><a href="#分屏">分屏</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmle7ae80e4bb8b-简介简介"><a href="https://aegisprogram.github.io/posts/99110ee6.html#%E7%AE%80%E4%BB%8B" title="简介"></a>简介</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlapplication-applicationapplication"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Application" title="Application"></a>Application</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlappearance-appearanceappearance"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Appearance" title="Appearance"></a>Appearance</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlcolor-scheme-color-schemecolor-scheme"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Color-Scheme" title="Color Scheme"></a>Color Scheme</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlhotkeys-hotkeyshotkeys"><a href="https://aegisprogram.github.io/posts/99110ee6.html#HotKeys" title="HotKeys"></a>HotKeys</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlplugins-pluginsplugins"><a href="https://aegisprogram.github.io/posts/99110ee6.html#plugins" title="plugins"></a>plugins</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlprofiles-profilesprofiles"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Profiles" title="Profiles"></a>Profiles</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlssh-sshssh"><a href="https://aegisprogram.github.io/posts/99110ee6.html#SSH" title="SSH"></a>SSH</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlterminal-terminalterminal"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Terminal" title="Terminal"></a>Terminal</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlvault-vaultvault"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Vault" title="Vault"></a>Vault</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlwindows-windowswindows"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Windows" title="Windows"></a>Windows</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmlconfig-file-config-fileconfig-file"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Config-File" title="Config File"></a>Config File</a></li>
+        <li><a href="#httpsaegisprogramgithubioposts99110ee6htmle69c80e5908e-最后最后"><a href="https://aegisprogram.github.io/posts/99110ee6.html#%E6%9C%80%E5%90%8E" title="最后"></a>最后</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="推荐二款颜值逆天且功能齐全的开源shell工具"><a href="" rel="">推荐二款颜值逆天且功能齐全的开源Shell工具！</a></h1>
+<h2 id="前言">前言</h2>
+<p>以前在windows上一直使用的SSH工具是XShell，后来转到mac平台，XShell没有mac版本。所以之前一直在找一款颜值高，功能齐全的可以作为日常使用的Shell工具。</p>
+<p>我知道mac下也有不少优秀的Shell终端工具，比如SecureCRT，putty，Termius，FinalShell等。</p>
+<p>我是从以下几个维度考虑的：</p>
+<p>颜值要高，毕竟天天面对本就枯燥乏味的shell命令行，界面不好看会影响心情。心情也是生产力要素中很重要的一个因素，不知道你们认同么。</p>
+<p>功能要全，什么文件上传，云端同步，主题切换，自定义背景，拖拽，窗口切分，历史命令等等统统要有。功能不全，我用着不爽。</p>
+<p>操作要简洁，我不是搞运维的，命令行已经很繁杂了，不想在UI上再被折腾。</p>
+<p>要免费，功能再好要收费也没鸟用，因为穷。</p>
+<p>那么今天推荐的就是一款符合以上所有要求的一款SSH工具，而且它是免费开源的。迭代非常快。几乎几天一个版本，支持平台包括windows，mac，linux。mac中连arm64都支持。几乎是全平台都支持了。</p>
+<p>全功能免费，无广告。非常香。</p>
+<p>它就是：electerm</p>
+<h2 id="颜值">颜值</h2>
+<p>我在mac平台用了这款软件几乎快2年。选择这款终端其中一个最重要的原因就是颜值。不多说，直接上图：</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134716113-1804752303.png"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134720302-1821128497.png"
+    /></p>
+<p>整个界面一股浓浓的暗黑系风格，不过还有套默认的白色主题可供选择。</p>
+<p>除了预设的2套主题外，eleterm可以随意自定义主题：</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134726079-1922178461.png"
+    /></p>
+<h2 id="自定义背景">自定义背景</h2>
+<p>我看到很多童鞋的IDEA背景都是小姐姐，虽然我觉得这严重影响我的注意力，但是Shell终端里可以有，上一个来试试。可以看看效果：</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134734048-1897000444.png"
+    /></p>
+<h2 id="ssh标签">SSH标签</h2>
+<p>electerm的SSH连接信息是以标签形式存储的。</p>
+<p>可以为某一组连接增加文件夹，新建立一个连接，基本上该有的功能都有。界面也极其简洁。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134740374-1920333752.png"
+    /></p>
+<h2 id="文件上传">文件上传</h2>
+<p>electerm自带一个sftp的文件上传，连上SSH之后，点这里即可打开sftp的上传。</p>
+<p>上传UI简单易懂，左侧本地右侧远程，可拖拽，甚至于支持整个文件夹的上传。非常方便。多个任务是多个线程，在顶部可以看到正在上传的线程。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134747238-1262496005.png"
+    /></p>
+<h2 id="命令快捷键">命令快捷键</h2>
+<p>作为一款shell工具，快速命令应该是标配，有些工具还甚至拿这个来收费，有点说不过去。</p>
+<p>eleterm配置快速命令非常方便，比如加一个查看系统信息的命令，只需要在这里进行配置。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134754326-1552500457.png"
+    /></p>
+<p>然后你就可以很方便的在底部进行点击快速执行了</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134805200-1362341691.png"
+    /></p>
+<h2 id="云端同步">云端同步</h2>
+<p>Electerm支持可以在多个电脑之间同步设置和标签。</p>
+<p>非常巧妙的利用了github和gitee，只要设置一个token，就可以进行配置和连接信息的导出和导入。原理上就是git的push和pull。</p>
+<p>你需要在这里填写一个token</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134811939-29618985.png"
+    /></p>
+<p>我这里是用了gitee方式，这个token需要在gitee里的设置页面进行获取</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134816250-191185432.png"
+    /></p>
+<h2 id="分屏">分屏</h2>
+<p>可以支持无限的分屏，支持横着分和竖着分，右上角点一下就会多分出一个屏出来，非常方便</p>
+<p><img
+        class="lazyload"
+        data-src="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png"
+        data-srcset="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png 1.5x, https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png 2x"
+        data-sizes="auto"
+        alt="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png"
+        title="https://img2020.cnblogs.com/blog/268224/202111/268224-20211123134823145-767908886.png"
+    /></p>
+<p>底下有个批量输入命令。不管你有多少窗口，一次输入，批量执行。</p>
+<h2 id="结语">结语</h2>
+<p>electerm功能真的挺全面的，是一款挺小众但是优秀的开源作品。我个人一直用到现在，虽然在使用中偶尔会有小问题，但是作者一直在更新。在两年中，我也看到了这款作品变的越来越好。</p>
+<p>所以现在推荐给大家。希望你使用了之后也能爱上这个小而美的Shell终端。</p>
+<p>Electerm的官方下载地址为：<a href="https://electerm.github.io/electerm" target="_blank" rel="noopener noreffer">https://electerm.github.io/electerm</a></p>
+<h1 id="终端神器tabby-terminal">终端神器——Tabby Terminal</h1>
+<p><img
+        class="lazyload"
+        data-src="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/Tabby.8yvnueycbic.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/Tabby.8yvnueycbic.png, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/Tabby.8yvnueycbic.png 1.5x, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/Tabby.8yvnueycbic.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/Tabby.8yvnueycbic.png"
+        title="image"
+    /></p>
+<p>前段时间我在GitHub上无意之中看到了这款终端，当我看到它的那一眼我就被它深深的吸引了。相对于Windows Terminal和cmder这些终端，它们有的它都有，它们没有的，它有。不过事先声明，它没有中文，只有英文。所以英文不是特别熟悉的小伙伴可能需要克服一下。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmle7ae80e4bb8b-简介简介"><a href="https://aegisprogram.github.io/posts/99110ee6.html#%E7%AE%80%E4%BB%8B" title="简介" target="_blank" rel="noopener noreffer"></a>简介</h3>
+<p>GitHub地址：<a href="https://github.com/Eugeny/tabby" target="_blank" rel="noopener noreffer">A terminal for a more modern age — Tabby</a></p>
+<p>官网地址：<a href="https://tabby.sh/" target="_blank" rel="noopener noreffer">Tabby.sh</a></p>
+<p>Tabby是一款再GitHub上开源且免费使用的终端。这款终端和其他Windows上的终端最明显的区别有两个，一是高颜值，是跨平台；二是可扩展性强，可自定义程度较高。</p>
+<p>如你所见，Tabby上可供设置地方有很多，下面我将会逐一介绍一下。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlapplication-applicationapplication"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Application" title="Application" target="_blank" rel="noopener noreffer"></a>Application</h3>
+<p>这里主要就是用来检查更新，开源地址，反馈问题和更新细节的描述。基本上不需要什么过多的配置。你只需要打开第一个<code>shell integration</code>。这样你可以在选中一个文件夹的时候使用Tabby快速定位到该路径。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlappearance-appearanceappearance"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Appearance" title="Appearance" target="_blank" rel="noopener noreffer"></a>Appearance</h3>
+<p>这里主要是涉及Tabby外观的的设置和调整。在这里你可以修改字体的大小，终端背景颜色，光标样式以及自定义CSS。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlcolor-scheme-color-schemecolor-scheme"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Color-Scheme" title="Color Scheme" target="_blank" rel="noopener noreffer"></a>Color Scheme</h3>
+<p>这个板块是主题板块，Tabby上有几十个主题供你选择，觉得能让你看的眼花缭乱。不仅如此，它还支持自定义CSS样式，所以即使你不喜欢上面的任何一款主题的话你也可以自己动手弄一个。对于大多数人来说，有这么的内置主题方案也就没必要去自己搞了。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlhotkeys-hotkeyshotkeys"><a href="https://aegisprogram.github.io/posts/99110ee6.html#HotKeys" title="HotKeys" target="_blank" rel="noopener noreffer"></a>HotKeys</h3>
+<p>在这里你可以设置、调整Tabby的全局快捷键，例如粘贴，复制，快速定位到开头，快速定位到末尾等。快捷键多到超乎你的想象。因此，对于喜欢和习惯于快捷键使用的人来说，这绝对是一个值得好好布局的选项。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlplugins-pluginsplugins"><a href="https://aegisprogram.github.io/posts/99110ee6.html#plugins" title="plugins" target="_blank" rel="noopener noreffer"></a>plugins</h3>
+<p>这里是下载、添加终端插件的板块。在这里你可以找到很多适用于用来提高开发效率的插件。Tabby功能性上比较原始的，有些功能是需要通过安装插件来增强的。</p>
+<p><img
+        class="lazyload"
+        data-src="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/piugins.38m84mcgr6i0.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/piugins.38m84mcgr6i0.png, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/piugins.38m84mcgr6i0.png 1.5x, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/piugins.38m84mcgr6i0.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/piugins.38m84mcgr6i0.png"
+        title="image"
+    /></p>
+<p>目前数量上虽然算不上很多，但是开发者还在积极的开发当中。插件这一项功能在Windows Terminal上是体验不到的。</p>
+<p>提示：Tabby终端默认是无法点击链接预览的，我在写hexo博客的时候发现，当我想到预览的时候，按住ctrl并不能点击链接。所以我一直在设置里面找是不是有相关的选项没有打开。后来我发现，原来是要安装一个链接预览的插件，安装好插件之后你可以选择自己想要的快捷键进行预览。</p>
+<p><img
+        class="lazyload"
+        data-src="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/link.2yqdkfjptao0.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/link.2yqdkfjptao0.png, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/link.2yqdkfjptao0.png 1.5x, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/link.2yqdkfjptao0.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/link.2yqdkfjptao0.png"
+        title="image"
+    /></p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlprofiles-profilesprofiles"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Profiles" title="Profiles" target="_blank" rel="noopener noreffer"></a>Profiles</h3>
+<p><img
+        class="lazyload"
+        data-src="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/profiles.5pchvixqyw40.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/profiles.5pchvixqyw40.png, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/profiles.5pchvixqyw40.png 1.5x, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/profiles.5pchvixqyw40.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/profiles.5pchvixqyw40.png"
+        title="image"
+    /></p>
+<p>这是一个添加修改PC上所有可用的shell的面板。和Windows Terminal最大的不同就是，Tabby会自动检测你电脑上所有可用的shell，不需要自己自己过多的添加配置，所以也就节省了配置的时间。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlssh-sshssh"><a href="https://aegisprogram.github.io/posts/99110ee6.html#SSH" title="SSH" target="_blank" rel="noopener noreffer"></a>SSH</h3>
+<p>是的，没错。Tabby还是一款SSH 客户端，能快速远程控制服务器。SSH连接管理现在是通过配置文件标签完成的。</p>
+<p>官方描述中是这样的：</p>
+<p>1.带有连接管理器的SSH2客户端</p>
+<p>2.SFTP和Zmodem文件传输</p>
+<p>3.X11和端口转发</p>
+<p>4.跳转主机</p>
+<p>5.代理转发 - 包括Pageant和Windows本地OpenSSH代理</p>
+<p>6.登录脚本</p>
+<p>7.可选的内置密码管理器，有一个主密码</p>
+<p>8.支持代理命令</p>
+<p>还没尝试过，等到时候试试再回来补充感受（毕竟现在xhsell用的顺手，习惯了）。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlterminal-terminalterminal"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Terminal" title="Terminal" target="_blank" rel="noopener noreffer"></a>Terminal</h3>
+<p>这里基本都是与终端相关的配置。</p>
+<p>在这里如果你不想打开一个终端之后还是保留原来历史的路径，那么你可以选择关闭这个<code>restore terminal tabs on app start</code>。这样你就不会再回到之前的路径下了。</p>
+<p>其次，当你点击Tabby的时候它可能会有一个开始界面，如下图所示：</p>
+<p><img
+        class="lazyload"
+        data-src="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/start.4y625f6o3us0.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/start.4y625f6o3us0.png, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/start.4y625f6o3us0.png 1.5x, https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/start.4y625f6o3us0.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/ilemonEllen/image_github@master/blog_image/start.4y625f6o3us0.png"
+        title="image"
+    /></p>
+<p>你可能并不想要看到这个界面，所以你可以在这个terminal这个界面打开<code>Auto-open terminal on app start</code><br>
+这样你就不会停在这个开始界面，它就会直接跳过。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlvault-vaultvault"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Vault" title="Vault" target="_blank" rel="noopener noreffer"></a>Vault</h3>
+<p>这其实更像是Tabby内置的密码管理器。</p>
+<p>上面的描述是：</p>
+<blockquote>
+<p>Vault is an always encrypted container for secret such as password and private passphrases.</p>
+</blockquote>
+<p>意思大概就是</p>
+<blockquote>
+<p>Vault是一个始终加密的容器，用于存放密码和私人口令等秘密。</p>
+</blockquote>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlwindows-windowswindows"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Windows" title="Windows" target="_blank" rel="noopener noreffer"></a>Windows</h3>
+<p>这是对于终端窗口的进一步设置板块。在这里你可以选择、调整tabs的位置，是否开启亚克力效果等。基本上可以选择默认，也可以根据自己的需要进行调整。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmlconfig-file-config-fileconfig-file"><a href="https://aegisprogram.github.io/posts/99110ee6.html#Config-File" title="Config File" target="_blank" rel="noopener noreffer"></a>Config File</h3>
+<p>顾名思义就是展示配置文件的窗口，你可以在这里看到你调整过的设置，你也可以从这里用其他的编译器打开配置文件来进行调整。</p>
+<h3 id="httpsaegisprogramgithubioposts99110ee6htmle69c80e5908e-最后最后"><a href="https://aegisprogram.github.io/posts/99110ee6.html#%E6%9C%80%E5%90%8E" title="最后" target="_blank" rel="noopener noreffer"></a>最后</h3>
+<p>总的来说，这个终端开始非常值得使用的，一般终端具有的功能它基本都有。而且配置、使用并不是很复杂。对于不爱折腾的人来说是个必备的神器。重要的是，它跨平台的属性真的很不错的，无论你使用Windows、MacOS、还是Linux都能让你找回熟悉的感觉。</p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/53.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/28-2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E5%BC%80%E6%BA%90/">开源</a>,&nbsp;<a href="/zh-cn/tags/shell%E5%B7%A5%E5%85%B7/">Shell工具</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/28-1/" class="prev" rel="prev" title="使用HiveOS挖矿安装超频教程以太坊ETH"><i class="fas fa-angle-left fa-fw"></i>使用HiveOS挖矿安装超频教程以太坊ETH</a>
+            <a href="/zh-cn/28-3/" class="next" rel="next" title="关于日常应用那些不得不说的事儿(0)">关于日常应用那些不得不说的事儿(0)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-28T10:57:19+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"推荐二款颜值逆天且功能齐全的开源Shell工具！"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

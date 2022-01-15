@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>智能电视漏洞挖掘初探之 Getshell - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="智能电视漏洞挖掘初探之 Getshell" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/21-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-21T15:33:25+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="智能电视漏洞挖掘初探之 Getshell"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/21-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/21-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/21-4/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "智能电视漏洞挖掘初探之 Getshell",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/21-3\/"
+        },"genre": "posts","keywords": "智能, 电视, 漏洞挖掘, Getshell","wordcount":  3812 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/21-3\/","datePublished": "2021-11-21T15:33:25+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/21-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/21-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">智能电视漏洞挖掘初探之 Getshell</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E6%99%BA%E8%83%BD/"><i class="far fa-folder fa-fw"></i>智能</a>&nbsp;<a href="/zh-cn/categories/%E7%94%B5%E8%A7%86/"><i class="far fa-folder fa-fw"></i>电视</a>&nbsp;<a href="/zh-cn/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="far fa-folder fa-fw"></i>漏洞挖掘</a>&nbsp;<a href="/zh-cn/categories/getshell/"><i class="far fa-folder fa-fw"></i>Getshell</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-21">2021-11-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3812 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#智能电视漏洞挖掘初探之-getshell">智能电视漏洞挖掘初探之 Getshell</a>
+      <ul>
+        <li><a href="#信息收集">信息收集</a></li>
+        <li><a href="#拆箱">拆箱</a></li>
+        <li><a href="#建立热点">建立热点</a></li>
+        <li><a href="#了解业务">了解业务</a></li>
+        <li><a href="#威胁建模">威胁建模</a></li>
+        <li><a href="#从端口扫描到提权">从端口扫描到提权</a>
+          <ul>
+            <li><a href="#分析对外开放的服务">分析对外开放的服务</a></li>
+            <li><a href="#调试入口">调试入口</a></li>
+            <li><a href="#提权">提权</a></li>
+            <li><a href="#没有adb但可以安装任意应用">没有ADB但可以安装任意应用</a></li>
+            <li><a href="#既没有adb也不能安装任意应用">既没有ADB也不能安装任意应用</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h2 id="智能电视漏洞挖掘初探之-getshell">智能电视漏洞挖掘初探之 Getshell</h2>
+<p>上周发了一篇智能电视历史漏洞的文章，这周来分享一下智能电视的攻击点以及怎么上手。智能电视不仅仅是用来看电视的，也可以是智能家居的枢纽。电视不是单独的存在，还能与手机、智能家居进行互动。正是由于应用场景的不断拓展，安全问题也逐渐显露。想象一下“ 你在看电视，电视却在看你 ”的诡异画面。曾有新闻报道，自己家电视的播放不受控制，莫名其妙的播放了一些奇奇怪怪的东西。这是怎么一回事儿呢，我们首先来了解一下电视。</p>
+<p>一般人很少全面的了解智能电视，一般就用刷刷剧，其中有不少人甚至不会用 DLNA 投屏服务。下面来看看，在挖掘智能电视漏洞之前需要了解的基础信息。</p>
+<p>很多人天天使用电视，却不知道电视使用什么系统。知道采用什么系统，心里就有最基本的方向了。智能电视使用的操作系统有 Android、WebOS、Tizen、TV OS(IOS)等。</p>
+<ul>
+<li><strong>Android</strong>：国内主流使用的电视操作系统，应用生态丰富，各大电视厂家进行了深度定制。</li>
+<li><strong>WebOS</strong>: LG 电视使用 WebOS 操作系统，WebOS 以 Linux 内核为主体并加上专有转件的操作系统，几经转手现在归 LG 旗下。</li>
+<li><strong>Tizen</strong>: 三星电视使用 Tizen 操作系统，同样基于Linux。Tizen 系统是英特尔 MeeGo 系统与三星 LiMo 系统整合而来的。</li>
+<li><strong>TV OS(IOS)</strong>: APPLE TV 使用的操作系统，由 IOS 分化而来，国内极少见。</li>
+</ul>
+<p>话说，还有华为鸿蒙，暂时还没有碰过，这里就不讨论了，哪位大大，能赞助一台华为智慧屏，咱们就来仔细聊聊。于国内而言，几乎一色的深度定制 Android 系统。下面我们就来看看采用 Android 系统的电视的漏洞挖掘。</p>
+<h3 id="信息收集">信息收集</h3>
+<p>漏洞挖掘的第一步都是信息收集，需要对设备进行摸底，收集各类信息，设备架构、操作系统、外设、各类服务、供应链等。其中有不少的重要消息可以从互联网上找到。</p>
+<p>同一家的智能电视往往有很多共通之处，互联网上可以找到很多东西，如 “如何安装第三方应用”、“工程模式”、“怎么开启 ADB调试”、“如何进入Recovery模式” 等。</p>
+<ul>
+<li>
+<p><strong>第三方应用安装</strong>：电视内置的应用商店提供的应用都不太多，如果有个性化的需求，需要安装第三方的应用。怎么安装第三方应用呢。当下你肯定不是第一个有需求的人，上网搜一搜，很多电视的第三方应用安装方法就出来了。其中<a href="http://www.tvhuan.com/jc" target="_blank" rel="noopener noreffer">欢视网</a>就提供了主流品牌电视的第三方应用安装方法，新兴的小众品牌可以到论坛去找。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409124747333.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409124747333.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409124747333.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409124747333.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409124747333.png"
+        title="image-20210409124747333"
+    /></p>
+<p><a href="https://www.znds.com/jc/" target="_blank" rel="noopener noreffer">当贝市场</a> 也提供第三方应用安装方法。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210414153309098.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210414153309098.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210414153309098.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210414153309098.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210414153309098.png"
+        title="image-20210414153309098"
+    /></p>
+<p><a href="http://www.shafa.com/methods" target="_blank" rel="noopener noreffer">沙发管家</a> 也提供第三方应用安装方法。</p>
+<p>通用的方法是，将第三方应用下载到 U 盘，插入到电视上进行安装。直接安装可能无法安装，有的需要开启文件管理器 APK 显示，有的要开启允许未知应用安装。</p>
+<p>欢视网、当贝市场等只涉及国内，没有国外电视工程模式进入的方法。国外电视可以在 <a href="https://factory-reset.com/wiki/Category:Service_Menu" target="_blank" rel="noopener noreffer">Category:Service Menu - Factory-Reset.com</a> 以及 <a href="https://hardmasterreset.com/" target="_blank" rel="noopener noreffer">Hard Master Reset</a> 上查询。上面不但有进入工程模式的方法，还有进入 Recovery 和本地刷机的方法。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210430124157225.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210430124157225.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210430124157225.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210430124157225.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210430124157225.png"
+        title="image-20210430124157225"
+    /></p>
+</li>
+<li>
+<p><strong>工程模式</strong>：与 Android 手机一样，电视也是有工程模式的。通过特殊的组合按键可以进去隐藏的工程模式。这里可以查看设备基本信息、设置系统参数等。以下是网络上收集的一些电视工程模式的进入方法。</p>
+<ul>
+<li><strong>长虹电视</strong>
+<ul>
+<li>新款带语音的遥控器：按【菜单键】后，当焦点移至 “情景模式” 下的 “标准模式” 菜单上时，按【上、右、右】组合键，弹出数字软键盘，当输入【0 8 1 6】进入工厂菜单。</li>
+<li>带数字按键的遥控：按电视遥控器的【节目源键】，把信号调节到 HDMI，按遥控器 【菜单键】 然后左侧出来菜单栏后，依次按数字键【 0 8 1 6】，然后，就进入工厂模式 了。</li>
+</ul>
+</li>
+<li><strong>TCL电视</strong>：将【音量】减到0，调出“主菜单”, 光标移至”对比度”并点击【确定键】；在 2 秒内迅速按数字键【9 7 3 5】可进入工厂模式。</li>
+<li><strong>小米电视</strong>：在系统菜单中进入“设置”-&gt; “关于” -&gt; “联系客服”；在 “联系客服” 界面继续按住遥控器的 【下方向键】，即可看到 工厂模式 的入口。</li>
+<li><strong>海信电视</strong>：按下遥控器的【菜单键】，在菜单键中选择“声音设置”，再之后选择平衡选项，输入0532，完成之后，即可进入到海信电视的工程模式。</li>
+<li><strong>创维酷开电视</strong>：打开系统设置页面，进入到本机“详细信息”；遥控器依次按下【上上下下左右左右】方向键，就可以进入工程模式了。</li>
+<li><strong>索尼电视</strong>：开机播放有线电视节目，按遥控器上【电源/待机键】，进入待机，然后依此按下 遥控器上的【屏显】、【5】、【音量+】、【电源/待机】，后进入工程模式。</li>
+<li><strong>乐视电视</strong>：首先“开机” -&gt; “主页” -&gt; 按遥控器上数字键 【2580】，即可进入工程模式。</li>
+<li><strong>三星电视</strong>：将电视进入待机状态，依次按下遥控器上的【显示键】、【项目键】、【静音键】、【电源键】，即进入工程模式，关闭电源就可以退出工程模式。</li>
+<li><strong>康佳电视</strong>：按一下菜单按钮，画面弹出普通功能设置菜单。这时连续点按5次“回看”按钮，即可打开康佳电视工厂模式菜单。</li>
+</ul>
+</li>
+<li>
+<p><strong>ADB</strong> : 一般在 “工程模式” 或 “开发者模式” 中开启 ADB 调试功能，甚至有点的智能电视直接默认开启了 ADB。</p>
+</li>
+<li>
+<p><strong>Recovery 模式</strong>：Android 电视也有 Recovery 刷机模式，下面是一些电视的 Recovery 模式的进入方法。</p>
+<ul>
+<li><strong>创维</strong>：断电再重新通电的同时连续点按遥控的上键（I71和I71C、A818/A818C是点按遥控的左键），即可进入Recovery模式。</li>
+<li><strong>华为盒子</strong>: 先将盒子关机，然后开机，在开机时开始一直按遥控器的【菜单键】和【音量-】（不停点按两个键，不是长按），就会进入Recovery 模式。</li>
+<li><strong>小米</strong>：开机中，同时按住遥控器上的【主页键】和【菜单键】，机器进入Recovery 模式。</li>
+<li><strong>其他</strong>：有的还有像手机一样，开机按【电源键】和【音量-】进入 Recovery 模式，另外值得注意的是有些电视可以在 “工程模式” 中选择进入Recovery 模式。</li>
+</ul>
+</li>
+<li>
+<p><strong>其他信息</strong>：如固件包等。</p>
+</li>
+</ul>
+<h3 id="拆箱">拆箱</h3>
+<p>收到电视，当然是最爱的拆箱环节，自己动手组装电视。组装之前，最好看一遍 “用户手册” ，看一看电视有哪些接口，遥控器的使用说明以及其他信息。</p>
+<p>接口，电视上一般有音频输入输出接口、网口、HDMI、USB、天线等。当然也可以直接看电视上的接口。</p>
+<p>遥控器，一个遥控器有什么好看的，谁还不会用啊？现在电商厂商玩的越来越花了，遥控器上除了红外，有的还有蓝牙和 NFC。看一下用户手册，了解是否有什么不常见的新功能以及如何使用。</p>
+<h3 id="建立热点">建立热点</h3>
+<p>开机之后先不要忙着连接 Wi-Fi ，建立一个热点，抓取初次连接的数据包。运气好的话，可以抓到明文传输的升级包以及设备激活信息。以下是某电视升级包的下载请求。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409143412979.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409143412979.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409143412979.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409143412979.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409143412979.png"
+        title="image-20210409143412979"
+    /></p>
+<h3 id="了解业务">了解业务</h3>
+<p>查看系统中有哪些内置应用，重点关注电视厂商自己的应用。如系统设置、投屏服务、智能家居联动服务等。</p>
+<h3 id="威胁建模">威胁建模</h3>
+<p>对智能电视有整体的了解后，就到了威胁建模的阶段。</p>
+<ul>
+<li>
+<p>硬件安全</p>
+<p>拆机调试接口（串口）是否封闭，是否存在授权等。</p>
+<p>Flash 是否容被提权。</p>
+</li>
+<li>
+<p>ADB 调试</p>
+<p>电视都有 ADB 调试，如何开启 ADB。</p>
+</li>
+<li>
+<p>通信安全</p>
+<p>重要数据是否明文传输。特别是OTA，能否从 OTA 获取升级包地址，升级包能够被替换。此外有的遥控器也是有OTA的，这是容易被忽略的。</p>
+<p>蓝牙可能存在 nday。</p>
+</li>
+<li>
+<p>电视与其他终端的交互安全</p>
+<p>电视与手机、IOT等设备之间的交互，这一类一般采用私有协议。其中存在隐私泄露、拒绝服务、服务被滥用等威胁。</p>
+</li>
+<li>
+<p>系统以应用安全</p>
+<p>越权、命令执行、缓冲区溢出、敏感信息泄露等。</p>
+</li>
+</ul>
+<h3 id="从端口扫描到提权">从端口扫描到提权</h3>
+<p>利用端口扫描发现对外开放的服务，并利用之前收集的信息获取 ADB 权限，开始智能电视漏洞挖掘之旅。</p>
+<h4 id="分析对外开放的服务">分析对外开放的服务</h4>
+<p>智能电视是一个大屏手机，与手机不同的，电视会开放一些端口用于和其他设备交互，手机默认是不会开放端口的。通过端口扫描查看电视对外开放的端口，分析电视对外开放的开放服务。</p>
+<p>比如 TCL 某型号电视就默认就开启了 ADB。<code>adb connect ip:5555</code> 就能拿到交互式 shell，这对后续的分析很有帮助。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111222737066.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111222737066.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111222737066.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111222737066.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111222737066.png"
+        title="image-20201111222737066"
+    /></p>
+<p>此外，还有 7983 端口，直接访问这不明显是<code>目录遍历</code>么。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111221944259.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111221944259.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111221944259.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111221944259.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201111221944259.png"
+        title="image-20201111221944259"
+    /></p>
+<h4 id="调试入口">调试入口</h4>
+<p>对外开放的端口看完了，此时可能已经发现了一些问题，目录遍历、ADB等。但有些端口，直接是看不出来用途的，这时候需要进入系统去看端口对应的服务。</p>
+<p>如果运气好的话，开放了 ADB 可以直接连。如果没有就可以尝试上面提到的进入工程模式的方法，去找 ADB 开启选项是否在里面。</p>
+<p>例如，创维的某款电视，在<code>设置</code>进入<code>本机信息</code>后，在此界面按 <code>上上下下左右左右</code>进入工程模式。在进入工程模式之后，选择<code>通用设置</code>，进入后可以打开 ADB 调试。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201124002645752.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201124002645752.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201124002645752.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201124002645752.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201124002645752.png"
+        title="image-20201124002645752"
+    /></p>
+<h4 id="提权">提权</h4>
+<p>有了 ADB 之后，去看监听端口的服务时，发现程序名为 <code>-</code>。其实这是权限的问题，普通用户查看，此时我们需要提权。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409152824481.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409152824481.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409152824481.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409152824481.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409152824481.png"
+        title="image-20210409152824481"
+    /></p>
+<p>Android 提权，分析系统中的应用，利用应用缺陷来提权。这一步至关重要，要 hook 应用等都需要 Root 权限。提权还是很费时间的，但是有的电视自带提权应用。TCL 就是其一，使用 <code>tclsu</code>就能从 shell 用户切换到 root 用户。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201112005628259.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201112005628259.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201112005628259.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201112005628259.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20201112005628259.png"
+        title="image-20201112005628259"
+    /></p>
+<p>另外，如果 Android 版本比较低的话可以用 Root 工具提权。</p>
+<p>到这里，就拿到了系统的 Root 权限，随后就可以深入的挖掘电视的漏洞了。</p>
+<h4 id="没有adb但可以安装任意应用">没有ADB但可以安装任意应用</h4>
+<p>一切不可能这么顺利，有的电视 ADB 调试开关藏得就是很深，就是找不到，但是可以安装任意 APK 。这种情况下，可以安装神器 Termux，这不就有了一个 shell。后续可以把 /system 目录下的文件拖下来分析嘛。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/1.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/1.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/1.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/1.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/1.png"
+        title="1"
+    /></p>
+<h4 id="既没有adb也不能安装任意应用">既没有ADB也不能安装任意应用</h4>
+<p>不少也是预留有电视串口的，只是有的默认开启，有的需要在工程模式中打开。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409163034559.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409163034559.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409163034559.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409163034559.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409163034559.png"
+        title="image-20210409163034559"
+    /></p>
+<p>串口进入一般是没有认证。</p>
+<p><img
+        class="lazyload"
+        data-src="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409162807115.png"
+        data-srcset="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409162807115.png, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409162807115.png 1.5x, https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409162807115.png 2x"
+        data-sizes="auto"
+        alt="https://delikely.github.io/2021/04/16/%E6%99%BA%E8%83%BD%E7%94%B5%E8%A7%86%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%88%9D%E6%8E%A2%E4%B9%8B-Getshell/image-20210409162807115.png"
+        title="image-20210409162807115"
+    /></p>
+<p>再者，这些都不行。那就要一步一步的突破，想办法开启 ADB 调试或安装第三方应用，针对实际情况采取不同手段了。</p>
+<h3 id="总结">总结</h3>
+<p>本文是智能电视漏挖掘的入门文章，从信息收集到 Getshell，但这只是漏洞挖掘的起点，更多的需要对APK、Native程序、乃至对 Android 系统底层的深入研究。</p>
+<p>后面有机会的话和大家分享漏洞挖掘的一些细节，敬请关注。点赞超过 20 ，更新”下一集”。</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="http://www.tvhuan.com/jc" target="_blank" rel="noopener noreffer">欢视助手 安装教程</a></li>
+<li><a href="http://www.360doc.com/content/20/0104/14/33054362_884098583.shtml" target="_blank" rel="noopener noreffer">常见电视或盒子进入Recovery模式的方法汇总</a></li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/40.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/21-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E6%99%BA%E8%83%BD/">智能</a>,&nbsp;<a href="/zh-cn/tags/%E7%94%B5%E8%A7%86/">电视</a>,&nbsp;<a href="/zh-cn/tags/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">漏洞挖掘</a>,&nbsp;<a href="/zh-cn/tags/getshell/">Getshell</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/21-2/" class="prev" rel="prev" title="智能电视漏洞挖掘初探之从文件系统分析到提权"><i class="fas fa-angle-left fa-fw"></i>智能电视漏洞挖掘初探之从文件系统分析到提权</a>
+            <a href="/zh-cn/21-4/" class="next" rel="next" title="智能电视漏洞汇总">智能电视漏洞汇总<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-21T15:33:25+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"智能电视漏洞挖掘初探之 Getshell"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

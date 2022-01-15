@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>重学C语言关键字 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="重学C语言关键字" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/2021-10-19/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-19T12:29:40+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="重学C语言关键字"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/2021-10-19/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/higithubdev/" /><link rel="next" href="https://ybrc.github.io/zh-cn/2021-10-19-1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "重学C语言关键字",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/2021-10-19\/"
+        },"genre": "posts","keywords": "开发, 编程, 语言, C\/C\u002b\u002b","wordcount":  1883 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/2021-10-19\/","datePublished": "2021-10-19T12:29:40+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/2021-10-19/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/2021-10-19/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">重学C语言关键字</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-19">2021-10-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1883 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#标准-c-关键字">标准 C 关键字</a></li>
+    <li><a href="#microsoft-专用-c-关键字">Microsoft 专用 C 关键字</a></li>
+    <li><a href="#请参阅">请参阅</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="c语言关键字c90c99c11">C语言关键字（C90，C99，C11）</h1>
+<p>“关键字”是对 C 编译器具有特殊含义的单词。 在翻译的第 7 和第 8 阶段中，标识符不能具有与 C 关键字相同的拼写和大小写。 有关详细信息，请参阅《预处理器参考》中的<a href="https://docs.microsoft.com/zh-cn/cpp/preprocessor/phases-of-translation?view=msvc-160" target="_blank" rel="noopener noreffer">翻译阶段</a>。 有关标识符的详细信息，请参阅<a href="https://docs.microsoft.com/zh-cn/cpp/c-language/c-identifiers?view=msvc-160" target="_blank" rel="noopener noreffer">标识符</a>。</p>
+<h2 id="标准-c-关键字">标准 C 关键字</h2>
+<p>C 语言使用下列关键字：</p>
+<p><strong><code>auto</code></strong>
+<strong><code>break</code></strong>
+<strong><code>case</code></strong>
+<strong><code>char</code></strong>
+<strong><code>const</code></strong>
+<strong><code>continue</code></strong>
+<strong><code>default</code></strong>
+<strong><code>do</code></strong>
+<strong><code>double</code></strong>
+<strong><code>else</code></strong>
+<strong><code>enum</code></strong></p>
+<p><strong><code>extern</code></strong>
+<strong><code>float</code></strong>
+<strong><code>for</code></strong>
+<strong><code>goto</code></strong>
+<strong><code>if</code></strong>
+<strong><code>inline</code></strong>
+<strong><code>int</code></strong>
+<strong><code>long</code></strong>
+<strong><code>register</code></strong>
+<strong><code>restrict</code></strong>
+<strong><code>return</code></strong></p>
+<p><strong><code>short</code></strong>
+<strong><code>signed</code></strong>
+<strong><code>sizeof</code></strong>
+<strong><code>static</code></strong>
+<strong><code>struct</code></strong>
+<strong><code>switch</code></strong>
+<strong><code>typedef</code></strong>
+<strong><code>union</code></strong>
+<strong><code>unsigned</code></strong>
+<strong><code>void</code></strong>
+<strong><code>volatile</code></strong></p>
+<p><strong><code>while</code></strong>
+<strong><a href="https://docs.microsoft.com/zh-cn/cpp/c-language/alignment-c?view=msvc-160#alignas-and-_alignas-c11" target="_blank" rel="noopener noreffer"><code>_Alignas</code></a></strong>
+<strong><a href="https://docs.microsoft.com/zh-cn/cpp/c-language/alignment-c?view=msvc-160#alignof-and-_alignof-c11" target="_blank" rel="noopener noreffer"><code>_Alignof</code></a></strong>
+<strong><code>_Atomic</code></strong>
+<strong><code>_Bool</code></strong>
+<strong><code>_Complex</code></strong>
+<strong><a href="https://docs.microsoft.com/zh-cn/cpp/c-language/generic-selection?view=msvc-160" target="_blank" rel="noopener noreffer"><code>_Generic</code></a></strong>
+<strong><code>_Imaginary</code></strong>
+<strong><code>_Noreturn</code></strong>
+<strong><code>_Static_assert</code></strong>
+<strong><code>_Thread_local</code></strong></p>
+<p>1 ISO C99 中引入的关键字。</p>
+<p>2 ISO C11 中引入的关键字。</p>
+<p>a 从 Visual Studio 2019 版本 16.8 开始，如果指定了 <code>/std:c11</code> 或 <code>/std:c17</code> 编译器选项，将在编译为 C 的代码中支持这些关键字。</p>
+<p>b 从 Visual Studio 2019 版本 16.8 开始，如果指定了 <code>/std:c11</code> 或 <code>/std:c17</code> 编译器选项，这些关键字将由编译器在编译为 C 的代码中识别，但不受支持。</p>
+<p>不能重新定义关键字。 但是，你可以在编译前通过使用 C <a href="https://docs.microsoft.com/zh-cn/cpp/preprocessor/preprocessor-directives?view=msvc-160" target="_blank" rel="noopener noreffer">预处理器指令</a>指定文本来替换关键字。</p>
+<h2 id="microsoft-专用-c-关键字">Microsoft 专用 C 关键字</h2>
+<p>ANSI 和 ISO C 标准允许为编译器实现保留带有两个前导下划线的标识符。 Microsoft 的惯例是在 Microsoft 专用关键字名称前加上双下划线。 这些单词不能用作标识符名称。 有关标识符命名规则的说明，包括双下划线的使用，请参阅<a href="https://docs.microsoft.com/zh-cn/cpp/c-language/c-identifiers?view=msvc-160" target="_blank" rel="noopener noreffer">标识符</a>。</p>
+<p>下列关键字和特殊标识符由 Microsoft C 编译器识别：</p>
+<p><strong><code>__asm</code></strong>
+<strong><code>__based</code></strong>
+<strong><code>__cdecl</code></strong>
+<strong><code>__declspec</code></strong>
+<strong><code>__except</code></strong>
+<strong><code>__fastcall</code></strong>
+<strong><code>__finally</code></strong></p>
+<p><strong><code>__inline</code></strong>
+<strong><code>__int16</code></strong>
+<strong><code>__int32</code></strong>
+<strong><code>__int64</code></strong>
+<strong><code>__int8</code></strong>
+<strong><code>__leave</code></strong>
+<strong><code>__restrict</code></strong></p>
+<p><strong><code>__stdcall</code></strong>
+<strong><code>__try</code></strong>
+<strong><code>dllexport</code></strong>
+<strong><code>dllimport</code></strong>
+<strong><code>naked</code></strong>
+<strong><code>static_assert</code></strong>
+<strong><code>thread</code></strong></p>
+<p>3 <code>__based</code> 关键字对 32 位和 64 位目标编译的用途有限。</p>
+<p>4 当与 <code>__declspec</code> 一起使用时，这些关键字是特殊的标识符；它们在其他情况下的使用不受限制。</p>
+<p>5 为了与以前的版本兼容，当启用 Microsoft 扩展时，这些关键字既可以使用两个前导下划线，也可以使用一个前导下划线。</p>
+<p>6 如果不包括 &lt;assert.h&gt;，则 Microsoft Visual C 编译器会将 <code>static_assert</code> 映射到 C11 <code>_Static_assert</code> 关键字 。</p>
+<p>默认情况下将启用 Microsoft 扩展。 为了帮助创建可移植的代码，可以在编译过程中指定 <a href="https://docs.microsoft.com/zh-cn/cpp/build/reference/za-ze-disable-language-extensions?view=msvc-160" target="_blank" rel="noopener noreffer">/Za (禁用语言扩展)</a> 选项来禁用 Microsoft 扩展。 如果使用此选项，将禁用某些 Microsoft 专用关键字。</p>
+<p>启用 Microsoft 扩展时，您可在程序中使用上面列出的关键字。 为了符合语言标准一致性，其中大多数的关键字是以双下划线开头的。 <code>dllexport</code>、<code>dllimport</code>、<code>naked</code> 和 <code>thread</code> 这 4 个关键字除外，它们只与 <code>__declspec</code> 一起使用，不需要前导双下划线。 为了向后兼容，支持其余的关键字的单下划线版本。</p>
+<h2 id="请参阅">请参阅</h2>
+<p><a href="https://docs.microsoft.com/zh-cn/cpp/c-language/elements-of-c?view=msvc-160" target="_blank" rel="noopener noreffer">C 的元素</a></p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/20201202172038778.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3phYmNkZXI=,size_16,color_FFFFFF,t_70"
+        data-srcset="https://img-blog.csdnimg.cn/20201202172038778.jpg?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3phYmNkZXI=%2csize_16%2ccolor_FFFFFF%2ct_70, https://img-blog.csdnimg.cn/20201202172038778.jpg?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3phYmNkZXI=%2csize_16%2ccolor_FFFFFF%2ct_70 1.5x, https://img-blog.csdnimg.cn/20201202172038778.jpg?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3phYmNkZXI=%2csize_16%2ccolor_FFFFFF%2ct_70 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/20201202172038778.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3phYmNkZXI=,size_16,color_FFFFFF,t_70"
+        title="C关键字"
+    />关键字 ( keyword)：word or identifier that has a particular meaning to the programming language；</p>
+<p>保留字 ( reserved word)：a reserved word is a word that cannot be used as an identifier, and a reserved word may have no meaning.</p>
+<p>关键字是对编程语言有<strong>特定含义</strong>的词或标识符，保留字是不能定义为标识符的词，为系统保留，有些保留字可能并没有什么意义。例如java中的goto保留字，它并不是关键字，没有什么具体含义，仅为系统保留而已。</p>
+<p>说了那么多，其实，，c和c++是不区分保留字和关键字的，c和c++所有的保留字都是关键字。</p>
+<p><strong>c/c++关键字（摘自<a href="http://en.cppreference.com/w/c/keyword" target="_blank" rel="noopener noreffer">cppreference.com</a>）：</strong></p>
+<table>
+<thead>
+<tr>
+<th><a href="http://en.cppreference.com/w/c/keyword/auto" target="_blank" rel="noopener noreffer"><code>auto</code></a> <a href="http://en.cppreference.com/w/c/keyword/break" target="_blank" rel="noopener noreffer"><code>break</code></a> <a href="http://en.cppreference.com/w/c/keyword/case" target="_blank" rel="noopener noreffer"><code>case</code></a> <a href="http://en.cppreference.com/w/c/keyword/char" target="_blank" rel="noopener noreffer"><code>char</code></a> <a href="http://en.cppreference.com/w/c/keyword/const" target="_blank" rel="noopener noreffer"><code>const</code></a> <a href="http://en.cppreference.com/w/c/keyword/continue" target="_blank" rel="noopener noreffer"><code>continue</code></a> <a href="http://en.cppreference.com/w/c/keyword/default" target="_blank" rel="noopener noreffer"><code>default</code></a> <a href="http://en.cppreference.com/w/c/keyword/do" target="_blank" rel="noopener noreffer"><code>do</code></a> <a href="http://en.cppreference.com/w/c/keyword/double" target="_blank" rel="noopener noreffer"><code>double</code></a> <a href="http://en.cppreference.com/w/c/keyword/else" target="_blank" rel="noopener noreffer"><code>else</code></a> <a href="http://en.cppreference.com/w/c/keyword/enum" target="_blank" rel="noopener noreffer"><code>enum</code></a> <a href="http://en.cppreference.com/w/c/keyword/extern" target="_blank" rel="noopener noreffer"><code>extern</code></a></th>
+<th><a href="http://en.cppreference.com/w/c/keyword/float" target="_blank" rel="noopener noreffer"><code>float</code></a> <a href="http://en.cppreference.com/w/c/keyword/for" target="_blank" rel="noopener noreffer"><code>for</code></a> <a href="http://en.cppreference.com/w/c/keyword/goto" target="_blank" rel="noopener noreffer"><code>goto</code></a> <a href="http://en.cppreference.com/w/c/keyword/if" target="_blank" rel="noopener noreffer"><code>if</code></a> <a href="http://en.cppreference.com/w/c/keyword/inline" target="_blank" rel="noopener noreffer"><code>inline</code></a> (since C99) <a href="http://en.cppreference.com/w/c/keyword/int" target="_blank" rel="noopener noreffer"><code>int</code></a> <a href="http://en.cppreference.com/w/c/keyword/long" target="_blank" rel="noopener noreffer"><code>long</code></a> <a href="http://en.cppreference.com/w/c/keyword/register" target="_blank" rel="noopener noreffer"><code>register</code></a> <a href="http://en.cppreference.com/w/c/keyword/restrict" target="_blank" rel="noopener noreffer"><code>restrict</code></a> (since C99) <a href="http://en.cppreference.com/w/c/keyword/return" target="_blank" rel="noopener noreffer"><code>return</code></a> <a href="http://en.cppreference.com/w/c/keyword/short" target="_blank" rel="noopener noreffer"><code>short</code></a></th>
+<th><a href="http://en.cppreference.com/w/c/keyword/signed" target="_blank" rel="noopener noreffer"><code>signed</code></a> <a href="http://en.cppreference.com/w/c/keyword/sizeof" target="_blank" rel="noopener noreffer"><code>sizeof</code></a> <a href="http://en.cppreference.com/w/c/keyword/static" target="_blank" rel="noopener noreffer"><code>static</code></a> <a href="http://en.cppreference.com/w/c/keyword/struct" target="_blank" rel="noopener noreffer"><code>struct</code></a> <a href="http://en.cppreference.com/w/c/keyword/switch" target="_blank" rel="noopener noreffer"><code>switch</code></a> <a href="http://en.cppreference.com/w/c/keyword/typedef" target="_blank" rel="noopener noreffer"><code>typedef</code></a> <a href="http://en.cppreference.com/w/c/keyword/union" target="_blank" rel="noopener noreffer"><code>union</code></a> <a href="http://en.cppreference.com/w/c/keyword/unsigned" target="_blank" rel="noopener noreffer"><code>unsigned</code></a> <a href="http://en.cppreference.com/w/c/keyword/void" target="_blank" rel="noopener noreffer"><code>void</code></a> <a href="http://en.cppreference.com/w/c/keyword/volatile" target="_blank" rel="noopener noreffer"><code>volatile</code></a> <a href="http://en.cppreference.com/w/c/keyword/while" target="_blank" rel="noopener noreffer"><code>while</code></a></th>
+<th><a href="http://en.cppreference.com/w/c/keyword/_Alignas" target="_blank" rel="noopener noreffer"><code>_Alignas</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Alignof" target="_blank" rel="noopener noreffer"><code>_Alignof</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Atomic" target="_blank" rel="noopener noreffer"><code>_Atomic</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Bool" target="_blank" rel="noopener noreffer"><code>_Bool</code></a> (since C99) <a href="http://en.cppreference.com/w/c/keyword/_Complex" target="_blank" rel="noopener noreffer"><code>_Complex</code></a> (since C99) <a href="http://en.cppreference.com/w/c/keyword/_Generic" target="_blank" rel="noopener noreffer"><code>_Generic</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Imaginary" target="_blank" rel="noopener noreffer"><code>_Imaginary</code></a> (since C99) <a href="http://en.cppreference.com/w/c/keyword/_Noreturn" target="_blank" rel="noopener noreffer"><code>_Noreturn</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Static_assert" target="_blank" rel="noopener noreffer"><code>_Static_assert</code></a> (since C11) <a href="http://en.cppreference.com/w/c/keyword/_Thread_local" target="_blank" rel="noopener noreffer"><code>_Thread_local</code></a> (since C11)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><a href="https://en.cppreference.com/w/cpp/keyword/alignas" target="_blank" rel="noopener noreffer"><code>alignas</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/alignof" target="_blank" rel="noopener noreffer"><code>alignof</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/and" target="_blank" rel="noopener noreffer"><code>and</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/and_eq" target="_blank" rel="noopener noreffer"><code>and_eq</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/asm" target="_blank" rel="noopener noreffer"><code>asm</code></a> <a href="https://en.cppreference.com/w/cpp/language/transactional_memory" target="_blank" rel="noopener noreffer"><code>atomic_cancel</code></a> (TM TS) <a href="https://en.cppreference.com/w/cpp/language/transactional_memory" target="_blank" rel="noopener noreffer"><code>atomic_commit</code></a> (TM TS) <a href="https://en.cppreference.com/w/cpp/language/transactional_memory" target="_blank" rel="noopener noreffer"><code>atomic_noexcept</code></a> (TM TS) <a href="https://en.cppreference.com/w/cpp/keyword/auto" target="_blank" rel="noopener noreffer"><code>auto</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/bitand" target="_blank" rel="noopener noreffer"><code>bitand</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/bitor" target="_blank" rel="noopener noreffer"><code>bitor</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/bool" target="_blank" rel="noopener noreffer"><code>bool</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/break" target="_blank" rel="noopener noreffer"><code>break</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/case" target="_blank" rel="noopener noreffer"><code>case</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/catch" target="_blank" rel="noopener noreffer"><code>catch</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/char" target="_blank" rel="noopener noreffer"><code>char</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/char16_t" target="_blank" rel="noopener noreffer"><code>char16_t</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/char32_t" target="_blank" rel="noopener noreffer"><code>char32_t</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/class" target="_blank" rel="noopener noreffer"><code>class</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/compl" target="_blank" rel="noopener noreffer"><code>compl</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/concept" target="_blank" rel="noopener noreffer"><code>concept</code></a> (since C++20) <a href="https://en.cppreference.com/w/cpp/keyword/const" target="_blank" rel="noopener noreffer"><code>const</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/constexpr" target="_blank" rel="noopener noreffer"><code>constexpr</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/const_cast" target="_blank" rel="noopener noreffer"><code>const_cast</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/continue" target="_blank" rel="noopener noreffer"><code>continue</code></a> <a href="https://en.cppreference.com/mwiki/index.php?title=cpp/keyword/co_await&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer"><code>co_await</code></a> (coroutines TS) <a href="https://en.cppreference.com/mwiki/index.php?title=cpp/keyword/co_return&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer"><code>co_return</code></a> (coroutines TS) <a href="https://en.cppreference.com/mwiki/index.php?title=cpp/keyword/co_yield&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer"><code>co_yield</code></a> (coroutines TS) <a href="https://en.cppreference.com/w/cpp/keyword/decltype" target="_blank" rel="noopener noreffer"><code>decltype</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/default" target="_blank" rel="noopener noreffer"><code>default</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/delete" target="_blank" rel="noopener noreffer"><code>delete</code></a>(1)</th>
+<th><a href="https://en.cppreference.com/w/cpp/keyword/do" target="_blank" rel="noopener noreffer"><code>do</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/double" target="_blank" rel="noopener noreffer"><code>double</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/dynamic_cast" target="_blank" rel="noopener noreffer"><code>dynamic_cast</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/else" target="_blank" rel="noopener noreffer"><code>else</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/enum" target="_blank" rel="noopener noreffer"><code>enum</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/explicit" target="_blank" rel="noopener noreffer"><code>explicit</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/export" target="_blank" rel="noopener noreffer"><code>export</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/extern" target="_blank" rel="noopener noreffer"><code>extern</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/false" target="_blank" rel="noopener noreffer"><code>false</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/float" target="_blank" rel="noopener noreffer"><code>float</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/for" target="_blank" rel="noopener noreffer"><code>for</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/friend" target="_blank" rel="noopener noreffer"><code>friend</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/goto" target="_blank" rel="noopener noreffer"><code>goto</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/if" target="_blank" rel="noopener noreffer"><code>if</code></a> <a href="https://en.cppreference.com/mwiki/index.php?title=cpp/keyword/import&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer"><code>import</code></a> (modules TS) <a href="https://en.cppreference.com/w/cpp/keyword/inline" target="_blank" rel="noopener noreffer"><code>inline</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/int" target="_blank" rel="noopener noreffer"><code>int</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/long" target="_blank" rel="noopener noreffer"><code>long</code></a> <a href="https://en.cppreference.com/mwiki/index.php?title=cpp/keyword/module&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer"><code>module</code></a> (modules TS) <a href="https://en.cppreference.com/w/cpp/keyword/mutable" target="_blank" rel="noopener noreffer"><code>mutable</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/namespace" target="_blank" rel="noopener noreffer"><code>namespace</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/new" target="_blank" rel="noopener noreffer"><code>new</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/noexcept" target="_blank" rel="noopener noreffer"><code>noexcept</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/not" target="_blank" rel="noopener noreffer"><code>not</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/not_eq" target="_blank" rel="noopener noreffer"><code>not_eq</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/nullptr" target="_blank" rel="noopener noreffer"><code>nullptr</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/operator" target="_blank" rel="noopener noreffer"><code>operator</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/or" target="_blank" rel="noopener noreffer"><code>or</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/or_eq" target="_blank" rel="noopener noreffer"><code>or_eq</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/private" target="_blank" rel="noopener noreffer"><code>private</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/protected" target="_blank" rel="noopener noreffer"><code>protected</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/public" target="_blank" rel="noopener noreffer"><code>public</code></a></th>
+<th><a href="https://en.cppreference.com/w/cpp/keyword/register" target="_blank" rel="noopener noreffer"><code>register</code></a>(2) <a href="https://en.cppreference.com/w/cpp/keyword/reinterpret_cast" target="_blank" rel="noopener noreffer"><code>reinterpret_cast</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/requires" target="_blank" rel="noopener noreffer"><code>requires</code></a> (since C++20) <a href="https://en.cppreference.com/w/cpp/keyword/return" target="_blank" rel="noopener noreffer"><code>return</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/short" target="_blank" rel="noopener noreffer"><code>short</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/signed" target="_blank" rel="noopener noreffer"><code>signed</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/sizeof" target="_blank" rel="noopener noreffer"><code>sizeof</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/static" target="_blank" rel="noopener noreffer"><code>static</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/static_assert" target="_blank" rel="noopener noreffer"><code>static_assert</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/static_cast" target="_blank" rel="noopener noreffer"><code>static_cast</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/struct" target="_blank" rel="noopener noreffer"><code>struct</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/switch" target="_blank" rel="noopener noreffer"><code>switch</code></a> <a href="https://en.cppreference.com/w/cpp/language/transactional_memory" target="_blank" rel="noopener noreffer"><code>synchronized</code></a> (TM TS) <a href="https://en.cppreference.com/w/cpp/keyword/template" target="_blank" rel="noopener noreffer"><code>template</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/this" target="_blank" rel="noopener noreffer"><code>this</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/thread_local" target="_blank" rel="noopener noreffer"><code>thread_local</code></a> (since C++11) <a href="https://en.cppreference.com/w/cpp/keyword/throw" target="_blank" rel="noopener noreffer"><code>throw</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/true" target="_blank" rel="noopener noreffer"><code>true</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/try" target="_blank" rel="noopener noreffer"><code>try</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/typedef" target="_blank" rel="noopener noreffer"><code>typedef</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/typeid" target="_blank" rel="noopener noreffer"><code>typeid</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/typename" target="_blank" rel="noopener noreffer"><code>typename</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/union" target="_blank" rel="noopener noreffer"><code>union</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/unsigned" target="_blank" rel="noopener noreffer"><code>unsigned</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/using" target="_blank" rel="noopener noreffer"><code>using</code></a>(1) <a href="https://en.cppreference.com/w/cpp/keyword/virtual" target="_blank" rel="noopener noreffer"><code>virtual</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/void" target="_blank" rel="noopener noreffer"><code>void</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/volatile" target="_blank" rel="noopener noreffer"><code>volatile</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/wchar_t" target="_blank" rel="noopener noreffer"><code>wchar_t</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/while" target="_blank" rel="noopener noreffer"><code>while</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/xor" target="_blank" rel="noopener noreffer"><code>xor</code></a> <a href="https://en.cppreference.com/w/cpp/keyword/xor_eq" target="_blank" rel="noopener noreffer"><code>xor_eq</code></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>上边一个表格是c关键字，下面一个表格为c++关键字</p>
+<ul>
+<li>(1) - meaning changed or new meaning added in C++11. Note: the keyword export is also used by Modules TS.</li>
+<li>(2) - meaning changed in C++17.</li>
+</ul>
+<p><strong>c++关键字分类：</strong></p>
+<p>数据类型：void，int，char，float，double，bool，w_char
+类型定义：struct，union，enum，class，typedef
+常量值：true，false
+类型修饰符：long，short，singed，unsigned
+类型限定符：const，volatile，restrict
+存储说明符：auto，register，static，extern，thread_local，mutable
+其它修饰符：inline，asm
+循环控制：for，while，do
+跳转控制：break，continue，return，goto
+分支结构： if，else，switch，case，default
+内存管理：new, delete
+运算符：sizeof，and，and_eq，bitand，bitor，compl，not，not_eq，or，or_eq，xor，xor_eq
+访问限定符：this，friend，virtual，mutable，explicit，operator
+类访问修饰符：private，protected，public
+模板：template，typename
+命名空间：namespace，using
+异常处理：throw，try，catch</p><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/2021-10-19/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E5%BC%80%E5%8F%91/">开发</a>,&nbsp;<a href="/zh-cn/tags/%E7%BC%96%E7%A8%8B/">编程</a>,&nbsp;<a href="/zh-cn/tags/%E8%AF%AD%E8%A8%80/">语言</a>,&nbsp;<a href="/zh-cn/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/higithubdev/" class="prev" rel="prev" title="Hi, GithubDev"><i class="fas fa-angle-left fa-fw"></i>Hi, GithubDev</a>
+            <a href="/zh-cn/2021-10-19-1/" class="next" rel="next" title="重学C语言的基本语法">重学C语言的基本语法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-10-19T12:29:40+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"重学C语言关键字"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

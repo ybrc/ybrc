@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260) - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)" />
+<meta property="og:description" content="Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/2021-01/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-01T14:49:46+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)"/>
+<meta name="twitter:description" content="Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/2021-01/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/2021-11-03/" /><link rel="next" href="https://ybrc.github.io/zh-cn/2021-02/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/2021-01\/"
+        },"genre": "posts","keywords": "Camera, NVR, CVE, Hikvision","wordcount":  1867 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/2021-01\/","datePublished": "2021-11-01T14:49:46+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/2021-01/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/2021-01/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/camera/"><i class="far fa-folder fa-fw"></i>Camera</a>&nbsp;<a href="/zh-cn/categories/nvr/"><i class="far fa-folder fa-fw"></i>NVR</a>&nbsp;<a href="/zh-cn/categories/cve/"><i class="far fa-folder fa-fw"></i>CVE</a>&nbsp;<a href="/zh-cn/categories/hikvision/"><i class="far fa-folder fa-fw"></i>Hikvision</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-01">2021-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1867 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#table-of-contents">Table of Contents:</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#risk-assessment">Risk Assessment</a></li>
+    <li><a href="#vulnerability-details">Vulnerability details</a></li>
+    <li><a href="#proof-of-concept-poc-example">Proof of Concept (POC) example</a></li>
+    <li><a href="#a-few-stills-from-the-real-target-poc-video">A few stills from the real target POC video</a></li>
+    <li><a href="#recommendations-made-to-hikvision">Recommendations made to Hikvision</a></li>
+    <li><a href="#remediation">Remediation</a></li>
+    <li><a href="#is-this-a-chinese-government-mandated-backdoor">Is this a Chinese Government mandated backdoor?</a></li>
+    <li><a href="#additional">Additional</a></li>
+    <li><a href="#thanks">Thanks</a></li>
+    <li><a href="#affected-firmware-types">Affected Firmware Types</a></li>
+    <li><a href="#affected-model-list">Affected Model List</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#related-posts">related posts</a>
+      <ul>
+        <li><a href="#request-for-comment-response-cve-2021-36260httpswatchfulipgithubio20210928rfc-response-cve-2021-36260html"><a href="https://watchfulip.github.io/2021/09/28/RFC-response-(CVE-2021-36260).html">Request for Comment response (CVE-2021-36260)</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)</strong></p>
+<h1 id="unauthenticated-remote-code-execution-rce-vulnerability-in-hikvision-ip-cameranvr-firmware-cve-2021-36260">Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)</h1>
+<p>Published on 18 Sep 2021</p>
+<p>This article has been written for a technical audience.</p>
+<p>Vulnerability discovered 20 June 2021</p>
+<h3 id="table-of-contents">Table of Contents:</h3>
+<p><a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#summary" target="_blank" rel="noopener noreffer">Summary</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#risk-assessment" target="_blank" rel="noopener noreffer">Risk Assessment</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#vulnerability-details" target="_blank" rel="noopener noreffer">Vulnerability details</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#proof-of-concept-poc-example" target="_blank" rel="noopener noreffer">Proof of Concept video on a real target</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#a-few-stills-from-the-real-target-poc-video" target="_blank" rel="noopener noreffer">A few stills from the real attack POC video</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#recommendations-made-to-hikvision" target="_blank" rel="noopener noreffer">Recommendations made to Hikvision</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#remediation" target="_blank" rel="noopener noreffer">Remediation</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#is-this-a-chinese-government-mandated-backdoor" target="_blank" rel="noopener noreffer">Is this a Chinese Government mandated backdoor?</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#additional" target="_blank" rel="noopener noreffer">Additional</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#thanks" target="_blank" rel="noopener noreffer">Thanks</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#affected-firmware-types" target="_blank" rel="noopener noreffer">Affected Firmware Types</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#affected-model-list" target="_blank" rel="noopener noreffer">Affected Model List</a>
+<a href="https://watchfulip.github.io/2021/09/18/Hikvision-IP-Camera-Unauthenticated-RCE.html#timeline" target="_blank" rel="noopener noreffer">Timeline</a></p>
+<h2 id="summary">Summary</h2>
+<p>The majority of the recent camera product ranges of Hikvision cameras are susceptible to a critical remote unauthenticated code execution vulnerability even with latest firmware (as of 21 June 2021). Some older models are affected also as far back as at least 2016. Some NVRs are also affected, though this is less widespread.</p>
+<p>This is being tracked as <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-36260" target="_blank" rel="noopener noreffer">CVE-2021-36260</a></p>
+<p>Hikvision’s security advisory: <a href="https://www.hikvision.com/en/support/cybersecurity/security-advisory/security-notification-command-injection-vulnerability-in-some-hikvision-products/" target="_blank" rel="noopener noreffer">security-notification-command-injection-vulnerability-in-some-hikvision-products</a></p>
+<p>This permits an attacker to gain full control of device with an unrestricted root shell, which is far more access than even the owner of the device has as they are restricted to a limited “protected shell” (psh) which filters input to a predefined set of limited, mostly informational commands.</p>
+<p>In addition to complete compromise of the IP camera, internal networks can then be accessed and attacked.</p>
+<p><strong>This is the highest level of critical vulnerability – a zero click unauthenticated remote code execution (RCE) vulnerability affecting a high number of Hikvision cameras. Connected internal networks at risk</strong></p>
+<p>Given the deployment of these cameras at sensitive sites potentially even critical infrastructure is at risk.</p>
+<p>A list of affected firmware types can be found at the end of this document.</p>
+<p>Firmware from as long ago as 2016 has been tested and found to be vulnerable.</p>
+<p>Only access to the http(s) server port (typically 80/443) is needed. No username or password needed nor any actions need to be initiated by camera owner. It will not be detectable by any logging on the camera itself.</p>
+<p>This vulnerability was reported to Hikvision the day after discovery, on 21 June 2021. I wrote a full report to them identifying the problem code, the device types affected, POC and recommendations for resolution.</p>
+<p>At the time of writing, patched firmware is partially available though inconsistently deployed across various Hikvision firmware portals.</p>
+<h2 id="risk-assessment">Risk Assessment</h2>
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Remotely Exploitable: Yes</li>
+<li>Authentication Required: None</li>
+<li>Zero click (no action needed from device owner): Yes</li>
+<li>Render device inoperable: Yes</li>
+<li>Read customer data: Yes</li>
+<li>Change customer data: Yes</li>
+<li>Latest firmware vulnerable: Yes (as of 21 June 2021)</li>
+<li>Latest products vulnerable: Yes</li>
+<li>Denial of Service vulnerability: Yes</li>
+<li>Potentially enable physical attack on site: Yes</li>
+<li>Attack internal network: Yes</li>
+</ul>
+<p>The is the most serious form of vulnerability for this device type.</p>
+<h2 id="vulnerability-details">Vulnerability details</h2>
+<p>Not for public release in order to protect companies/end users.</p>
+<h2 id="proof-of-concept-poc-example">Proof of Concept (POC) example</h2>
+<p>Hikvision HSRC (Hikvision Security Response Center) requested POC of the vulnerability when I first reported it to them, and I replied with working code within 2 hours or so.</p>
+<p>As it’s not responsible to disclose a POC, I instead decided to make a video showing it in action, though I have subsequently agreed with Hikvision not to release it.</p>
+<p>Rather than just use my own equipment as a target, which could seem contrived, I enlisted the aid of a friend from the <a href="http://ipcamtalk.com/" target="_blank" rel="noopener noreffer">http://ipcamtalk.com</a> forum, @alistairstevenson, who kindly put up a real live camera with permission to exploit. I wasn’t told the access credentials but during the attack it was clear it’s running 2021 firmware and camera was manufactured January 2021.</p>
+<p>The video showed a real world example of me attacking this target, obtaining information that should be only available to the owner, obtaining a root shell accessible via SSH (even though SSH disabled in the web interface), and ultimately bypassing the camera admin web portal authentication.</p>
+<h2 id="a-few-stills-from-the-real-target-poc-video">A few stills from the real target POC video</h2>
+<p>I don’t know the root/admin password.</p>
+<p>We get device information we shouldn’t be able to get, the contents of /etc/passwd (the admin account password is always the same as the camera web portal admin password) and add our own system root account:</p>
+<p><img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/add_user.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/add_user.jpg, https://watchfulip.github.io/2021/09/18/add_user.jpg 1.5x, https://watchfulip.github.io/2021/09/18/add_user.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/add_user.jpg"
+        title="Get device information, /etc/passwd, add a root account and spawn dropbear (SSH server) on a port of our choice:"
+    /></p>
+<p>That account is using the restricted informational shell Hikvision limits the camera owner to, so we add a root account with /bin/sh shell, login via SSH:</p>
+<p><img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/root_shell.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/root_shell.jpg, https://watchfulip.github.io/2021/09/18/root_shell.jpg 1.5x, https://watchfulip.github.io/2021/09/18/root_shell.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/root_shell.jpg"
+        title="Bypass restricted shell for full root shell"
+    /></p>
+<p>Disable web authentication and login to target camera admin web pages with any password. In reality we already have a far more important root shell but I wanted to demonstrate web page login is trivial at this point:</p>
+<p><img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/web_admin.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/web_admin.jpg, https://watchfulip.github.io/2021/09/18/web_admin.jpg 1.5x, https://watchfulip.github.io/2021/09/18/web_admin.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/web_admin.jpg"
+        title="Web Interface authentication bypassed"
+    /></p>
+<p>With a root shell, a real attacker could have easily taken a large range of hostile actions at this point.</p>
+<h2 id="recommendations-made-to-hikvision">Recommendations made to Hikvision</h2>
+<p>I made a number of recommendations in my report to HSRC.</p>
+<p>I identified the flawed code that was the problem, and indicated how I thought it best to remedy it.</p>
+<p>I don’t have access to their code base repositories, but rather needed to decrypt firmware, and reverse engineer code yet I still found it.</p>
+<p>Issue new firmware as soon as possible and issue a public security advisory.</p>
+<h2 id="remediation">Remediation</h2>
+<p>Received patched IPC_G3 (V5.5.800 build 210628) and IPC H5 (V5.5.800 build 210628) firmware from HSRC for testing.</p>
+<p>Decrypted and reversed the code in addition to live testing on my own equipment and confirmed to HSRC that the patched firmware resolves the vulnerability.</p>
+<p>Was further pleased to note this problem was fixed in the way I recommended.</p>
+<h2 id="is-this-a-chinese-government-mandated-backdoor">Is this a Chinese Government mandated backdoor?</h2>
+<p>No, definitely NOT. You wouldn’t do it like this. And not all firmware types are affected.</p>
+<p>28 September 2021 update: expanded answer provided <a href="https://watchfulip.github.io/2021/09/28/RFC-response-%28CVE-2021-36260%29.html" target="_blank" rel="noopener noreffer">here</a></p>
+<h2 id="additional">Additional</h2>
+<p>I’m a security researcher who used to look after servers, networks and 1000s of people’s data in a former life, and the last few months knowing this exists on such a large scale has been worrying.</p>
+<p>Still I needed to wait 90 days after reporting before making any responsible public disclosure, whilst providing assistance to them and encouraging patched firmware to be developed, tested, published and a public security advisory issued.</p>
+<p>I’d recommend you do not expose any IoT device to the Internet no matter who it is made by - or in which country the device is made (including USA, Europe etc). Use a VPN for access if needed. Block outbound traffic too if at all possible - I also like to give these devices the wrong gateway (router) IP.</p>
+<p>You can find me at ipcamtalk.com, or <a href="mailto:watchfulip@protonmail.com" rel="">watchfulip@protonmail.com</a></p>
+<p><strong>Watchful IP</strong></p>
+<h2 id="thanks">Thanks</h2>
+<p>Thank you to the members of ipcamtalk.com who agreed a security research testing scope with me and provided access to some camera types I didn’t own. In particular:</p>
+<ul>
+<li>@alistairstevenson</li>
+<li>@iTuneDVR</li>
+<li>@Securame</li>
+<li>@rawinek</li>
+<li>@cyrusbyte</li>
+</ul>
+<p>Thank you to Hikvision - particularly the Head of HSRC, his team and R&amp;D for working hard to fix this quickly. I sent them lots of emails and reports which they kindly liaised with me on.</p>
+<h2 id="affected-firmware-types">Affected Firmware Types</h2>
+<p>Notes:</p>
+<p>I do not have the ability to decrypt all firmware types, nor access to all versions so am unable to check all firmware.</p>
+<p>Usually firmware types use the prefix IPC (IP Camera = not PTZ) or IPD (IP Dome = PTZ camera). Date code is in the form YYMMDD.</p>
+<p>OEM firmware is not listed - there’s too many to try to obtain and check.</p>
+<p>At time of writing updated firmware seems to be properly deployed on the Hikvision China region firmware portal for Chinese region devices, but only partially on the Global site. On the European <a href="http://www.hikvisioneurope.com/portal/?dir=portal" target="_blank" rel="noopener noreffer">www.hikvisioneurope.com</a> and Russian [http://ftp.hikvision.ru](<a href="http://ftp.hikvision.ru/01" target="_blank" rel="noopener noreffer">http://ftp.hikvision.ru/01</a>. Firmware/) sites even much of the updated firmware from the incomplete Global site is missing. Other regional portals are also likely unreliable.</p>
+<p>Some NVRs are also affected, though they were not within the original scope of this report. Please refer to Hikvision’s advisory for more information.</p>
+<p><strong>Vulnerable IP Camera Firmware</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Most recent vulnerable Firmware Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IPC_E0</td>
+<td style="text-align:center">IPC_E0_CN_STD_5.4.6_180112</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_E1</td>
+<td style="text-align:center">unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_E2</td>
+<td style="text-align:center">IPC_E2_EN_STD_5.5.52_180620</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_E4</td>
+<td style="text-align:center">unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_E6</td>
+<td style="text-align:center">IPCK_E6_EN_STD_5.5.100_200226</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_E7</td>
+<td style="text-align:center">IPCK_E7_EN_STD_5.5.120_200604</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_G3</td>
+<td style="text-align:center">IPC_G3_EN_STD_5.5.160_210416</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_G5</td>
+<td style="text-align:center">IPC_G5_EN_STD_5.5.113_210317</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_H1</td>
+<td style="text-align:center">IPC_H1_EN_STD_5.4.61_181204</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_H5</td>
+<td style="text-align:center">IPCP_H5_EN_STD_5.5.85_201120</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_H8</td>
+<td style="text-align:center">Factory installed firmware mid 2021</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_R2</td>
+<td style="text-align:center">IPC_R2_EN_STD_V5.4.81_180203</td>
+</tr>
+</tbody>
+</table>
+<p>Some of these are from 2018, but they were the most up to date firmware available at time of report.</p>
+<p><strong>Vulnerable PTZ Camera Firmware</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Most recent vulnerable Firmware Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IPD_E7</td>
+<td style="text-align:center">IPDEX_E7_EN_STD_5.6.30_210526</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_G3</td>
+<td style="text-align:center">IPDES_G3_EN_STD_5.5.42_210106</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_H5</td>
+<td style="text-align:center">IPD_H5_EN_STD_5.5.41_200911</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_H7</td>
+<td style="text-align:center">IPD_H7_EN_STD_5.5.40_200721</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_H8</td>
+<td style="text-align:center">IPD_H8_EN_STD_5.7.1_210619</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Vulnerable Legacy Firmware</strong></p>
+<p>Proven to be vulnerable - though newer firmware has existed for some time which doesn’t have the vulnerability.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Vulnerable Firmware Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IPC_R7</td>
+<td style="text-align:center">Up to 5.4.x</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_R7</td>
+<td style="text-align:center">Up to 5.4.x</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_G0</td>
+<td style="text-align:center">Up to 5.4.x</td>
+</tr>
+<tr>
+<td style="text-align:center">IPC_H3</td>
+<td style="text-align:center">Up to 5.4.x</td>
+</tr>
+<tr>
+<td style="text-align:center">IPD_H3</td>
+<td style="text-align:center">Up to 5.4.x</td>
+</tr>
+</tbody>
+</table>
+<p>Perhaps others too - these are just ones I stumbled across and I wasn’t really looking for legacy issues. There’s lots of cameras with old vulnerable firmware accessible on the Internet according to shodan however.</p>
+<h2 id="affected-model-list">Affected Model List</h2>
+<p>Coming up with a proper affected model list is hard:</p>
+<ul>
+<li>Chinese region variants have often have their own model names</li>
+<li>Some firmware does not have public release notes that list the compatible models</li>
+<li>There’s a huge number of OEM resellers with their own model numbers</li>
+</ul>
+<p>For this reason I think it better to simply include the list Hikvision have published in their security advisory:</p>
+<p><img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/models1.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/models1.jpg, https://watchfulip.github.io/2021/09/18/models1.jpg 1.5x, https://watchfulip.github.io/2021/09/18/models1.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/models1.jpg"
+        title="Affected Models 1"
+    /> <img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/models2.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/models2.jpg, https://watchfulip.github.io/2021/09/18/models2.jpg 1.5x, https://watchfulip.github.io/2021/09/18/models2.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/models2.jpg"
+        title="Affected Models 2"
+    /> <img
+        class="lazyload"
+        data-src="https://watchfulip.github.io/2021/09/18/models3.jpg"
+        data-srcset="https://watchfulip.github.io/2021/09/18/models3.jpg, https://watchfulip.github.io/2021/09/18/models3.jpg 1.5x, https://watchfulip.github.io/2021/09/18/models3.jpg 2x"
+        data-sizes="auto"
+        alt="https://watchfulip.github.io/2021/09/18/models3.jpg"
+        title="Affected Models 3"
+    /></p>
+<h2 id="timeline">Timeline</h2>
+<p>Vulnerability discovered: Sunday 20 June 2021</p>
+<p>Manufacturer notified of issue: Monday 21 June 2021 16:16 to <a href="mailto:HSRC@hikvision.com" rel="">HSRC@hikvision.com</a> and <a href="mailto:support.uk@hikvision.com" rel="">support.uk@hikvision.com</a>. Unfortunately HSRC didn’t receive this due to it being caught by a spam filter.</p>
+<p>Wednesday 23 June 2021 01:00 Follow up email to <a href="mailto:HSRC@hikvision.com" rel="">HSRC@hikvision.com</a> and <a href="mailto:400@hikvision.com" rel="">400@hikvision.com</a>, additionally sent pdf copy of email via vulnerability submission form at <a href="https://www.hikvision.com/europe/support/cybersecurity/report-an-issue/" target="_blank" rel="noopener noreffer">https://www.hikvision.com/europe/support/cybersecurity/report-an-issue/</a></p>
+<p><strong>Wednesday 23 June 2021 04:27 received reply from <a href="mailto:HSRC@hikvision.com" rel="">HSRC@hikvision.com</a> requesting report on my findings.</strong></p>
+<p>Wednesday 23 June 2021 05:40 v1.0.0 of vulnerability details (<strong>WIP-2021-06-HIK-2)</strong> emailled to <a href="mailto:HSRC@hikvision.com" rel="">HSRC@hikvision.com</a></p>
+<p><strong>Wednesday 23 June 2021 07:42 HSRC confirm they have reproduced the issue.</strong></p>
+<p>Wednesday 07 July 2021 Request for disclosure timeline and CVE details in the next 7 days.</p>
+<p><strong>Sunday 12 July 2021 HSRC inform me of the CVE ID they have applied for (CVE-2021-36260)</strong></p>
+<p>Wednesday 04 August 2021 notify HSRC of my intention to make limited public disclosure 90 days after my initial report 20 September 2021. I insist companies/end-users know there is risk and they need to update devices.</p>
+<p><strong>Tuesday 17 August 2021 HSRC send patched IPC_G3 (built 28 June 2021) and IPC_H5 (built 28 June 2021) for testing</strong></p>
+<p>Wednesday 18 August 2021 informed HSRC testing on patched firmware complete – urge them to release firmware as soon as possible on all firmware portals.</p>
+<p><strong>Saturday 18 September 2021 Hikvision and I publish our respective advisory/report</strong></p>
+<h2 id="related-posts">related posts</h2>
+<ul>
+<li></li>
+</ul>
+<h3 id="request-for-comment-response-cve-2021-36260httpswatchfulipgithubio20210928rfc-response-cve-2021-36260html"><a href="https://watchfulip.github.io/2021/09/28/RFC-response-%28CVE-2021-36260%29.html" target="_blank" rel="noopener noreffer">Request for Comment response (CVE-2021-36260)</a></h3>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/ybc1.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/2021-01/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/camera/">Camera</a>,&nbsp;<a href="/zh-cn/tags/nvr/">NVR</a>,&nbsp;<a href="/zh-cn/tags/cve/">CVE</a>,&nbsp;<a href="/zh-cn/tags/hikvision/">Hikvision</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/2021-11-03/" class="prev" rel="prev" title="数学深渊图解(概述和分解)(典藏版5k字) "><i class="fas fa-angle-left fa-fw"></i>数学深渊图解(概述和分解)(典藏版5k字) </a>
+            <a href="/zh-cn/2021-02/" class="next" rel="next" title="有趣">有趣<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-01T14:49:46+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"Unauthenticated Remote Code Execution (RCE) vulnerability in Hikvision IP camera/NVR firmware (CVE-2021-36260)"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

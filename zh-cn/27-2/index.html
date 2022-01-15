@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>自己动手实现一个工具将Admin权限提升到System权限 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="自己动手实现一个工具将Admin权限提升到System权限" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/27-2/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-27T10:28:54+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="自己动手实现一个工具将Admin权限提升到System权限"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/27-2/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/27-1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/27-3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "自己动手实现一个工具将Admin权限提升到System权限",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/27-2\/"
+        },"genre": "posts","keywords": "工具, 权限","wordcount":  3238 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/27-2\/","datePublished": "2021-11-27T10:28:54+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/27-2/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/27-2/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">自己动手实现一个工具将Admin权限提升到System权限</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw"></i>工具</a>&nbsp;<a href="/zh-cn/categories/%E6%9D%83%E9%99%90/"><i class="far fa-folder fa-fw"></i>权限</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-27">2021-11-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3238 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0x00-前言">0x00 前言</a></li>
+        <li><a href="#0x01-概念解释">0x01 概念解释</a></li>
+        <li><a href="#0x02-提升方式">0x02 提升方式</a></li>
+        <li><a href="#0x03-动手实现">0x03 动手实现</a></li>
+        <li><a href="#0x04-总结">0x04 总结</a></li>
+        <li><a href="#0x05-参考链接">0x05 参考链接</a></li>
+        <li><a href="#附件">附件:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="自己动手实现一个工具将admin权限提升到system权限">自己动手实现一个工具将Admin权限提升到System权限</h1>
+<h3 id="0x00-前言">0x00 前言</h3>
+<p>最近又碰上一种需要提升权限到系统最高权限（System）的情况，于是想搬出以前从网上GET到的一种利用系统服务启动的路子来实现这个需求，然后发现在最新的Win10系统上有点不好使了，所以才有了本文一系列的学习记录。</p>
+<h3 id="0x01-概念解释">0x01 概念解释</h3>
+<p>涉及Windows系统权限的话题其实可以展开很多来讲，本文重点是如何从正常用户拥有的管理员权限（Administrator）提升到拥有更高的SYSTEM用户的权限。</p>
+<p>注意，与安全漏洞导致的权限提升不同，这里的权限提升操作是系统允许的“合法”操作，从某种角度看有点类似Linux系统的sudo操作，当然前提是用户需要有管理员的权限。</p>
+<p>正常Windows系统中会存在很多的用户，根据其所拥有的权限不同会有所分级（组）。比如正常的个人电脑的默认登录账户一般拥有管理员权限，当然也可能会创建多个权限低一些的普通账户。而权限更低一些的有默认不启用的来宾账户，只能访问和操作比较有限的一些资源，权限更高的则有系统运行级别使用的SYSTEM账户等。</p>
+<p>系统上运行的每个应用程序，通常都是绑定一个运行账户的，这通常就是该进程对应所能允许的运行权限了。打开任务管理器，查看进程详细信息（Win7系统在进程标签页，需勾选下方的“显示所有用户的进程”，Win10系统的在详细信息标签页），就可以看到系统中运行的每个进程和相应的权限账户，其中多数进程是系统权限级别运行的系统服务进程：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image1.png"
+    /></p>
+<p>注意，这里的管理员账户“Administrator”只是一个默认的管理员名称，可以创建其他比如张三或李四的账户，并将其设置为管理员账户，其实就是将普通账户加入到管理员组“Administrators”。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image2.png"
+    /></p>
+<p>还需要区分的一点是Windows特有的UAC权限提升操作。这是从Win Vista开始引入的一种特殊的权限控制机制，其本质是加一道防御锁给管理员用户，多数情况用不着打开这道锁，只有需要进行管理员权限及以上的操作时才需要多进行一步解锁的操作（通常就是右键“管理员权限运行”）。这个特殊的控制是利用系统启动桌面界面（explorer.exe）时设置了普通账户权限运行，这样即使当前登录的账户是管理员账户，也可能需要在某些时候右键以管理员权限运行（根据UAC设置级别不同情况不一样），才能真正获得管理员权限。想解出这种限制除了降低UAC级别外，还有一种方便的小技巧，就是先以管理员权限运行一个命令行，然后重启桌面进程。当然关于UAC的话题还有很多，这里不做过多的介绍。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image3.png"
+    /></p>
+<h3 id="0x02-提升方式">0x02 提升方式</h3>
+<p>根据上述理解，本文的目的应该是要在具有管理员权限的前提下，将用户的操作权限进一步提升到能够运行系统服务的系统（SYSTEM）权限。这里介绍几种从网上整理的权限提升方式。</p>
+<p>1、 创建系统服务，借助服务进程（svchost.exe，运行在SYSTEM账户下，具有系统权限）来运行子进程。</p>
+<p>比如可以通过以下命令创建并启动一个名称为system_srv的专用服务，来启动一个cmd命令行窗口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sc Create system_srv binPath= &#34;cmd /K start&#34; type= own type= interact
+sc start system_srv
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这种方式在最新的Win10系统上会直接失败，在Win7上由于启动的是一个cmd命令行窗口交互程序，会弹出如下提示，需要点击交互窗口的“查看消息”后才能得到一个具有系统权限的cmd进程。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image4.png"
+    /></p>
+<p>点击“查看消息”后进入cmd窗口服务专门的界面，此时已获得SYSTEM权限：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image5.png"
+    /></p>
+<p>此时再看下进程列表，也显示该进程由SYSTEM账户运行：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image6.png"
+    /></p>
+<p>此方式使用完毕后可以用如下命令删除该服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sc delete system_srv
+</code></pre></td></tr></table>
+</div>
+</div><p>2、 创建计划任务，并指定运行权限为SYSTEM，最终也是由系统服务svchost.exe来启动指定的子进程。</p>
+<p>比如可以通过以下命令创建一个名称为system_srv的计划任务，来启动一个记事本程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">schtasks /Create /TN system_srv /SC DAILY /ST 12:45 /TR notepad.exe /RU SYSTEM
+</code></pre></td></tr></table>
+</div>
+</div><p>虽然这个方式适用最新的Win10系统，但是运行后发现，虽然通过任务管理器能够在进程列表里找到记事本程序确实以SYSTEM用户和权限启动了，但是奇怪的是桌面上并没有弹出记事本的窗口，这里猜测是因为计划任务创建的进程只能在系统后台运行？？</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image7.png"
+    /></p>
+<p>同样可以通过如下命令在任务运行结束后查看或删除计划任务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">schtasks /Query /TN system_srv
+schtasks /Delete /TN system_srv /F
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image8.png"
+    /></p>
+<p>3、 使用第三方工具，如用incognito或TokenManipulation复制token，或者用PowellShell的安装模块“NtObjectManager”指定新建进程的父进程。</p>
+<p>这里介绍下NtObjectManager，该模块是可以通过PowerShell命令直接从PowerShell仓库（类似Python仓库）进行安装的项目工具，项目地址如下：</p>
+<p><a href="https://www.powershellgallery.com/packages/NtObjectManager/1.1.1" target="_blank" rel="noopener noreffer">https://www.powershellgallery.com/packages/NtObjectManager/1.1.1</a></p>
+<p>Win10系统通过以下PoweShell指令可以直接安装该工具：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Install-Module -Name NtObjectManager -RequiredVersion 1.1.1
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以使用该工具的指令集来创建一个指定父进程的子进程，新建的子进程将继承父进程的运行账户和权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$p = Get-NtProcess -Name TrustedInstaller.exe
+$proc = New-Win32Process cmd.exe -CreationFlags NewConsole -ParentProcess $p
+</code></pre></td></tr></table>
+</div>
+</div><p>如指定父进程为“TrustedInstaller.exe”创建一个cmd命令行窗口，直接获取系统最高的权限（SYSTEM用户+NT SERVICE TrustedInstaller组）</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image9.png"
+    /></p>
+<h3 id="0x03-动手实现">0x03 动手实现</h3>
+<p>之所以会想自己动手实现一个工具，是因为觉得使用powershell环境还是不太方便，win7系统无法直接使用Install-Module指令来安装NtObjectManager工具，于是萌生研究其实现原理并动手Copy上述功能的想法。</p>
+<p>首先定位研究目标的代码，既然是脚本工具，肯定也是安装在本地的某个目录，果不其然：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image10.png"
+    /></p>
+<p>查看NtObjectManager.psd1文件可以找到相关指令和函数“Get-NtProcess”和“New-Win32Process”的声明：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image11.png"
+    /></p>
+<p>然后从NtObjectManager.psm1文件的定义中可以看出，具体实现应该是依赖NtApiDotNet.dll中的NtProcess程序集：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image12.png"
+    /></p>
+<p>使用dnspy反编译NtApiDotNet.dll，定位NtProcess程序集，找到其中一个关键的方法“GetProcesses”，发现该方法可以用来获取系统上运行过的进程：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image13.png"
+    /></p>
+<p>该方法实际上都是调用的同一个ntdll的API函数“NtGetNextProcess”：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image14.png"
+    /></p>
+<p>该函数声明如下，通过该API函数可以直接遍历系统上运行过的进程，包括已经终结退出的进程，拿到指定进程的进程句柄，进而获取到该进程的信息如进程ID，token令牌等。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image15.png"
+    /></p>
+<p>拿到指定进程的句柄之后，就可以通过设置进程属性中的父进程句柄，来实现指定父进程继承该进程的运行权限。借用下网上的代码，稍作修改，就简单实现了上述功能的工具，可以指定系统任意运行过的进程名来运行任意程序，运行后将继承前者的权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">typedef NTSTATUS (NTAPI* FPNtGetNextProcess)(
+    _In_    HANDLE ProcessHandle,
+    _In_    DWORD  DesiredAccess,
+    _In_    DWORD  HandleAttributes,
+    _In_    int Flags,
+    _Out_    HANDLE* NewProcessHandle
+);
+ 
+HANDLE get_process_handle(char *processName)
+{
+    HANDLE hGet = NULL;
+    HANDLE hResult = NULL;
+    HMODULE hNtdll = GetModuleHandleA(&#34;ntdll.dll&#34;);
+    FPNtGetNextProcess fpNtGetNextProcess = (FPNtGetNextProcess)GetProcAddress(hNtdll, &#34;NtGetNextProcess&#34;);
+    while(fpNtGetNextProcess(hGet, MAXIMUM_ALLOWED, NULL, 0, &amp;hGet) == STATUS_SUCCESS)
+    {
+        char buf[MAX_PATH] = {0};
+        ULONG size = 0;
+        GetProcessImageFileNameA(hGet, buf, MAX_PATH); 
+        if (strstr(buf, processName) != NULL)
+        {
+            hResult = hGet;
+        }
+    }
+    return hResult;
+}
+ 
+int main(int argc, char* argv[])
+{
+    EnablePrivilege(SE_DEBUG_NAME); //必须是debug权限
+    char* processName = argv[1];
+    char* cmdline = argv[2];
+    HANDLE hParent = get_process_handle(processName, bPrintInfo);
+    PROCESS_INFORMATION pi = {0};
+    STARTUPINFOEXA si = {sizeof(STARTUPINFOEXA)};
+    SIZE_T cbAListSize = 0;
+    InitializeProcThreadAttributeList(NULL, 1, 0, &amp;cbAListSize);
+    PPROC_THREAD_ATTRIBUTE_LIST pAList = (PPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(), 0, cbAListSize);
+    InitializeProcThreadAttributeList(pAList, 1, 0, &amp;cbAListSize);
+    UpdateProcThreadAttribute(pAList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;hParent, sizeof(HANDLE), NULL, NULL);
+    si.lpAttributeList = pAList;
+    CreateProcessA(NULL, cmdline, NULL, NULL, FALSE, EXTENDED_STARTUPINFO_PRESENT|CREATE_NEW_CONSOLE, NULL, NULL, &amp;si.StartupInfo, &amp;pi);
+    DeleteProcThreadAttributeList(pAList);
+    HeapFree(GetProcessHeap(),0,pAList);
+    return 0;
+}
+ 
+</code></pre></td></tr></table>
+</div>
+</div><p>如下即为实现效果，以winlogon.exe（系统登录进程）的运行权限启动一个命令行窗口。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/image16.png"
+    /></p>
+<p>另外，研究过程中发现一个小彩蛋：使用该工具复制进程权限时，即使所指定的进程已经退出，仍然可以成功将新启动的进程指定为该进程的子进程并完全继承其权限，真是所谓的“借尸还魂”！对其感兴趣的可以自动动手实验下。</p>
+<h3 id="0x04-总结">0x04 总结</h3>
+<p>本文通过笔者对于Windows权限控制认识的角度出发对相关知识内容进行整理和学习，希望能够抛砖引玉，不仅帮助到有相同需求的朋友，也能够引起思考和启发，分享更多的研究知识和成果。</p>
+<h3 id="0x05-参考链接">0x05 参考链接</h3>
+<p>1、  <a href="https://cloud.tencent.com/developer/article/1014745" target="_blank" rel="noopener noreffer">https://cloud.tencent.com/developer/article/1014745</a></p>
+<p>2、  <a href="https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Token%E7%AA%83%E5%8F%96%E4%B8%8E%E5%88%A9%E7%94%A8/" target="_blank" rel="noopener noreffer">https://3gstudent.github.io/3gstudent.github.io/渗透技巧-Token窃取与利用/</a></p>
+<p>3、  <a href="https://blog.csdn.net/whitehack/article/details/6078983" target="_blank" rel="noopener noreffer">https://blog.csdn.net/whitehack/article/details/6078983</a></p>
+<h3 id="附件">附件:</h3>
+<ul>
+<li><a href="https://weiyiling.cn/media/blogs/one/quick-uploads/p46/copy_privilege.zip?mtime=1601804967" title="下载文件" target="_blank" rel="noopener noreffer"></a> <a href="https://weiyiling.cn/one/copy_privilege_admin_to_system?download=631" target="_blank" rel="noopener noreffer">copy_privilege.zip</a>  (2.1 MB)</li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/49.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/27-2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E5%B7%A5%E5%85%B7/">工具</a>,&nbsp;<a href="/zh-cn/tags/%E6%9D%83%E9%99%90/">权限</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/27-1/" class="prev" rel="prev" title="360ARP防火墙“智能追踪”原理探究"><i class="fas fa-angle-left fa-fw"></i>360ARP防火墙“智能追踪”原理探究</a>
+            <a href="/zh-cn/27-3/" class="next" rel="next" title="PNG隐写术实践">PNG隐写术实践<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-27T10:28:54+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"自己动手实现一个工具将Admin权限提升到System权限"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

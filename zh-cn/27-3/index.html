@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>PNG隐写术实践 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="PNG隐写术实践" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/27-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-27T10:28:58+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="PNG隐写术实践"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/27-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/27-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/28/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "PNG隐写术实践",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/27-3\/"
+        },"genre": "posts","keywords": "隐写术","wordcount":  3469 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/27-3\/","datePublished": "2021-11-27T10:28:58+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/27-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/27-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 198619871989 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  198619871989 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">PNG隐写术实践</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E9%9A%90%E5%86%99%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>隐写术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-27">2021-11-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3469 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0x1-前言">0x1 前言</a></li>
+        <li><a href="#0x2-png-dropper样本分析">0x2 PNG Dropper样本分析</a></li>
+        <li><a href="#0x3-alpha通道隐写实践">0x3 Alpha通道隐写实践</a></li>
+        <li><a href="#0x4-工具实现">0x4 工具实现</a></li>
+        <li><a href="#0x5-总结">0x5 总结</a></li>
+        <li><a href="#0x6-参考链接">0x6 参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="从png-dropper到alpha通道隐写术实践">从PNG Dropper到Alpha通道隐写术实践</h1>
+<h3 id="0x1-前言">0x1 前言</h3>
+<p>前些天从安全客上看到一篇翻译文章是关于利用PNG像素隐藏PE代码，对实现细节很感兴趣就抽空稍微研究了下相关内容，于是就有了本次分享。</p>
+<h3 id="0x2-png-dropper样本分析">0x2 PNG Dropper样本分析</h3>
+<p>先来看下翻译文中的样本，其中PE资源里包含一个PNG目录，该目录里存储了8张PNG格式的图片：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image1-1.png"
+    /></p>
+<p>将8张图片全部提取出来，随便选择一张打开查看，发现可以正常打开，但显示的内容都是一些杂乱的随机像素点：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image2.png"
+    /></p>
+<p>将其拖进010edit分析下格式，能够正常解析图片数据，数据格式貌似没什么异常：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image3-1.png"
+    /></p>
+<p>再来跟踪一下该样本内存解密PE的过程。整体流程是依次定位资源中的8张PNG图片，提取其中的图片数据到缓冲区里拼凑成完整的PE，最后再内存LoadPE执行。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image4.png"
+    /></p>
+<p>然后最关心的部分应该就是提取图片数据的过程了。这部分的代码看上去比较多，其实主要也就3小部分。第1部分是将PNG图片流读进一个Bitmap对象来方便操作图片：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image5.png"
+    /></p>
+<p>第2部分是获取该PNG的各项基本数据包括宽度、高度、Stride（行跨度？）和图像格式，这些数据主要是用作最后一步调用的结构体参数（Rect和BitmapData），这部分最关键，因为这些参数直接影响最后获取到的图片数据。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image6.png"
+    /></p>
+<p>最后1步其实很简单，调用“GdipBitmapLockBits”函数就能直接获取到图片的数据了。当然这里得到的图片数据不是上文010edit里看到的那个IDAT数据，而是对该数据根据第2步指定的图像格式参数来进行解码后的“原始像素”数据。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image7.png"
+    /></p>
+<p>根据此流程也可以自己尝试用Gdi+写代码来提取图片数据，然后发现从上面样本中图片获取到的编码格式是“PixelFormat32bppARGB”，然而实际内部存储的像素数据却用的是“PixelFormat16bppARGB1555”编码格式，这可能是作者的一种反检测小技巧吧。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image8.png"
+    /></p>
+<h3 id="0x3-alpha通道隐写实践">0x3 Alpha通道隐写实践</h3>
+<p>本来分析到上面也就结束了，结果看到安全客上有评论谈及隐写术，想起了大学时期使用Matlab做LSB图像信息隐藏的实验，当时只是简单应付课程对其懵懵懂懂实在有点遗憾，于是趁此机会重新复习下顺便研究看看所谓高级的隐写术——利用RGBA中的A（Alpha）通道来隐藏数据。</p>
+<p>首先复习LSB（最低有效位），这个是指图像隐藏采用的一种算法吧，查了一下这个算法看网上有用jpg图片来做，也有用bmp图片来做的，还有jpg处理完变png的，有点晕，其实应该是针对一般的RGB图像都能做。怎么理解呢，我们知道图像是由一个个的像素点构成，比如一张100x100（宽度和高度都是100）的图片，总共就有10000个像素点，而其中每个像素点都用一个RGB值来表示其颜色。对于不同的图片格式，其像素数据的编码格式可能不一样，RGB值的存储格式也就可能不同，即使相同格式比如PNG，其像素格式也有很多种，具体可参考“RGB格式详解”。本文主要以其中的“RGB32”或“ARGB32”为例，一个RGB值用3字节来分别表示R（红）、G（绿）、B（蓝）3个颜色通道的数值，这样每个颜色通道的数值范围都是0-255，LSB图像隐藏算法的原理就是利用其中每个像素颜色通道的最低位来存储需要隐藏的数据，这样对于整张图像的“视觉影响”非常低，图片处理前后就可能肉眼看上去“没什么变化”。</p>
+<p>正好前段时间在看雪公众号上看到一篇用PHP来实现LSB的分享，直接贴上来先看看实现过程吧，最核心部分的就是将需要隐藏的数据的每个二进制位，依次存进每个选取像素点中蓝色（B）通道的最低位。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image9.png"
+    /></p>
+<p>随便找一张图片测试一下效果吧：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image10.png"
+    /></p>
+<p>完全看不出差异，只是隐藏的信息“hello”字符串实际上已经存储到右边图片的像素矩阵中，数据位依次被隐藏到所选45度角线上的像素点。当然这只是个简单的例子，我们自己写工具时可以从原点开始遍历所有像素点，也可以将其他2个通道最低位都用上以提高信息存储的容量。但总的来说，个人觉得LSB能够存储的容量还是相对比较小，比如我想把系统的计算器程序calc.exe（大约900kb）存进一张图片中则需要一张大约100万像素的图片。如下所示，经过自己实现的LSB工具（使用每个像素的最低位依次存储）处理后，将计算器程序放到图片中，图片的size前后膨胀了3MB！</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image11.png"
+    /></p>
+<p>信息提取的话只要反向操作像素数据就行，具体可以参见本文后面分享的Demo。这里就不继续探究LSB了，感兴趣的网上搜一下参考资料一大堆。接下来直接进入PNG的Alpha通道隐写这个话题，具体地本文是以PNG的“PixelFormat32bppARGB”这种像素格式的图像隐写为例进行分享。<br>
+其实我并不了解真正的Alpha通道隐写是什么样的，也没有去找相关实现的资料，此番分享完全是自己摸索一下基于“PixelFormat32bppARGB”格式的PNG图片如何进行信息隐藏。这种格式非常容易理解，就是在3字节RGB基础上再加一个A通道，也就是Alpha或者透明通道，于是正好组成4字节一组的像素数据（从高到低为ARGB）。然后对这个A通道的理解很关键，这个字节的数值表示的是该像素点的透明度：数值为0时，该像素点完全透明，相当于RGB完全隐藏不用；数值为255时该像素点只由RGB颜色决定，相当于没有透明度。如下图所示，左图的背景全透明，A通道数值为0,；右图背景设置（不）透明度为50%，则刚好为1字节数值范围的一半即0x80。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image12.png"
+    /></p>
+<p>接着就很自然而然地想利用这种特性来藏数据了。既然透明度为0像素点完全透明，那该像素点的RGB这3个通道的字节数据我们不就可以随便用来存数据了么，而且其他像素点仍可以存储正常的图像数据啊！比如上图的透明背景图，透明像素数据的RGB值为0xffffff是因为该图的背景图层为白色（或空），那么反正它也不显示（透明度100%），干脆就征用一个字节来隐藏数据吧（如B通道字节，也可以RGB全征用）。那么隐藏数据前可以先计算一下图片的可用容量，比如设定A通道为0且R、G两通道为0xff则判断为可用像素点：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image13.png"
+    /></p>
+<p>当可用透明像素点数量大于要隐藏的数据字节数就可以进行存储了，直接依次存进去每个可用像素点的B通道字节呗，存完后加个结束标志就行：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image14.png"
+    /></p>
+<p>直接看一下隐藏效果吧，还是以存储计算器程序calc.exe（大约900kb）为例：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image15.png"
+    /></p>
+<p>还行吧，肉眼仍看不出图片显示有什么不同，图片size看上去也还可以，膨胀不到1MB（差不多计算器程序的size），并且还有不小的提升空间（比如图片处理掉更多像素，或者加入其他2个通道存储）。然后使用神器“Stegsolve.jar”来看看图片隐藏的计算器吧：</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image16.png"
+    /></p>
+<p>当然之所以能这样一开始直接就看到数据是因为选取图片像素的原点区域正好被掏空（透明区域）可以用来存储数据，其实根据载体图片的不同完全可能将字节数据“随机化”。最后关于如何获取具有透明通道格式的可存储图片也很简单，以Photoshop为例，随便拉张图片选取无关背景区域直接删除像素（抠图），也可以再加一层透明图层背景，然后保存为PNG格式即可。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image17.png"
+    /></p>
+<h3 id="0x4-工具实现">0x4 工具实现</h3>
+<p>既然研究都差不多了，不实现工具化总归有点不完整，示例代码就不多做介绍了，写的很粗糙原本是不打算献丑的，本着学习分享的理念还是直接扔到Github上仅供参考吧。以下分别是LSB和PNG Alpha通道隐写工具，均包含加解密两种功能，以及处理过程相关的提示，可以满足一般的信息隐藏需求。</p>
+<p><img
+        class="lazyload"
+        data-src="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png"
+        data-srcset="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png 1.5x, https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png 2x"
+        data-sizes="auto"
+        alt="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png"
+        title="https://weiyiling.cn/media/blogs/one/quick-uploads/p44/image18.png"
+    /></p>
+<p>Demo地址：<a href="https://github.com/weiyiling/img_store" target="_blank" rel="noopener noreffer">https://github.com/weiyiling/img_store</a></p>
+<p>包含上述直接编译好的工具可以测试，目前仅面向PNG的ARGB32格式图片支持良好~</p>
+<p>文章封面图片是一个彩蛋，内含该工具，读者可以尝试提取实践。</p>
+<h3 id="0x5-总结">0x5 总结</h3>
+<p>通过这次的探索，对图像有了进一步的理解，图像像素的组织格式多种多样，本质上是颜色信息存储格式的差异，而信息隐藏的原理却是异曲同工，都是在于对目标载体的数据格式做分析，寻求可供存储的“无关”数据空间，只要不影响原始载体的功能“感觉”，应该都是可以操作的。</p>
+<h3 id="0x6-参考链接">0x6 参考链接</h3>
+<p>1、《利用PNG像素隐藏PE代码：分析PNG Dropper新样本》：<a href="https://www.anquanke.com/post/id/166451" target="_blank" rel="noopener noreffer">https://www.anquanke.com/post/id/166451</a></p>
+<p>2、《图像隐写之使用PHP隐藏图像中的文本》：<a href="https://zhuanlan.kanxue.com/article-4472.htm" target="_blank" rel="noopener noreffer">https://zhuanlan.kanxue.com/article-4472.htm</a></p>
+<p>3、《RGB格式详解（三）&mdash;RGB像素格式》：<a href="http://blog.51cto.com/7335580/2065296" target="_blank" rel="noopener noreffer">http://blog.51cto.com/7335580/2065296</a></p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/50.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/27-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E9%9A%90%E5%86%99%E6%9C%AF/">隐写术</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/27-2/" class="prev" rel="prev" title="自己动手实现一个工具将Admin权限提升到System权限"><i class="fas fa-angle-left fa-fw"></i>自己动手实现一个工具将Admin权限提升到System权限</a>
+            <a href="/zh-cn/28/" class="next" rel="next" title="在MacOS中启动SSH服务">在MacOS中启动SSH服务<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-27T10:28:58+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"PNG隐写术实践"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

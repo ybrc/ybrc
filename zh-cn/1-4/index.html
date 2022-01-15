@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>读《魔鬼数学》 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="读《魔鬼数学》" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/1-4/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-01T13:05:49+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="读《魔鬼数学》"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/1-4/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/1-3/" /><link rel="next" href="https://ybrc.github.io/zh-cn/2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "读《魔鬼数学》",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/1-4\/"
+        },"genre": "posts","keywords": "数学","wordcount":  3965 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/1-4\/","datePublished": "2021-12-01T13:05:49+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/1-4/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/1-4/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">读《魔鬼数学》</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E6%95%B0%E5%AD%A6/"><i class="far fa-folder fa-fw"></i>数学</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-01">2021-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3965 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#日常练习的意义">日常练习的意义</a></li>
+    <li><a href="#非线性">非线性</a></li>
+    <li><a href="#小概率事件">小概率事件</a></li>
+    <li><a href="#回归">回归</a></li>
+    <li><a href="#相关性">相关性</a></li>
+    <li><a href="#投票">投票</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="点击阅读">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续播放">
+      </div>
+      <div id="text">
+<p><img
+        class="lazyload"
+        data-src="https://oldj.net/uploads/2019/10/%E9%AD%94%E9%AC%BC%E6%95%B0%E5%AD%A6.jpg"
+        data-srcset="https://oldj.net/uploads/2019/10/%E9%AD%94%E9%AC%BC%E6%95%B0%E5%AD%A6.jpg, https://oldj.net/uploads/2019/10/%E9%AD%94%E9%AC%BC%E6%95%B0%E5%AD%A6.jpg 1.5x, https://oldj.net/uploads/2019/10/%E9%AD%94%E9%AC%BC%E6%95%B0%E5%AD%A6.jpg 2x"
+        data-sizes="auto"
+        alt="https://oldj.net/uploads/2019/10/%E9%AD%94%E9%AC%BC%E6%95%B0%E5%AD%A6.jpg"
+        title="img"
+    /></p>
+<p>《魔鬼数学》是一本关于如何使用数学思维来分析生活中一些常见问题的书，英文原名为《How Not to Be Wrong》，即本书中包含的数学思维可帮助读者避免一些错误。</p>
+<p>下面是一些我读过之后的一些笔记以及感想。</p>
+<h2 id="日常练习的意义">日常练习的意义</h2>
+<p>这本书的引言部分提了一个问题，即日常做各类数学题有什么意义？</p>
+<p>相信大多数人当初在学校时都思考过这个问题，每天做不完的题，除了把人训练成解题机器之外，真的有意义吗？</p>
+<p>作者使用了体育训练的例子来回答这个问题，比如想踢好足球，达到职业水准，就必须接受大量枯燥、重复、看似无意义的训练，比如举杠铃、在交通锥之间穿梭前进。职业运动员在比赛中不会用到这些训练内容，但是他们所表现出来的高超的力量、速度、观察力、柔韧性等能力，则是这些枯燥乏味的训练的结果。</p>
+<p>学数学以及其他任何一门学科也是类似，每日刷题等练习看似枯燥且无用，但这和职业运动员每日做基础的体能、反应训练的逻辑是一样的，如果你真的想在这个领域成为专家，这样的训练必不可少。</p>
+<h2 id="非线性">非线性</h2>
+<p>A 国在讨论是否要提高福利，有人反对，理由是以高福利著称的 B 国最近正在削减福利，如果提高福利是好事，那 B 国为什么要削减福利呢？</p>
+<p>这个反对意见的问题在于，提出者认为福利与国家的繁荣程度是线性关系，如下图：</p>
+<p><img
+        class="lazyload"
+        data-src="https://oldj.net/uploads/2019/10/%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png"
+        data-srcset="https://oldj.net/uploads/2019/10/%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png, https://oldj.net/uploads/2019/10/%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png 1.5x, https://oldj.net/uploads/2019/10/%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png 2x"
+        data-sizes="auto"
+        alt="https://oldj.net/uploads/2019/10/%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png"
+        title="img"
+    /></p>
+<p>如果现实真的是这样，那么的确如反对意见所说，越是降低福利，国家的繁荣程度就会越高。然而现实世界中大多数事物之间并不是线性关系，繁荣程度与福利水平的真实关系更可能类似下图这样：</p>
+<p><img
+        class="lazyload"
+        data-src="https://oldj.net/uploads/2019/10/%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png"
+        data-srcset="https://oldj.net/uploads/2019/10/%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png, https://oldj.net/uploads/2019/10/%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png 1.5x, https://oldj.net/uploads/2019/10/%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png 2x"
+        data-sizes="auto"
+        alt="https://oldj.net/uploads/2019/10/%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%B8%96%E7%95%8C.png"
+        title="img"
+    /></p>
+<p>可以看到，繁荣程度-福利水平关系是一条上凸的曲线，A、B 两国分别位于峰值的两边，此时对 B 国来说削减福利能提升繁荣程度，但对 A 国来说却相反，增加福利才是最佳选择。</p>
+<p>因此，在一个非线性的世界，我们不能不加思考地照搬人家的经验，不能因为其他人做了某个选择取得了成功，就认为我们照着做也能成功，因为世界不是线性的，我们所处的位置不一样，努力的方向就可能也不一样。</p>
+<h2 id="小概率事件">小概率事件</h2>
+<p>有一个著名的小故事，讲的是一位股票经纪人每周给一批人发送行业资讯，一半的人收到的消息是某只股票将会涨，另一半人收到的则是那只股票会跌，下一周则不再理会收到错误预测的那一半人，继续给另一半人发新的预测资讯。这样几次之后，总有一小部分人惊讶地发现这位经纪人每次都能说对，于是对他言听计从，此时，股票经纪人就会开始收网，劝说这些人买入他指定的股票，从而大赚一笔，当然，最终赚钱的永远是股票经纪人自己。</p>
+<p>只要这位股票经纪人一开始联系的人足够多，总有一部分“幸运儿”会发现自己遇到了一位神奇的预测大师，但站在股票经纪人的角度来看，这一切其实一点也不稀奇。</p>
+<p>我们生活中可能会遇到很多类似的事，只是有一些做了若干包装或者改进，让人不那么容易看出真相。比如基金公司可能会同时孵化多支基金，尝试无数种投资策略，只要孵化的数量足够多，这些基金中必然会有一些能在过去一段时间的市场中表现良好，然后基金公司就将其推出，向公众兜售。作为投资者，你看到某个基金过往的业绩如此耀眼，你是否会心动呢？</p>
+<p>不排除有一些投资策略的确比另一些更有可能赚钱，但孵化大量基金并推出其中表现良好那些的做法，本质上与上面股票经纪人的做法是一样的。这些最终胜出的基金，有可能只是运气好，没有人能保证它们在今后的市场中还能有这样的好运气。</p>
+<p>有一些研究者曾声称在圣经等典籍中发现了隐藏的密码，比如只要每隔多少个字符取一个字母，就能拼出后世某位名人的名字以及他的生卒年月等信息，这也是一种类似的把戏。从长篇巨著中寻找字母有无数有找法，只要你尝试得足够多，你总能从中找到一些看起来有意义的组合，而另外无数种无意义或错误的组合自然而然地被你忽略了。</p>
+<p>甚至，一些看似经过严格科学分析的结论也有可能受到随机性的影响，比如下面这幅漫画所描写的。</p>
+<p><img
+        class="lazyload"
+        data-src="https://oldj.net/uploads/2019/10/%E8%B1%86%E8%83%B6%E7%B3%96%E6%BC%AB%E7%94%BB.png"
+        data-srcset="https://oldj.net/uploads/2019/10/%E8%B1%86%E8%83%B6%E7%B3%96%E6%BC%AB%E7%94%BB.png, https://oldj.net/uploads/2019/10/%E8%B1%86%E8%83%B6%E7%B3%96%E6%BC%AB%E7%94%BB.png 1.5x, https://oldj.net/uploads/2019/10/%E8%B1%86%E8%83%B6%E7%B3%96%E6%BC%AB%E7%94%BB.png 2x"
+        data-sizes="auto"
+        alt="https://oldj.net/uploads/2019/10/%E8%B1%86%E8%83%B6%E7%B3%96%E6%BC%AB%E7%94%BB.png"
+        title="img"
+    /></p>
+<p>假设豆胶糖与痤疮没有关系，但只要科学家们做的试验次数足够多，总会遇到某些随机因素使实验者得到二者有关的结论，甚至可能还会具体到认为豆胶糖的颜色是主要原因，比如“吃绿色的豆胶糖与得痤疮之间有关系”。即使试验次数很少，比如只做了一次试验，也有可能因为随机性刚好得到两者相关的结论。</p>
+<h2 id="回归">回归</h2>
+<p>很多事物都有回归均值的倾向，比如整体来看，子女成年后的身高与他们的父母相比更加趋于平均水平。</p>
+<p>这样的例子还有很多，比如父母都很高，生的孩子并不是必然也高，有可能比父母矮一些，智力水平也一样，一对名校夫妇的子女可能无法像父母一样杰出。</p>
+<p>又比如一个公司曾经非常赚钱，但后来却慢慢平庸，一位作家写出了惊艳的作品，下一部作品却反响平平，一个球队上一个赛季表现优异，下一个赛季却辉煌不再。</p>
+<p>这些情况，也许并不是当事人取得一次成功之后就不再努力了，而是因为之前的优异表现是随机产生的，现在相关的指标只是回归到了均值水平而已。</p>
+<h2 id="相关性">相关性</h2>
+<p>如果 A 与 B 相关，B 与 C 相关，那么 A 与 C 相关吗？</p>
+<p>这个问题即问相关性有没有传递性，按多数人的直觉，答案大概是肯定的，既然 A 与 B 相关，B 与 C 相关，那似乎很自然地 A 与 C 也是相关的。</p>
+<p>这儿我们不深究“相关”一词的定义，只需大致知道这是一个统计学上的概念，默认是指正相关，即如果说 A 与 B 相关，则表示当观察到事件 A 发生时，我们相信事件 B 会有更大的概率发生，同时需要注意，相关关系并不是因果关系。</p>
+<p>书中指出，如果我们把某个事件的相关数字看作坐标，则一个事件可以看成为某个高维空间中的点，从原点出发画一个箭头指向这个点，这个箭头被称为“向量”。</p>
+<p>这样一来，我们就把事件转为了高维空间的向量，并且可以很快得出一些关于相关性的几何意义的结论。从几何上来说，相关性就是两个向量夹角的余弦。两个向量间的夹角越小，说明它们的相关性越大，夹角越接近 90 度，则表示两个事件越不相关，夹角刚好为 90 度时我们认为这两个事件是独立事件，夹角大于 90 度时则认为这两个事件是负相关，即两个事件不太可能同时发生。</p>
+<p>这是一个理解相关性的极佳的视角。</p>
+<p>此时，我们再来看一下最初的问题，如果 A、B、C 三个事件的关系如下图所示：</p>
+<p><img
+        class="lazyload"
+        data-src="https://oldj.net/uploads/2019/10/%E7%9B%B8%E5%85%B3%E6%80%A7.png"
+        data-srcset="https://oldj.net/uploads/2019/10/%E7%9B%B8%E5%85%B3%E6%80%A7.png, https://oldj.net/uploads/2019/10/%E7%9B%B8%E5%85%B3%E6%80%A7.png 1.5x, https://oldj.net/uploads/2019/10/%E7%9B%B8%E5%85%B3%E6%80%A7.png 2x"
+        data-sizes="auto"
+        alt="https://oldj.net/uploads/2019/10/%E7%9B%B8%E5%85%B3%E6%80%A7.png"
+        title="img"
+    /></p>
+<p>为简便起见，我们假设三个向量是在同一个平面中。可以看到，事件 A 与 B 之间的夹角小于 90 度，说明它们是相关的，事件 B 与 C 之间的夹角也小于 90 度，说明它们也是相关的，但是事件 A 与 C 的夹角却大于 90 度，说明它们是<strong>负相关</strong>的。也就是说，相关性并不能简单地传递，如果我们只知道 A、B 相关且 B、C 相关，对 A、C 之间的相关性我们并不能下结论。</p>
+<p>举一个例子，比如甲持有 S1、S2 两支股票，乙持有 S2、S3 两支股票，丙持有 S3、S4 两支股票。</p>
+<p>显然，甲乙的收益情况有一定相关性，比如 S2 股票大涨两人都会赚钱，乙丙的收益情况也有一定相关性，比如 S3 股票大跌两人都会赔钱，但甲丙两人的收益则可以认为完全无关，因为两人所持的股票组合完全不重叠。</p>
+<p>最后，关于相关性，作者态度非常谨慎。他指出，如果我们发现自然界或社会中两个事件之间不存在相关性，这并不表示两个事件之间毫无关系，可能只是我们现在的研究方法尚不能揭示出它们之间的关系。</p>
+<h2 id="投票">投票</h2>
+<p>一个群体经常需要对某些选择进行表决，一个朴素且大部分人都认同的原则是“少数服从多数”，即对备选项进行投票，得票多的方案胜出。</p>
+<p>但是，“少数服从多数”的原则虽然看起来很简单，却也只在选项只有两项时才能取得最佳效果，只要选项多于两项，大多数人的喜好就可能自相矛盾。</p>
+<p>比如有 A、B、C 三个选项，大家对这三个选项的态度是这样的：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">人数占比</th>
+<th style="text-align:left">偏好排名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">34%</td>
+<td style="text-align:left">A &gt; B &gt; C</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">B &gt; C &gt; A</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">C &gt; B &gt; A</td>
+</tr>
+</tbody>
+</table>
+<p>如果让大家进行投票，只能选一个选项，那么根据上表，会有 34% 的人选 A，33% 的人选 B，33% 的人选 C。选项 A 得到的支持最多，胜出。</p>
+<p>但是仔细观察上表，我们可以看到除了第一行的 34% 的人，在另外 66% 的人心中 A 都是最差的选项，也就是说我们通过“少数服从多数”的原则，选出了对绝大多数人而言最差的那一项！</p>
+<p>再看上面的表格，假如选项 C 不存在：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">人数占比</th>
+<th style="text-align:left">偏好排名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">34%</td>
+<td style="text-align:left">A &gt; B</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">B &gt; A</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">B &gt; A</td>
+</tr>
+</tbody>
+</table>
+<p>显然，选项 B 将以绝对优势获胜。这时再将 C 加进去：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">人数占比</th>
+<th style="text-align:left">偏好排名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">34%</td>
+<td style="text-align:left">A &gt; B &gt; C</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">B &gt; C &gt; A</td>
+</tr>
+<tr>
+<td style="text-align:left">33%</td>
+<td style="text-align:left">C &gt; B &gt; A</td>
+</tr>
+</tbody>
+</table>
+<p>结果按“少数服从多数”的原则，虽然 C 没有胜出，但原来的获胜者 B 也被淘汰了，胜利的桂冠落在了 A 的头上。也就是说，有些时候，加入一个精心设计的新选项，竟然会让原本有着绝对优势的方案落选。</p>
+<p>为了解决这些的问题，先贤们设计了无数种更为精巧、复杂的投票方式，但遗憾的是每一种都有其不足，都会在某些情况下得到糟糕的结果。</p>
+<p>究其原因，书中提到：</p>
+<blockquote>
+<p>民意是根本不存在的东西，更准确地讲，只有在大多数人意见一致时民意才会存在。</p>
+</blockquote>
+<p>个人的理解，如果用某种方法将群体的偏好映射成高维空间中的几何图形，那么大多数情况下这个图形应该是极为复杂的，而投票就是一种将这个图形“降维”投影到低维的方法。除非原始的高维图形本来就足够简单，否则只要投影的角度有所不同，得到的图形必然会大相径庭。</p>
+<p>那么，是否存在完美的投票方案呢？是存在但还未被发现，还是从理论上就不存在？</p>
+<p>作者进行了很长篇幅的探讨，从欧几里得的第五公设，聊到罗素的集合论悖论，再聊到哥德尔的不完备定理，最后给出了他的结论：</p>
+<blockquote>
+<p>只要选举制度遵循……那个表面看似不容置疑的公理（如果多数人对 A 的支持度超过对 B 的支持度，那么 B 就不可能成为赢家），就有可能掉进自我矛盾的陷阱。</p>
+</blockquote>
+<p>也就是说，完美的投票方案也许从理论上就不存在。</p>
+<h2 id="小结">小结</h2>
+<p>除了确定性，数学也是人们用于思考不确定性的手段。借助数学知识，我们即使无法完全驯化不确定性，至少可以使它变得易于驾驭。</p>
+<p>在白天时，尽可以相信自己的理念是正确的，但是到了晚上，则请认真思考自己的理念是不是错误的。</p>
+<p>数学告诉我们：世界是有结构的；我们可以期待去了解它的部分结构，但不可能像我们想象的那样一蹴而就；在披上形式主义的外衣之后，我们的直觉将会变得更加强大。</p>
+<p>数学是常识的衍生物，有的活动虽然没有被表示成一个方程式，或者被画成一幅图，却同样属于数学活动。
+<img src="https://tool.lu/netcard/"></p><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/1-4/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/1-3/" class="prev" rel="prev" title="漫谈逆向工程"><i class="fas fa-angle-left fa-fw"></i>漫谈逆向工程</a>
+            <a href="/zh-cn/2/" class="next" rel="next" title="机器学习基础知识：熵，交叉熵，相对熵">机器学习基础知识：熵，交叉熵，相对熵<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-01T13:05:49+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"读《魔鬼数学》"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

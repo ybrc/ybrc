@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>漫谈漏洞挖掘 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="漫谈漏洞挖掘" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/audio/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-29T14:55:22+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="漫谈漏洞挖掘"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/audio/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/30-3/" /><link rel="next" href="https://ybrc.github.io/zh-cn/31/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "漫谈漏洞挖掘",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/audio\/"
+        },"genre": "posts","wordcount":  3528 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/audio\/","datePublished": "2021-11-29T14:55:22+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/audio/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/audio/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">漫谈漏洞挖掘</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-29">2021-11-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3528 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#fuzzing">Fuzzing</a></li>
+    <li><a href="#代码审计">代码审计</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="播放">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停">
+         <input type="button" id="cancel_speak" style="display:none" value="停止">
+         <input type="button" id="resume_speak" style="display:none" value="继续播放">
+      </div>
+      <div id="text">
+        聊聊漏洞分析、漏洞利用和漏洞挖掘。
+<h1 id="前言">前言</h1>
+<p>说到安全就不能不说漏洞，而说到漏洞就不可避免地会说到三座大山：</p>
+<ul>
+<li>漏洞分析</li>
+<li>漏洞利用</li>
+<li>漏洞挖掘</li>
+</ul>
+<p>从笔者个人的感觉上来看，这三者尽管通常水乳交融、相互依赖，但难度是不尽相同的。本文就这三者分别谈谈自己的经验和想法。</p>
+<h1 id="漏洞分析">漏洞分析</h1>
+<p><strong>漏洞分析</strong>相对简单，通常公开的漏洞中就有一两句话描述了漏洞的成因，自己拉代码下来看也就能了解个大概。对于一些自己发现的bug，从崩溃日志中一般也能比较轻松地进行复现和调试。尽管有的bug排查起来相对繁琐，但总归是可以一步步减少范围锁定最终目标的。因此，网上对于漏洞分析的文章很多，一方面分析起来有迹可循，另一方面分析的漏洞也不一定是自己的“原创”漏洞，素材来源更加广泛。</p>
+<p>漏洞分析虽然简单，却是每个安全研究人员的必经之路。就像练武中的扎马步、站梅花桩一样，是日积月累的基本功。之前研究内核时有段时间热衷于写漏洞分析的文章，后来随着日渐熟练，写文章记录的速度已经远远跟不上分析的进度，所以现在往往懒得动笔了。</p>
+<p>基本功必不可少，但扎马步扎得再稳也不表示你能独步武林。有大佬曾经说过，如果他想的话，可以一天写好几篇分析文章还不带重样的。毕竟，漏洞分析的目的是为了学习、吸收、转化，以史为鉴，最终形成自己独到的理解。</p>
+<h1 id="漏洞利用">漏洞利用</h1>
+<p><strong>漏洞利用</strong>就相对复杂一点，尤其是对于二进制漏洞，成功的利用需要精巧的内存布局，因此需要对程序涉及到的数据结构要相当的了解。而且并不是所有漏洞都能转换为有效利用的，一般比较容易编写利用的漏洞，我们称之为<strong>品相</strong>好。对于品相不好的漏洞，我更喜欢将其称之为<em>bug</em>。当然也有人认为 bug 至少造成了程序崩溃，所以可以算一个DoS(拒绝服务)漏洞。</p>
+<p>当然漏洞能否利用其实也是和人有关。对于复杂的系统，你认为无法利用的漏洞，大佬就能以一种你没想到的方式利用成功。比如安卓<a href="hhttps://nvd.nist.gov/vuln/detail/CVE-2019-2025" target="_blank" rel="noopener noreffer">CVE-2019-2025(水滴)</a>漏洞，属于Binder中的一个条件竞争，竞争窗口只有几条汇编指令。漏洞品相相当不好，连CVSS给出的可利用分数(Exploitability Score)也只有1.8分，但360的大佬们也通过玩弄调度器进行稳定利用提权了。</p>
+<p>因此，关于漏洞利用的文章也就少了很多。一方面处于负责任披露安全问题的考虑，安全研究人员不会给出完整的利用细节，以免脚本小子滥用；另一方面对于公开的利用，你也总不能跟着写一篇文章灌水，毕竟利用思路很多时候是因人而异的，过于雷同就难免有炒冷饭的嫌疑，除非有一些独到的思考补充，或者有新的利用思路。</p>
+<p>很多时候漏洞利用的文章看着看着就变成了<code>漏洞利用分析</code>的文章，这也说明了漏洞利用难度颇高，能独立写出原创利用并进行分享的人不多。就我的感觉而言，漏洞利用更像是另一种形式的软件开发，首先通过漏洞构造原语，然后通过原语实现最终的利用程序。</p>
+<h1 id="漏洞挖掘">漏洞挖掘</h1>
+<p>漏洞挖掘可以说是安全研究人员向往的高地之一，不管你分析了多少漏洞，写了多少利用，如果你没有自己挖掘出过原创的漏洞，那你的安全研究生涯就是不完整的。但是漏洞挖掘这事儿并不是确定性的。漏洞分析只要有漏洞肯定能分析清楚，只不过是时间问题；漏洞利用只要不是明显的无法利用，那至少也存在利用成功的可能性。</p>
+<p>漏洞挖掘则不然，即便你盯着某个应用使劲挖，也不能保证有结果，说不定对方根本就没有能触发的漏洞。都说世上没有绝对安全的系统，但是相对安全的系统一抓一大把，至少在出问题之前，你是不知道的。</p>
+<p>我们能看到各种安全会议中介绍各种新发现的漏洞和问题，网上也有很多相关的文章，但更多是炫技式分享(show-off)，很少有分享怎么挖洞的。因此笔者就先抛砖引玉，谈谈自己的想法。</p>
+<h2 id="fuzzing">Fuzzing</h2>
+<p>自从 AFL 横空出世之后，当今漏洞挖掘言必称 Fuzzing，仿佛这是李云龙他娘的意大利炮，不管三七二十一先来上一发就能轰出几个 0day。当然，我不是说 Fuzz 不好，只不过凡事都有其诞生和得以应用的环境。</p>
+<p>Fuzzing 即模糊测试，在早期是 QA 测试中的一项黑盒测试技术，通过随机变异的输入来测试程序的鲁棒性。在程序的崩溃被用于漏洞利用后，也就一跃成为一种漏洞挖掘方法。随机变异输入的效率相对低下，可能变异了半天连 main 函数里第一个 <strong>if</strong> 都没有跳进去。AFL 率先提出并实现了根据路径/覆盖率等反馈来进行输入的变异，从而大大提升了测试用例的有效性。</p>
+<p><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/20210522095612289.png"
+        data-srcset="https://img-blog.csdnimg.cn/20210522095612289.png, https://img-blog.csdnimg.cn/20210522095612289.png 1.5x, https://img-blog.csdnimg.cn/20210522095612289.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/20210522095612289.png"
+        title="https://img-blog.csdnimg.cn/20210522095612289.png"
+    /></p>
+<p>自从 2013 年 AFL 提出以来，各类 Fuzzer 百花齐放，在学术上有了爆发性的论文增长；开源社区有 <a href="https://github.com/google/honggfuzz" target="_blank" rel="noopener noreffer">honggfuzz</a>、<a href="https://llvm.org/docs/LibFuzzer.html" target="_blank" rel="noopener noreffer">libFuzzer</a> 等优秀的项目；在工程上有 <a href="https://github.com/google/oss-fuzz" target="_blank" rel="noopener noreffer">OSS-Fuzz</a> 利用庞大机器集群进行持续测试的应用和 <a href="https://github.com/google/syzkaller" target="_blank" rel="noopener noreffer">syzkaller</a> 这种年均发现几千内核漏洞的工具等。</p>
+<p>从产出的漏洞数量来看，Fuzzing 作为一种漏洞挖掘方法可谓一骑绝尘。当时，随着时间的推移，通用模糊测试策略已经越来越难发现新的漏洞，要么你有独特的测试语料，要么你有领先的运算资源。因此，一部分人就从通用 Fuzzer 转回到了针对特定目标变异的 Fuzzer(即 Structure Aware Fuzzer)。也就是说，只针对目标程序接受的数据类型进行特定变异，比如针对 PDF 文件格式每个字段变异等等。</p>
+<p>别忘了，AFL 这种通用 Fuzzer 的出现，就是为了实现一次编码，到处 Fuzz 的目的；而针对不同目标去写 Fuzzer，显然有违初衷。另外，如果目标接受的是已知格式的输入还好，对于未知格式，还需要自己去分析和理解各个字段含义。在阅读代码和理解代码逻辑的过程中，目标程序的潜在问题很可能已经出现在你眼前了，再去编写一个不能复用的 Fuzzer，显得有些多此一举。这种发现漏洞的方法也就是下节所说的——代码审计。</p>
+<h2 id="代码审计">代码审计</h2>
+<p>代码审计，俗称看代码。有的人用 SourceInsight 看，有的人用 VIM 看，但不管怎么样还是用眼睛看。既然大家都长了两只眼睛，为什么有的人就能一个月看出十几个高危，有的人就只看了个寂寞？</p>
+<p>看代码也是有方法的。虽然我比较想听听 @oldfresher 是怎么看代码的，但他似乎不太愿意分享，所以我只能说说自己的方法。</p>
+<p>要挖漏洞首先要对漏洞进行分类，大致可以分为下面三种:</p>
+<ul>
+<li>设计漏洞</li>
+<li>实现漏洞</li>
+<li>操作漏洞</li>
+</ul>
+<p>所谓设计漏洞就是软件设计过程中就存在逻辑问题，比如 WiFi 的 WEP，设计的问题往往是比较严重的，而且修复周期长，所幸这类问题不是太多；实现漏洞就是我们常见的软件漏洞，内存溢出、UAF、条件竞争等都算在里面；操作漏洞和实现漏洞往往类似，只不过更多是指配置错误而产生的漏洞，比如 nginx 配置错误导致的目录穿越问题就属于一种操作漏洞。</p>
+<p>明确漏洞类型后也不是马上开始看代码，而是先进行初步的攻击面分析，也就是常说的威胁建模。主要分为下面几步:</p>
+<ul>
+<li>信息收集: 收集所有相关的资料，尤其是设计文档或者帮助手册等</li>
+<li>应用架构建模: 列举应用所含的组件以及状态机，注意各个组件之间隐含的信任关系</li>
+<li>威胁鉴定: 在各个流程中列举潜在的攻击点，并分别标记危害等级</li>
+<li>审计计划: 按优先级对实现的审计计划进行排序</li>
+</ul>
+<p>代码审计听起来是个让人退缩任务，因为你面对的是一堆你不熟悉的代码，而且要求你快速地建立起自己的理解而且找到其中最深层的秘密(安全漏洞)。通常你不会有足够的时间审计项目的每一行代码，因此这其中的一个重点就是懂得如何分配精力，在最可能出现安全问题的代码中达到满意的审计覆盖率。</p>
+<p>成功的代码审计过程一定是务实、灵活且面向结果的。虽然讲究方法，但并不意味着根据别人的方法就能成功。与很多人的认知不同，代码审计其实是一件需要创造力的技能。那位说了，看别人代码要什么创造力？要在应用中找到漏洞，审计者需要将自己代入作者的思维中理解代码，同时还需要跳出作者的思维，洞察到原作者没有预料到的可能性；这种技能与知识相对，像是骑车、游泳、弹琴一样，是需要通过学习和练习去掌握的，而一旦掌握就像本能的一部分难以忘记。当然代码审计也有知识的部分，比如需要了解各种漏洞类型和场景等。</p>
+<p>这些都这只是代码审计中的冰山一角，篇幅原因无法面面俱到。比如代码审计策略的抉择，是深度优先还是广度优先(看到某个函数调用是否需要追进去看)；以及使用现代的静态分析工具来辅助审计，比如 Fority、CodeQL 等，后续有时间再单独进行介绍吧。</p>
+<h1 id="后记">后记</h1>
+<p>漏洞分析是技术，漏洞利用是艺术，漏洞挖掘是法术。关于漏洞利用和漏洞挖掘哪个“技术含量”更高，还存在一定争议，但漏洞分析的基础地位毫无疑问。技术可以学，艺术可以练，法术呢？其实同样也可以通过练习提高自己的 漏洞挖掘水平。推荐一个忘了是什么地方的议题中提供的方法(也许是 CCC):</p>
+<ol>
+<li>找到公开的漏洞通告，根据标题的内容自己去相关模块中审计看是否能发现该漏洞</li>
+<li>如果发现不了，就回头接着看漏洞通告的细节，反思自己的审计方法</li>
+<li>不断重复，直到让自己可以认为找漏洞只是时间问题而不是能力问题</li>
+</ol>
+<p>任何行业都没有捷径，你看到的所谓魔法，很可能只是某人在某些事情上付出了你意想不到的时间。最后借用一句谚语作为结尾吧:</p>
+<blockquote>
+<p>Ever tried. Ever failed. No matter.</p>
+<p>Try again. Fail again. Fail better.</p>
+</blockquote>
+<p>共勉。</p>
+</div><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/audio/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/30-3/" class="prev" rel="prev" title="简单几步带你走进【暗网】"><i class="fas fa-angle-left fa-fw"></i>简单几步带你走进【暗网】</a>
+            <a href="/zh-cn/31/" class="next" rel="next" title="DLL注入之全局钩子注入">DLL注入之全局钩子注入<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-29T14:55:22+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"漫谈漏洞挖掘"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

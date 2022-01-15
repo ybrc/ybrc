@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - Mr·Yang</title>
+        <link>https://ybrc.github.io/en/posts/</link>
+        <description>All Posts | Mr·Yang</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>251150612@qq.com (Mr·Yang)</managingEditor>
+            <webMaster>251150612@qq.com (Mr·Yang)</webMaster><lastBuildDate>Thu, 28 Oct 2021 22:00:45 &#43;0800</lastBuildDate><atom:link href="https://ybrc.github.io/en/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Using Yabai</title>
+    <link>https://ybrc.github.io/en/28/</link>
+    <pubDate>Thu, 28 Oct 2021 22:00:45 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://ybrc.github.io/en/28/</guid>
+    <description><![CDATA[<p><strong>Using Yabai</strong></p>]]></description>
+</item><item>
+    <title>2021statement</title>
+    <link>https://ybrc.github.io/en/2021/</link>
+    <pubDate>Tue, 19 Oct 2021 14:53:42 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://ybrc.github.io/en/2021/</guid>
+    <description><![CDATA[<p><strong>The encrypted content of this article can be viewed after adding my WeChat payment:</strong></p>]]></description>
+</item></channel>
+</rss>

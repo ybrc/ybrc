@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>iOS逆向学习（二）砸壳原理之dumpdecrypted - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="iOS逆向学习（二）砸壳原理之dumpdecrypted" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/29-2/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-28T17:25:26+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="iOS逆向学习（二）砸壳原理之dumpdecrypted"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/29-2/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/29-1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/30/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "iOS逆向学习（二）砸壳原理之dumpdecrypted",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/29-2\/"
+        },"genre": "posts","keywords": "iOS, 逆向","wordcount":  3739 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/29-2\/","datePublished": "2021-11-28T17:25:26+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/29-2/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/29-2/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 198619871989 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  198619871989 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">iOS逆向学习（二）砸壳原理之dumpdecrypted</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/ios/"><i class="far fa-folder fa-fw"></i>IOS</a>&nbsp;<a href="/zh-cn/categories/%E9%80%86%E5%90%91/"><i class="far fa-folder fa-fw"></i>逆向</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-28">2021-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3739 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1基本原理">1、基本原理</a></li>
+    <li><a href="#2dumpdecrypted">2、dumpdecrypted</a></li>
+    <li><a href="#3参考资料">3、参考资料</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="ios逆向学习二砸壳原理之dumpdecrypted">iOS逆向学习（二）砸壳原理之dumpdecrypted</h1>
+<h2 id="1基本原理">1、基本原理</h2>
+<p>从AppStore中下载的包，是被苹果使用FairPlay技术加密的，没办法直接重签名给其他人用，也不能做IDA分析之类的逆向操作。所以为了得到没有加密的包，就需要进行砸壳操作。</p>
+<p>看完Mach-O文件跟dyld加载介绍后，使劲拍拍脑袋能想到两种砸壳思路：</p>
+<ul>
+<li>1、直接破解FairPlay加密技术：很可惜暂时做不到，还没有公开的破解方案出来</li>
+<li>2、从APP的加载运行入手，越过解密阶段，直接从内存中读取被dyld解密后的内容</li>
+</ul>
+<p>所以目前常见的砸壳工作，都是使用第二种思路来做的，这里我们以dumpdecrypted为例进行分析。</p>
+<h2 id="2dumpdecrypted">2、dumpdecrypted</h2>
+<p>dumpdecrypted分为<a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener noreffer">初代stefanesser做的版本</a>，和后面<a href="https://github.com/conradev/dumpdecrypted" target="_blank" rel="noopener noreffer">conradev改进的版本</a>。但其原理基本不变，改进版主要是为了能够dump出动态加载库。咱们这次的分析以改进版的为例，先看使用步骤：</p>
+<ul>
+<li>1、make生成.dylib文件</li>
+<li>2、使用ssh把dylib文件放入目标app的沙盒路径下</li>
+<li>3、执行砸壳并导出砸壳后的ipa文件</li>
+</ul>
+<p>除了使用步骤以外，dumpdecrypted还要求手机中已经安装了cycript。所以我们不难看出，dumpdecrypted是通过dylid的方式，介入到dyld的加载过程中的。</p>
+<p>然后再看源码，主要定义了三个函数：<code>dumptofile</code>、<code>image_added</code>、<code>dumpexecutable</code>，没有main函数。但可以看出这三个函数大致的调用关系，是<code>dumpexecutable</code> -&gt; <code>image_added</code> -&gt; <code>dumptofile</code>。继续分析，<code>dumpexecutable</code>是如何被调用的呢。答案在于其方法定义上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">__attribute__((constructor))
+static void dumpexecutable() {
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>把换行去掉，就成了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">__attribute__((constructor)) static void dumpexecutable() {
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>其中比较特殊的是<code>__attribute__((constructor))</code>这一段，可以大致理解成使用这段话，让我们新定义的<code>dumpexecutable</code>方法，在main函数之前被执行。而其得以做到的原因，就在于首先<code>constructor</code>函数，是在main函数之前执行的，而<code>__attribute__</code>修饰，又使得我们新定义的方法，可以和<code>constructor</code>一道，在main函数之前执行。这部分更详细的解释可以参照GUNC的文档</p>
+<blockquote>
+<p><a href="https://gcc.gnu.org/onlinedocs/gcc-6.2.0/gcc/Common-Function-Attributes.html" target="_blank" rel="noopener noreffer">The constructor attribute causes the function to be called automatically before execution enters main ().</a></p>
+</blockquote>
+<p>所以重新梳理一下大致的调用关系：<code>constructor</code> -&gt; <code>dumpexecutable</code> -&gt; <code>image_added</code> -&gt; <code>dumptofile</code>，需要注意这里说的调用关系仅仅是大致的。</p>
+<p>弄清了整个的启动时机后，再看<code>dumpexecutable</code>函数内部，实际的操作只做了一件事：<code>_dyld_register_func_for_add_image(&amp;image_added);</code>。因为咱们已经意识到整个砸壳过程是跟dyld有关的，所以可以从dyld源码中找到对<code>_dyld_register_func_for_add_image</code>的解释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/*
+ * _dyld_register_func_for_add_image registers the specified function to be
+ * called when a new image is added (a bundle or a dynamic shared library) to
+ * the program.  When this function is first registered it is called for once
+ * for each image that is currently part of the program.
+ */
+void
+_dyld_register_func_for_add_image(
+void (*func)(const struct mach_header *mh, intptr_t vmaddr_slide))
+</code></pre></td></tr></table>
+</div>
+</div><p>大致的意思，就是说注册了一个监听方法，用于监听bundle或者动态加载库的加载事件，而且加载事件，对于每个bundle或者动态库仅会触发一次。到这里，我们就可以梳理出整个砸壳工具的逻辑顺序了：</p>
+<ul>
+<li>1、伴随<code>constructor</code>函数的调用，在main函数执行前，调用<code>dumpexecutable</code>函数</li>
+<li>2、在<code>dumpexecutable</code>函数中，注册bundle或动态库的加载事件监听，而且其响应方法是<code>image_added</code>函数</li>
+<li>3、当bundle或者动态库被加载时，触发事件监听，调用<code>image_added</code>方法，并向其传递header结构体指针，和另外一个不知道有什么用的参数slide</li>
+<li>4、然后在<code>image_added</code>方法内，调用<code>dumptofile</code>函数，进行真正的文件导出工作</li>
+</ul>
+<p>所以到这里，我们转向<code>dumptofile</code>函数，看一下其内部实现。越过前面的变量定义，首先看这一段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/* extract basename */
+tmp = strrchr(rpath, &#39;/&#39;);
+printf(&#34;\n\n&#34;);
+if (tmp == NULL) {
+	printf(&#34;[-] Unexpected error with filename.\n&#34;);
+	_exit(1);
+} else {
+	printf(&#34;[+] Dumping %s\n&#34;, tmp+1);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这块的作用，是把路径进行裁剪，得到目标APP的文件名。然后下面这一段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/* detect if this is a arm64 binary */
+if (mh-&gt;magic == MH_MAGIC_64) {
+	lc = (struct load_command *)((unsigned char *)mh + sizeof(struct mach_header_64));
+	printf(&#34;[+] detected 64bit ARM binary in memory.\n&#34;);
+} else { /* we might want to check for other errors here, too */
+	lc = (struct load_command *)((unsigned char *)mh + sizeof(struct mach_header));
+	printf(&#34;[+] detected 32bit ARM binary in memory.\n&#34;);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>大致的作用，是通过对Mach-O文件中，header的magic字段进行判断，判断当前可执行文件是32还是64位的。然后，因为Mach-O文件的内容是连续的，所以可以通过header指针加上header区间大小的方式，拿到load commands的指针。</p>
+<p>拿到了指针之后，再下一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">for (i=0; i&lt;mh-&gt;ncmds; i++) {
+	if (lc-&gt;cmd == LC_ENCRYPTION_INFO || lc-&gt;cmd == LC_ENCRYPTION_INFO_64) {
+</code></pre></td></tr></table>
+</div>
+</div><p>通过<code>mh-&gt;ncmds</code>得到load commands数量，对所有load command进行遍历。而在for循环内部，则对load command进行类型判断，只有当是<code>LC_ENCRYPTION_INFO</code>或者<code>LC_ENCRYPTION_INFO_64</code>类型时，才进入下一步。在Mach-O文档里没有找到<code>LC_ENCRYPTION_INFO</code>，但是可以google一下，大致的意思是加密相关的。所以我们可以把这个if语句，简单的理解成过滤加密相关的load command。然后继续深入if语句内部，首先是这么一段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">eic = (struct encryption_info_command *)lc;
+/* If this load command is present, but data is not crypted then exit */
+if (eic-&gt;cryptid == 0) {
+	break;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>为了理解这段，得先看<code>encryption_info_command</code>的定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/*
+ * The encryption_info_command contains the file offset and size of an
+ * of an encrypted segment.
+ */
+struct encryption_info_command {
+   uint32_t	cmd;		/* LC_ENCRYPTION_INFO */
+   uint32_t	cmdsize;	/* sizeof(struct encryption_info_command) */
+   uint32_t	cryptoff;	/* file offset of encrypted range */
+   uint32_t	cryptsize;	/* file size of encrypted range */
+   uint32_t	cryptid;	/* which enryption system,
+				   0 means not-encrypted yet */
+};
+</code></pre></td></tr></table>
+</div>
+</div><p>然后结合这段代码的注释理解下，大致意思可能是说从<code>LC_ENCRYPTION_INFO</code>类型的load command，取出数据的加密状态，如果不是被加密的状态就中断执行。继续往下看这一段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">off_cryptid=(off_t)((void*)&amp;eic-&gt;cryptid - (void*)mh);
+printf(&#34;[+] offset to cryptid found: @%p(from %p) = %x\n&#34;, &amp;eic-&gt;cryptid, mh, off_cryptid);
+printf(&#34;[+] Found encrypted data at address %08x of length %u bytes - type %u.\n&#34;, eic-&gt;cryptoff, eic-&gt;cryptsize, eic-&gt;cryptid);
+</code></pre></td></tr></table>
+</div>
+</div><p>第一句的意思，是通过<code>(void*)eic-&gt;cryptid</code>减去<code>(void*)mh</code>的方式，得到cryptid偏移量。然后最后一句，输出的日志里表示从<code>eic-&gt;cryptoff</code>开始，<code>eic-&gt;cryptsize</code>大小的区域，都是已经被dyld解密并加载后的内容。</p>
+<p>继续看源码，下面跟着的一大段，主要用处是读取Mach-O文件的header内容，所以就不贴源码了。但其中比较特殊的一段if语句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/* Is this a FAT file - we assume the right endianess */
+if (fh-&gt;magic == FAT_CIGAM) {
+</code></pre></td></tr></table>
+</div>
+</div><p>这段的作用，是区分FAT类型Mach-O文件，然后重定位到真正的header地址。再往下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">strlcpy(npath, tmp+1, sizeof(npath));
+strlcat(npath, &#34;.decrypted&#34;, sizeof(npath));
+strlcpy(buffer, npath, sizeof(buffer));
+
+printf(&#34;[+] Opening %s for writing.\n&#34;, npath);
+outfd = open(npath, O_RDWR|O_CREAT|O_TRUNC, 0644);
+if (outfd == -1) {
+	if (strncmp(&#34;/private/var/mobile/Applications/&#34;, rpath, 33) == 0) {
+		printf(&#34;[-] Failed opening. Most probably a sandbox issue. Trying something different.\n&#34;);
+		
+		/* create new name */
+		strlcpy(npath, &#34;/private/var/mobile/Applications/&#34;, sizeof(npath));
+		tmp = strchr(rpath+33, &#39;/&#39;);
+		if (tmp == NULL) {
+			printf(&#34;[-] Unexpected error with filename.\n&#34;);
+			_exit(1);
+		}
+		tmp++;
+		*tmp++ = 0;
+		strlcat(npath, rpath+33, sizeof(npath));
+		strlcat(npath, &#34;tmp/&#34;, sizeof(npath));
+		strlcat(npath, buffer, sizeof(npath));
+		printf(&#34;[+] Opening %s for writing.\n&#34;, npath);
+		outfd = open(npath, O_RDWR|O_CREAT|O_TRUNC, 0644);
+	}
+	if (outfd == -1) {
+		perror(&#34;[-] Failed opening&#34;);
+		printf(&#34;\n&#34;);
+		_exit(1);
+	}
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这块是创建一个文件路径并open得到句柄，里面一大堆复杂的if判断，主要是用来处理文件操作失败的情况。而这个新创建的文件，就是以后我们会得到的砸壳输出结果文件。继续往下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/* calculate address of beginning of crypted data */
+n = fileoffs + eic-&gt;cryptoff;
+	
+restsize = lseek(fd, 0, SEEK_END) - n - eic-&gt;cryptsize;			
+lseek(fd, 0, SEEK_SET);
+	
+printf(&#34;[+] Copying the not encrypted start of the file\n&#34;);
+/* first copy all the data before the encrypted data */
+while (n &gt; 0) {
+	toread = (n &gt; sizeof(buffer)) ? sizeof(buffer) : n;
+	r = read(fd, buffer, toread);
+	if (r != toread) {
+		printf(&#34;[-] Error reading file\n&#34;);
+		_exit(1);
+	}
+	n -= r;
+	
+	r = write(outfd, buffer, toread);
+	if (r != toread) {
+		printf(&#34;[-] Error writing file\n&#34;);
+		_exit(1);
+	}
+}
+	
+/* now write the previously encrypted data */
+printf(&#34;[+] Dumping the decrypted data into the file\n&#34;);
+r = write(outfd, (unsigned char *)mh + eic-&gt;cryptoff, eic-&gt;cryptsize);
+if (r != eic-&gt;cryptsize) {
+	printf(&#34;[-] Error writing file\n&#34;);
+	_exit(1);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这块就是向输出文件写入数据了，主要分成三步：</p>
+<ul>
+<li>第一步：计算并定位到解密数据的起始位置</li>
+<li>第二步：把解密数据位置前的数据，写入到输出文件内，这部分的数据估计是包含了header的标识位信息</li>
+<li>第三步：把解密数据写入到文件内。</li>
+</ul>
+<p>然后再往下，直到整个<code>dumptofile</code>函数结束，剩下的代码段的作用，在于把剩下的数据一并写入输出文件里，并关闭文件句柄。</p>
+<p>至此整个dumpdecrypted砸壳工具的代码已经分析完了，但是也留下了这几个问题：</p>
+<ul>
+<li>*<strong>在判断加密状态那一段，当数据处于非加密的时候，为什么是break，而不是continue*</strong></li>
+<li>*<strong>在数据读取及写入阶段，加密数据段之前、之后的内容，具体是哪些数据*</strong></li>
+</ul>
+<p>这些问题估计可以从Mach-O文件格式里面找到答案，所以还得再回头研究Mach-O文件。</p>
+<h2 id="3参考资料">3、参考资料</h2>
+<ul>
+<li>Mach-O文档：https://web.archive.org/web/20090901205800/http://developer.apple.com/mac/library/documentation/DeveloperTools/Conceptual/MachORuntime/Reference/reference.html#//apple_ref/doc/uid/TP40000895-CH248-95908</li>
+<li>dyld源码：https://github.com/opensource-apple/dyld</li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/60.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/29-2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/ios/">IOS</a>,&nbsp;<a href="/zh-cn/tags/%E9%80%86%E5%90%91/">逆向</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/29-1/" class="prev" rel="prev" title="iOS逆向学习（一）基础"><i class="fas fa-angle-left fa-fw"></i>iOS逆向学习（一）基础</a>
+            <a href="/zh-cn/30/" class="next" rel="next" title="iOS反逆向方案建设思路">iOS反逆向方案建设思路<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-28T17:25:26+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"iOS逆向学习（二）砸壳原理之dumpdecrypted"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

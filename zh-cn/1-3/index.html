@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>漫谈逆向工程 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="漫谈逆向工程" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/1-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-01T11:08:15+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="漫谈逆向工程"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/1-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/1-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/1-4/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "漫谈逆向工程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/1-3\/"
+        },"genre": "posts","keywords": "逆向工程","wordcount":  2781 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/1-3\/","datePublished": "2021-12-01T11:08:15+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/1-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/1-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">漫谈逆向工程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>逆向工程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-01">2021-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2781 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="点击阅读">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续播放">
+      </div>
+      <div id="text">
+谈谈我对逆向工程的一些理解和感悟。
+<h1 id="引言">引言</h1>
+<p>逆向工程，原名Reverse Engineering，简称RE。关于其书面介绍我就不复制粘贴百度百科了，简而言之就是从发布的产品中反向分析其程序逻辑和算法——基于各种目的。</p>
+<p>准确地说，逆向工程包括软件逆向工程——即本文所讨论的，也包括硬件逆向工程。那么硬件逆向是怎么做的呢？据我所知，我国的芯片设计水平普遍比国外落后10年。当国外厂商已经成功流片量产X纳米的芯片时候，我们还在XX纳米的研发和难点攻关中挣扎。挣扎的过程之一就是芯片逆向。</p>
+<p>一般从代理买到量产芯片后，第一步就是溶解外部封层，使用电子显微镜对电路进行拍摄，俗称拍片；第二步是使用特定工具软件（也是国外的）对照片进行切分，通过人力对自动生成的连线进行修复；第三步是将修复的连线还原成数字电路，再由IC逻辑工程师进行进一步修复；最后组合不同模块的门级电路，还原成硬件描述语言VHDL或者Verilog。之后就和正常的流程一样，开发、测试、模拟、仿真、流片……</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png, https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png 1.5x, https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png"
+        title="https://img-blog.csdnimg.cn/img_convert/53306e9f42a2f0c0f20201ad98b9e4b5.png"
+    /></a>ALU</p>
+<p>扯远了，还是回到主题上来。硬件逆向的成本动辄成百上千万，没有纳税人的支持是玩不起的。但是软件逆向不同，只要一个智力正常的人，研究一两个月，也能上XX破解论坛上分享他们的破解成果了。</p>
+<p>这也引出了一个问题，当我们在谈论逆向的时候，我们在谈论的是什么？</p>
+<h1 id="软件逆向">软件逆向</h1>
+<p>二进制逆向就是<code>IDA-Pro + F5</code>一把梭吗？Java逆向就是<code>JADX</code>一把梭吗？很多接触过逆向的新手都知道不是，他们会跳出来反驳，夹杂着一些<code>X86/ARM/MIPS Assembly</code>、<code>Smali</code>、<code>XYZ IR</code>等等让人不明觉厉的词汇。虽然听不懂，但我们也知道他们想表达什么：逆向是一门牵涉甚广的领域。</p>
+<p>的确，如果HTML、CSS这些领域是“单关节运动”，那么逆向就是“多关节运动”。前段时间有些使用node写前后端的开发者喜欢自称“全栈工程师”，要按照我的说法，逆向工程师才是当之无愧的全栈。为什么？来看看一个逆向工程师所应该具备的部分技能：</p>
+<ul>
+<li>一定的软件开发能力，熟悉数据结构、算法</li>
+<li>了解各种编程语言，熟悉编译原理</li>
+<li>熟悉计算机基本原理、操作系统、编译器、链接器</li>
+<li>熟悉对应平台或者虚拟机的汇编语言(机器码)、中间语言(字节码）</li>
+<li>…</li>
+</ul>
+<p>一个好的逆向工程师，通常也是个不错的开发者。即便现在有各种收费或免费的反编译器，也需要逆向工程师对代码进行梳理、分析、审计。这就意味着逆向者需要站在比开发者更高的角度去审视，甚至比开发者更加理解他们的代码。……</p>
+<h1 id="关于初衷">关于初衷</h1>
+<p>搞逆向这么麻烦，要懂这个，要懂那个，直接劝退了很大一波人。但其实这些只是“术”而已，实际工作中只需要用到一部分子集，甚至只要学会使用商业工具也能干活儿了。在我看来，逆向工程师的核心还是——<code>强烈的好奇心</code>。</p>
+<p>或者说，这是大部分网络安全人员(黑客)所具备的特质。因为好奇某个商业软件的功能，或者好奇某个病毒蠕虫的行为，才走向了这条逆向之路。</p>
+<p>逆向的过程是枯燥的。与其说逆向是技术活，在我看来更多是体力活。尤其是在分析大型软件的时候，每天改变量名，改函数名，分析树状的调用路径，……很容易让人感到厌烦。</p>
+<p>但是对于抱有好奇心的人而言，逆向应该是快乐的。每分析出一个软件或者函数的行为，就仿佛侦探找到关键线索或证据一样兴奋。隐藏的路径越深，知道的人就越少，那么被藏起来的东西也就越有价值。</p>
+<h1 id="关于快乐">关于快乐</h1>
+<p>逆向应该是快乐的，但很多人不想让你快乐。于是有了各种符号加壳、混淆、加密、解释执行(虚拟机)等应用增强方案，来提高逆向工程的难度。这通常是企业中端安全工程师的杰作，或者是使用了安全公司的通用安全加固方案。</p>
+<p>所谓的逆向混淆，只有在别人不知道你的方法时才有价值。对于通用的加固，所面临的挑战者甚多，其内部实现很可能已经被扒了个底朝天；而对于企业自研的方案，又通常因为太low而被简单绕过。所以，想让逆向工程师不快乐的人有时候成功了，但是大部分时候还是在逆向工程师手下败下阵来。用一朋友的话来说就是：“程序在我的设备、我的环境里运行，难道它还能上天？”</p>
+<h1 id="关于现状">关于现状</h1>
+<p>应用程序是不能上天，但是逆向工程师也很难上天。记得柯南里有一句话让我印象深刻——“如果怪盗是富有创造力的艺术家，那么侦探充其量只是吹毛求疵的评论家”。逆向工程做的大部分都是破坏性的工作，而不像开发者那样带来正面价值。</p>
+<p>目前社区中做逆向的大多是出于解谜(CTF)、软件破解、游戏外挂等，即便是专门讨论逆向的安全论坛中，对技术细节的探讨也寥寥无几，更多是炫耀和分享自己的“成果”。天下熙熙，皆为利来，天下攘攘，皆为利往，除了闷声发大财地以搞逆向赚钱的工作室外，公开分享的也就只能是为名了。</p>
+<p>那么职业做逆向的情况又如何呢？专门做逆向的正经岗位应该是恶意软件分析了，衍生出的团队在商业环境中突出PR宣传安全产品或者情报能力。其他小公司里招聘做逆向的人，要么是分析竞争对手，要么围绕高流量软件的去进行分析、破解、换皮、刷粉养号等等，是在违法犯罪的边缘来回试探。</p>
+<p>专门做逆向的情况不多，但是将其作为一门技能去掌握的人也不少。我自己本身也不是专门做逆向的，因为工作需要才去对其进行了解。除了开源软件，也有越来越多闭源软件的漏洞被暴露出来，你不去挖别人自然会去挖。就拿安卓每个月的安全通告来说，带星号的漏洞简直不要太多。</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png, https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png 1.5x, https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png"
+        title="https://img-blog.csdnimg.cn/img_convert/14c876ebc1581ec793754a936032b95d.png"
+    /></a>cve</p>
+<blockquote>
+<p>图：Android Security Bulletin—March 2020</p>
+</blockquote>
+<h1 id="正面价值">正面价值</h1>
+<p>逆向也有作为正面案例出现。比如对于一些开发者不再维护的软件，出现各种原因无法使用时，通常就有正义的逆向工程师去尝试解决困难，之前就有这么一个例子：</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png, https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png 1.5x, https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png"
+        title="https://img-blog.csdnimg.cn/img_convert/896bf0a1159b92f0569ff015bfa0e778.png"
+    /></a>help</p>
+<p>还有比较经典的就是Linux系统中的著名的开源驱动<code>nouveau</code>部分功能就是通过逆向英伟达的驱动而开发的，因为英伟达出于各种保护的原因不愿意与开源社区合作而闹了诸多矛盾，这也是下面这张图片的根源。</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png, https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png 1.5x, https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png"
+        title="https://img-blog.csdnimg.cn/img_convert/10acf59dd69d486b02467f94d291416e.png"
+    /></a>Fuck Nvidia</p>
+<p>总而言之，技术本身无对错好坏之分，关键是看使用的人以及使用的目的。</p>
+<h1 id="后记">后记</h1>
+<p>回想起以前在研究高通可信执行环境时，被<code>laginimaineb</code>的那篇博客<a href="http://bits-please.blogspot.com/2016/04/exploring-qualcomms-secure-execution.html" target="_blank" rel="noopener noreffer">Exploring Qualcomm’s Secure Execution Environment</a>给惊艳到了，大概那就是我心目中逆向大神该有的样子。那篇文章不是逆向某个特定的软件，也不是做了什么复杂的脱壳，而是将一种在未知环境中运行的未知格式程序就那么一字节一字节的分析出来。</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png, https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png 1.5x, https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png"
+        title="https://img-blog.csdnimg.cn/img_convert/03c81b1c4e8298fed02c2f7de184099a.png"
+    /></a>qsee</p>
+<p>要知道当时TEE尤其是高通的QSEE，在内部是被严密保护的，网上可以说几乎没有相关信息可以参考。甚至作为开发者都要以企业名义签署严格的NDA才能拿到开发工具。要在这种环境去逆向、调试、挖漏洞看似不可能，但<code>laginimaineb</code>接下了这个挑战，而且还超额完成了(<a href="http://bits-please.blogspot.com/2016/06/trustzone-kernel-privilege-escalation.html" target="_blank" rel="noopener noreffer">userspace -&gt; QSEE Kernel</a>)。他自己的说法是“For Fun”，我也相信他是“Fun”的。就是这样的人，让安全行业充满激情和热忱。</p>
+<p>最后：</p>
+<p>Stay Curious, Stay Exploring &amp;&amp; Happy Hacking!</p>
+</div>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/1-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/">逆向工程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/1-2/" class="prev" rel="prev" title="iOS应用构建与部署小结"><i class="fas fa-angle-left fa-fw"></i>iOS应用构建与部署小结</a>
+            <a href="/zh-cn/1-4/" class="next" rel="next" title="读《魔鬼数学》">读《魔鬼数学》<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-01T11:08:15+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"漫谈逆向工程"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

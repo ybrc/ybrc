@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>iOS反逆向方案建设思路 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="iOS反逆向方案建设思路" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/30/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-28T17:34:38+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="iOS反逆向方案建设思路"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/30/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/29-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/30-1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "iOS反逆向方案建设思路",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/30\/"
+        },"genre": "posts","keywords": "iOS, 反逆向","wordcount":  3175 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/30\/","datePublished": "2021-11-28T17:34:38+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/30/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/30/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 198619871989 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  198619871989 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">iOS反逆向方案建设思路</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/ios/"><i class="far fa-folder fa-fw"></i>IOS</a>&nbsp;<a href="/zh-cn/categories/%E5%8F%8D%E9%80%86%E5%90%91/"><i class="far fa-folder fa-fw"></i>反逆向</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-28">2021-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3175 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1越狱">1、越狱</a></li>
+    <li><a href="#2砸壳">2、砸壳</a></li>
+    <li><a href="#3静态分析">3、静态分析</a></li>
+    <li><a href="#4动态调试">4、动态调试</a></li>
+    <li><a href="#5重签多开">5、重签多开</a></li>
+    <li><a href="#6反逆向方案">6、反逆向方案</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="ios反逆向方案建设思路">iOS反逆向方案建设思路</h1>
+<p>地球人都知道，iOS不是安全的，iOS APP更不是安全的。那如果想要提升APP的安全性，就得在网络、数据存储等方面进行建设。而对于iOS APP来说，最常见的安全能力，就是反逆向的能力。</p>
+<p>我们先看下逆向的大致步骤，我们之前也在这篇帖子（<a href="https://ybrc.github.io/zh-cn/26/" target="_blank" rel="noopener noreffer">iOS逆向学习（一）基础</a>）里聊过，基本能分成这么几步：</p>
+<p>1). 越狱
+2). 砸壳
+3). 静态分析
+4). 动态调试
+5). 重签多开</p>
+<p>所以下面我们就按照这个顺序，简单分析每一步常见的技术方案，然后总结下有什么有用的信息，可以用来反逆向能力建设。</p>
+<h2 id="1越狱">1、越狱</h2>
+<p>目前来看，越狱是一切逆向操作的首要前提。毕竟只有在越狱环境下，才能砸壳拿到ipa包。同时在越狱环境下，还可以直接进行有限的动态调试。</p>
+<p>对于怎么防止iPhone被越狱，这是Apple的工作，就算我们想做也做不到。但是，我们可以尽自己所能的，避免自己的APP在越狱环境下运行。那就需要我们第一，能检测到当前的环境是不是越狱环境。第二，阻止APP启动，或者退出运行中的APP。</p>
+<p>怎么检测越狱环境呢？我们得从越狱的目的上来找答案。越狱的目的显而易见，就是获得iOS系统的最高权限。我们先不管怎么去达成这个目的，只要获得了系统的最高权限，我们的APP就能调用一些本来受限的方法，比如<code>getenv</code>。同时越狱工具，也会在文件系统中，遗留一些特有的文件，比如<code>MobileSubstrate之类</code>。总之检测当前是否为越狱环境的方法千千万，就算有些方法会被攻击者使用<code>xCon</code>之类的工具绕过，我们还是能找出更多的方法。</p>
+<p>那么检测到了越狱环境以后，我们理所当然的，就要阻止APP的运行，或者停用部分功能。停用部分功能的话，直接在代码里埋开关就可以了。而阻止APP的运行，要么不让APP启动，要么就退出APP。对于阻止APP启动来说，因为启动过程是由系统控制的，所以实现起来有难度，但是我们可以轻而易举的做到退出APP。我们可以构造crah，或者直接调用<code>exit</code>，甚至于间接的执行系统调用，来退出我们的APP。但是，退出APP的方法，都是有局限容易被攻破的，这块后面我们再详细聊。</p>
+<h2 id="2砸壳">2、砸壳</h2>
+<p>砸壳这块我们能做的其实不多，因为砸壳工具的原理，是和我们APP自身逻辑无关的。所以我们只好在上一步预防，也就是阻止我们的APP在越狱环境运行。</p>
+<p>更多关于砸壳原理的介绍，可以参照之前的帖子：</p>
+<ul>
+<li><a href="https://ybrc.github.io/zh-cn/26-1/" target="_blank" rel="noopener noreffer">iOS逆向学习（二）砸壳原理之dumpdecrypted</a></li>
+<li><a href="https://ybrc.github.io/zh-cn/26-2/" target="_blank" rel="noopener noreffer">iOS逆向学习（三）砸壳原理之frida-ios-dump</a></li>
+</ul>
+<h2 id="3静态分析">3、静态分析</h2>
+<p>到了这里，攻击者已经拿到了ipa文件。接下来，攻击者会使用下面这些常见的手段，来对我们的ipa进行静态分析：</p>
+<ul>
+<li>class-dump：导出所有OC代码的.h文件并分析</li>
+<li>MachOView：直接阅读分析Mach-O文件</li>
+<li>IDA/Hopper：进行反编译并分析汇编代码</li>
+</ul>
+<p>那该怎么阻止静态分析呢？答案就是混淆。</p>
+<p>混淆分成两种，一种是高级语言层面的混淆，也就是大家常说的代码混淆、硬编码混淆。我们平时写代码的时候，为了阅读方便，写的类名、方法名，都会多多少少的跟代码功能挂钩。比如用到了manager字样的，大多就是管理器，但是这也同样方便了攻击者进行静态分析。所以代码混淆的目的，就是在编译打包环节，把易于理解的类名、方法名，通过一定规则，替换成难以理解的形式，比如直接MD5。不过需要注意的是，大规模乱码式的代码混淆，可能会面临审核被拒的风险。其次硬编码混淆的作用，就是对代码中的字符串硬编码进行加密，以避免攻击者可以直接阅读。对于高级语言层面的混淆，更多的细节讨论，可以参照我之前的帖子：</p>
+<p><a href="https://benarvintec.com/2018/11/26/iOS%e7%a1%ac%e7%bc%96%e7%a0%81%e6%b7%b7%e6%b7%86/" target="_blank" rel="noopener noreffer">iOS硬编码混淆</a></p>
+<p>除了上面说的高级语言层面的混淆，我们还可以做汇编语言层面的混淆。这块的实现，主要是建立在LLVM的修改上的。具体细节我还没开始研究，不过这里有个开源的工具链接，感兴趣的话可以先自己研究下：</p>
+<p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="noopener noreffer">Obfuscator-LLVM</a></p>
+<h2 id="4动态调试">4、动态调试</h2>
+<p>动态调试的方法其实很多，可以在越狱环境下，直接运行APP以后，使用LLDB指令或者Cycript工具进行调试。也可以把ipa包集成到MonkeyDev工程里，然后在非越狱环境下，使用XCode进行动态调试。先不管两种方式的区别，其共同点都在于，我们的APP能正常运行，或者说至少不退出，攻击者才有机会进行操作。那该怎样操作呢？</p>
+<p>对于在越狱环境下的动态调试，我们可以采用越狱环境检测+APP主动退出的方案。而对于非越狱环境下的XCode调试，就可以采用debug状态检测+APP主动退出的方案。越狱环境检测的方案前面说过了，我们来聊下debug状态检测+APP主动退出。现在常见的检测方案大致有下面几种：</p>
+<ul>
+<li>ptrace：直接阻止XCode调试，更多原理分析可以参照之前的帖子：<a href="https://benarvintec.com/2019/09/02/%e7%bb%86%e8%af%b4ptrace%e5%8f%8d%e8%b0%83%e8%af%95/" target="_blank" rel="noopener noreffer">细说ptrace反调试</a></li>
+<li>sysctl：检测是否处于debug状态，需要手动退出APP</li>
+<li>isatty：同上</li>
+<li>ioctl：同上</li>
+</ul>
+<p>其他的方案大家也可以自己搜索一下，总的来说。debug状态检测的技术实现方案并不多，就算加上汇编化之类的变种也是有限的。所以攻击者可以消耗较少的精力，来绕过这些检测。</p>
+<p>除去上面说的两种防御方案，我们发现攻击者采用的动态调试方案，大多还是依赖dylib注入的。所以我们还可以通过<code>__RESTRICT</code>设置，来禁止dylib注入。但是很不幸，<code>__RESTRICT</code>可以通过修改可执行文件的源文件绕过，所以也比较容易攻破。</p>
+<h2 id="5重签多开">5、重签多开</h2>
+<p>重签多开的意思，是指攻击者用自己的证书，对我们的ipa包进行重签名，并同时运行多个，这是黑产常用的一种手段。那怎么预防？老样子，先检测。</p>
+<p>我们知道，每个iOS应用都有着唯一的ID，也就是bundleID，而想要实现重签多开，就必然要改变原有的bundleID。所以，这个环节的防御，我们主要还是集中在对Info.plist文件的改动检测上。我们可以直接通过系统API NSBundle来读取Info.plist文件信息，也可以通过对应的CoreFoundation方法来做。当然这两种方式显而易见是不安全的，攻击者随手写个hook就可以攻破。所以我们就换个方式，使用其他的方案直接读取Info.plist文件，比如NSData、mmap、拷贝一份改个名字再读等等等等。反正读取文件的方式千千万，可以让攻击者疲于奔命。</p>
+<p>那检测到了以后，怎么阻止呢？也是同样的道理，我们可以选择功能关闭或者退出APP。而在前面的部分，我们也说过主动退出APP的方式是不好的，至于为什么不好，我们现在来聊一聊。</p>
+<p>我们可以选择的主动退出APP的方案，其实并不多。主要就是构造crash、调用terminateWithSuccess之类的上层API、调用exit之类的系统底层API。要想攻破这些并不困难，对于crash可以根据栈帧定位我们的崩溃代码，上层API直接hook就好。exit之类的底层API，如果是直接使用那也就直接hook搞定。如果是汇编化的变种，直接使用IDA修改源文件就行。</p>
+<p>更多的APP主动退出方法，可以参照我的开源实验工程：https://github.com/BenArvin/iOSAppExitTest</p>
+<h2 id="6反逆向方案">6、反逆向方案</h2>
+<p>前面我们聊完了攻击者常用的逆向方法，和对应的防御方案，那么我们的反逆向方案应该设计成什么样子呢？</p>
+<p>首先，我们要明白，我们的一切工作，都不能完全的防御所有攻击，我们所做的只是增加攻击者的攻击成本。所以，对于主动退出APP这种技术方案有限，攻击者在攻击时有迹可循的防御方案，我们都不应该投入精力去建设。相应的，我们的反逆向方案，应该建设成下面的样子：</p>
+<ul>
+<li>1）编写阶段：对核心功能，采用C语言、汇编语言等静态语言编写</li>
+<li>2）编译阶段混淆：代码混淆、硬编码混淆、资源文件混淆、汇编混淆等</li>
+<li>3）运行阶段逆向检测：越狱环境检测、重签多开检测等</li>
+<li>4）运行阶段功能限制：代码开关、封号、封手机等</li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/61.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/30/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/ios/">IOS</a>,&nbsp;<a href="/zh-cn/tags/%E5%8F%8D%E9%80%86%E5%90%91/">反逆向</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/29-2/" class="prev" rel="prev" title="iOS逆向学习（二）砸壳原理之dumpdecrypted"><i class="fas fa-angle-left fa-fw"></i>iOS逆向学习（二）砸壳原理之dumpdecrypted</a>
+            <a href="/zh-cn/30-1/" class="next" rel="next" title="免费激活Windows和Office">免费激活Windows和Office<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-28T17:34:38+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"iOS反逆向方案建设思路"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

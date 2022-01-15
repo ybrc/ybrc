@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Objective-C笔记 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="Objective-C笔记" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/1-1/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-01T11:07:49+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Objective-C笔记"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/1-1/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/1/" /><link rel="next" href="https://ybrc.github.io/zh-cn/1-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Objective-C笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/1-1\/"
+        },"genre": "posts","keywords": "Objective-C","wordcount":  5830 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/1-1\/","datePublished": "2021-12-01T11:07:49+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/1-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/1-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Objective-C笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/objective-c/"><i class="far fa-folder fa-fw"></i>Objective-C</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-01">2021-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5830 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#消息传递">消息传递</a></li>
+    <li><a href="#字符串">字符串</a></li>
+    <li><a href="#类class">类(class)</a>
+      <ul>
+        <li><a href="#声明">声明</a></li>
+        <li><a href="#实现">实现</a></li>
+        <li><a href="#实例化">实例化</a></li>
+      </ul>
+    </li>
+    <li><a href="#方法method">方法(method)</a>
+      <ul>
+        <li><a href="#声明-1">声明</a></li>
+        <li><a href="#调用">调用</a></li>
+      </ul>
+    </li>
+    <li><a href="#属性attribute">属性(attribute)</a>
+      <ul>
+        <li><a href="#synthesize">synthesize</a></li>
+        <li><a href="#访问">访问</a></li>
+      </ul>
+    </li>
+    <li><a href="#协议protocol">协议(Protocol)</a></li>
+    <li><a href="#动态类型">动态类型</a></li>
+    <li><a href="#消息转发">消息转发</a></li>
+    <li><a href="#类别category">类别(Category)</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="点击阅读">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续播放">
+      </div>
+      <div id="text">
+# Objective-C笔记
+<p>为什么突然要搞ObjectiveC？因为清明比较闲，两三天正好用来学习下iOS的逆向分析。 逆向的第一步当然是先从正向了解，否则给你源代码都看不懂，反编译出来的就更别提了。 因此本篇文章作为简单学习ObjC的记录，不会涉及太深入的语法特性，简而言之就是——够用就行。</p>
+<h1 id="什么是objective-c">什么是Objective-C</h1>
+<p><strong>Objective-C</strong>，简称OC，是一种通用、高级、面向对象的编程语言。它扩展了标准的ANSI C编程语言， 将Smalltalk式的消息传递机制加入到ANSI C中。当前主要支持的编译器有GCC和Clang（采用LLVM作为后端）。 Objective-C的商标权属于苹果公司，苹果公司也是这个编程语言的主要开发者。 苹果在开发NeXTSTEP操作系统时使用了Objective-C，之后被OS X和iOS继承下来。 现在Objective-C与Swift是OS X和iOS操作系统、及与其相关的API、Cocoa和Cocoa Touch的主要编程语言。</p>
+<p>Objective-C是C语言的严格超集。这意味着任何C语言程序不经修改就可以直接通过Objective-C编译器， 在Objective-C中使用C语言代码也是完全合法的。Objective-C被描述为盖在C语言上的薄薄一层， 因为Objective-C的原意就是在C语言主体上加入面向对象的特性。OC项目中常用的拓展名如下：</p>
+<table>
+<thead>
+<tr>
+<th>扩展名</th>
+<th>内容类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.h</td>
+<td>头文件。头文件包含类，类型，函数和常数的声明。</td>
+</tr>
+<tr>
+<td>.m</td>
+<td>源代码文件。这是典型的源代码文件扩展名，可以包含 Objective-C 和 C 代码。</td>
+</tr>
+<tr>
+<td>.mm</td>
+<td>源代码文件。带有这种扩展名的源代码文件，除了可以包含Objective-C和C代码以外还可以包含C++代码。仅在你的Objective-C代码中确实需要使用C++类或者特性的时候才用这种扩展名。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="hello-world">Hello, World!</h1>
+<p>学习任何一门语言之前，基本都需要做的就是编写并运行一个HelloWorld程序，对于OC而言则是如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#import &lt;Foundation/Foundation.h&gt; int main (int argc, const char * argv[]) {    @autoreleasepool {        NSLog (@&#34;Hello, World!&#34;);    }    return 0; } 
+</code></pre></td></tr></table>
+</div>
+</div><p>使用clang进行编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">clang -framework Foundation hello.m -o hello 
+</code></pre></td></tr></table>
+</div>
+</div><p>运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ ./hello 2019-04-05 09:33:22.579 hello[75742:3312942] Hello, World! 
+</code></pre></td></tr></table>
+</div>
+</div><p>So easy！我们学习Objective-C时记住要重点关注概念而不是具体的语言细节，避免陷入学而无用的境地。</p>
+<h1 id="关键概念">关键概念</h1>
+<h2 id="消息传递">消息传递</h2>
+<p>Objective-C最大的特色是承自Smalltalk的消息传递模型（message passing）， 此机制与今日C++式之主流风格差异甚大。 Objective-C里，与其说对象互相调用方法， 不如说对象之间互相传递消息更为精确。此二种风格的主要差异在于调用方法/消息传递这个动作。 C++里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time） 就已经紧密绑定，不可能调用一个不存在类别里的方法。但在Objective-C，类别与消息的关系比较松散， 调用方法视为对对象发送消息，所有方法都被视为对消息的回应。所有消息处理直到运行时（runtime） 才会动态决定，并交由类别自行决定如何处理收到的消息。也就是说，一个类别不保证一定会回应收到的消息， 如果类别收到了一个无法处理的消息，程序只会抛出异常，不会出错或崩溃。</p>
+<p>C++里，送一个消息给对象（或者说调用一个方法）的语法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">obj.method(argument); 
+</code></pre></td></tr></table>
+</div>
+</div><p>Objective-C则写成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[obj method: argument]; 
+</code></pre></td></tr></table>
+</div>
+</div><p>此二种风格各有优劣。C++强制要求所有的方法都必须有对应的动作，且编译期绑定使得函数调用非常快速。 缺点是仅能借由virtual关键字提供有限的动态绑定能力。Objective-C天生即具备鸭子类型之动态绑定能力， 因为运行期才处理消息，允许发送未知消息给对象。可以送消息给整个对象集合而不需要一一检查每个对象的类型， 也具备消息转送机制。同时空对象nil接受消息后默认为不做事，所以送消息给nil也不用担心程序崩溃。</p>
+<p>举例来说，定义下面的程序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@interface MyClass: NSObject // instance method - (int) add: (int) num1 secondNumber:(int) num2; // static method + (int) mul: (int) num1 secondNumber:(int) num2; @end @implementation MyClass - (int) add: (int) num1 secondNumber:(int) num2 {    return num1 + num2; } + (int) mul: (int) num1 secondNumber:(int) num2 {    return num1 * num2; } @end 
+</code></pre></td></tr></table>
+</div>
+</div><p>其中<code>add</code>方法是实例函数，<code>mul</code>是类函数，调用过程如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">int main() {     int a = 3, b = 4;    MyClass *myClass = [[MyClass alloc]init];    int c = [myClass add:a secondNumber:b];    int d = [MyClass mul:a secondNumber:b]; } 
+</code></pre></td></tr></table>
+</div>
+</div><p>编译后在调试器中查看汇编可以看到，add方法的汇编是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    0x100000ea2: mov    rsi, qword ptr [rbp - 0x18]    0x100000ea6: mov    edx, dword ptr [rbp - 0x8]    0x100000ea9: mov    ecx, dword ptr [rbp - 0xc]    0x100000eac: mov    rdi, qword ptr [rip + 0x122d] ; &#34;add:secondNumber:&#34;    0x100000eb3: mov    qword ptr [rbp - 0x28], rdi    0x100000eb7: mov    rdi, rsi    0x100000eba: mov    rsi, qword ptr [rbp - 0x28]    0x100000ebe: call   qword ptr [rip + 0x13c]   ; (void *)0x00007fff6344e000: objc_msgSend 
+</code></pre></td></tr></table>
+</div>
+</div><p>其实就是转换为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">objc_msgSend(myClass, &#34;add:secondNumber:&#34;, 3, 4) 
+</code></pre></td></tr></table>
+</div>
+</div><p>所有的Objective-C方法调用都通过<code>objc_msgSend</code>进行调用，且实例和方法名称分别为前两个参数。 这也是为什么OC方法调用称之为消息传递的原因。</p>
+<h2 id="字符串">字符串</h2>
+<p>作为C语言的超集，Objective-C 支持 C 语言字符串方面的约定。也就是说，单个字符被单引号包括， 字符串被双引号包括。然而，大多数Objective-C通常不使用C语言风格的字符串。 反之，大多数框架把字符串传递给NSString对象。NSString类提供了字符串的类包装， 包含了所有你期望的优点，包括对保存任意长度字符串的内建内存管理机制，支持Unicode，printf风格的格式化工具， 等等。因为这种字符串使用的非常频繁，Objective-C提供了一个助记符<code>@</code>可以方便地从常量值创建NSString对象。 如下面的例子所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// 从一个C语言字符串创建Objective-C字符串 NSString*  fromCString = [NSString stringWithCString:&#34;A C string&#34;  encoding:NSASCIIStringEncoding]; // 使用助记符@ NSString* name = @&#34;PANN&#34;; NSString* line = [NSString stringWithFormat:@&#34;Hello, %s\n&#34;, @&#34;String&#34;]; 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="类class">类(class)</h2>
+<p>类是面向对象语言中最重要的一个概念，Objective-C同样支持类。下图是一个名为MyClass的类声明介绍：</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png, https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png 1.5x, https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png"
+        title="https://img-blog.csdnimg.cn/img_convert/4a8657b12a883fa55f254488936f0fb9.png"
+    /></a></p>
+<h3 id="声明">声明</h3>
+<p>遵循C语言的规范，类声明一般定义在.h头文件中。类声明以关键字@interface作为开始，@end作为结束。 其中类方法前的+号表示类方法，-号表示实例方法。一个对应的C++类定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public MyClass : NSObject {  protected:  int count;  id data;  NSString *name;  public:  id intWithString(NSString *aName);  static MyClass *createMyClassWithString(NSString *aName); }; 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="实现">实现</h3>
+<p>遵循C语言的规范，类实现一般定义在对应的.m文件中。类实现包含了公开方法的实现， 以及定义私有（private） 变量及方法。 以关键字@implementation作为区块起头，@end结尾。 上述类的一个实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@implementation MyClass {  NSString *secret;  -(id) initWithString: (NSString*)aName {    self.name = aName;    return 0;  }  +(MyClass)createMyClassWithString:(NSString*)aName {    MyClass * my = [[MyClass alloc] init];    my.name = aName;    return my;  } } 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>头文件（类声明）中定义的属性默认为protected，方法为public。而类实现中定义的属性为private。 当然也可以使用@public、@private等助记符来覆盖默认行为。</p>
+</blockquote>
+<h3 id="实例化">实例化</h3>
+<p>实例化即创建对象。Objective-C创建对象需通过alloc以及init两个消息。alloc的作用是分配内存， init则是初始化对象。 init与alloc都是定义在NSObject里的方法，父对象收到这两个信息并做出正确回应后， 新对象才创建完毕。如上述类中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">MyClass * my = [[MyClass alloc] init]; 
+</code></pre></td></tr></table>
+</div>
+</div><p>在Objective-C 2.0里，若创建对象不需要参数，则可直接使用new：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">MyClass * my = [MyClass new]; 
+</code></pre></td></tr></table>
+</div>
+</div><p>仅仅是语法上的精简，效果完全相同。</p>
+<p>若要自己定义初始化的过程，可以重写init方法，来添加额外的工作。（用途类似C++ 的构造函数constructor）， 如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- (id) init {    if ( self=[super init] ) {   // 必须调用父类的init        // do something here ...    }    return self; } 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="方法method">方法(method)</h2>
+<p>在上节介绍类的时候已经见过了一些方法的定义和使用，第一次接触Objective-C的人肯定会觉得很奇怪（比如我就觉得这语法比Golang还奇葩）， 但是只要接收了这种设定，还是可以慢慢习惯的。</p>
+<h3 id="声明-1">声明</h3>
+<p>下图为Objective-C内置数组类型的insertObject方法声明：</p>
+<p><a href="https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        data-src="https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png"
+        data-srcset="https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png, https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png 1.5x, https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png"
+        title="https://img-blog.csdnimg.cn/img_convert/12b114eb4494f37562e7827e0abed31b.png"
+    /></a></p>
+<p>方法实际的名字(insertObject:atIndex:)是所有方法标识关键的级联，包含了冒号。冒号表明了参数的出现。 如果方法没有参数，你可以省略第一个(也是唯一的)方法标识关键字后面的冒号。本例中，这个方法有两个参数。 该函数转换成类似的C++表示如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">void insertObject:atIndex:(id anObject, NSUInteger index); 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="调用">调用</h3>
+<p>调用一个方法实际上就是传递消息到对应的对象。这里消息就是方法标识符以及传递给方法的参数信息。 发送给对象的所有消息都会动态分发，这样有利于实现Objective-C类的多态行为。 也就是说，如果子类定义了跟父类的具有相同标识符的方法，那么子类首先收到消息， 然后可以有选择的把消息转发（也可以不转发）给他的父类。</p>
+<p>消息被中括号( [ 和 ] )包括。括号中接收消息的对象在左边，消息及其参数在右边。 例如，给myArray变量传递消息insertObject:atIndex:消息，可以使用如下的语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[myArray insertObject:anObj atIndex:0]; 
+</code></pre></td></tr></table>
+</div>
+</div><p>消息允许嵌套。也就是说，假如你有一个myAppObject对象，该对象有getArray方法获取数组， 有getObjectToInsert方法获取元素，那么嵌套的消息可以写成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[[myAppObject getArray] insertObject:[myAppObject getObjectToInsert] atIndex:0]; 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="属性attribute">属性(attribute)</h2>
+<p>属性没什么好说的，和C++的类属性类似。不过在Objective-C 2.0引入了新的语法以声明变量为属性， 并包含一可选定义以配置访问方法的生成。属性总是为公共的，其目的为提供外部类访问（也可能为只读） 类的内部变量的方法。属性可以被声明为“readonly”，即只读的，也可以提供储存方法包括“assign”， “copy”或“retain”（简单的赋值、复制或增加1引用计数）。默认的属性是原子的， 即在访问时会加锁以避免多线程同时访问同一对象，也可以将属性声明为“nonatomic”（非原子的）， 避免产生锁。</p>
+<p>定义属性的例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@interface Person : NSObject {    @public        NSString *name;    @private        int age; } @property(copy) NSString *name; @property(readonly) int age; -(id)initWithAge:(int)age; @end 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="synthesize">synthesize</h3>
+<p>属性的访问方法由@synthesize关键字来实现，它由属性的声明自动的产生一对访问方法。 另外，也可以选择使用@dynamic关键字表明访问方法为手动提供。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@implementation Person @synthesize name; @dynamic age; -(id)initWithAge:(int)initAge {    age = initAge; // 注意：直接赋给成员变量，而非属性    return self; } -(int)age {    return 18; // 注意：并非返回真正的年龄 } @end 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="访问">访问</h3>
+<p>属性可以利用传统的消息表达式、点表达式或&quot;valueForKey:&quot;/“setValue:forKey:“方法对来访问。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Person *aPerson = [[Person alloc] initWithAge: 53]; // 修改属性 aPerson.name = @&#34;Steve&#34;; [aPerson setName: @&#34;Steve&#34;]; // 读取属性 NSString *tmp; tmp = [aPerson name]; // 消息表达式 tmp = aPerson.name;	  // 点表达式 tmp = aPerson-&gt;name;  // 直接访问成员变量 tmp = [aPerson valueForKey:@&#34;name&#34;]; // property访问 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="协议protocol">协议(Protocol)</h2>
+<p>协议是一组没有实现的方法列表，任何的类均可采纳协议并具体实现这组方法。简而言之就是接口， 可以类比Java的interface，或者C++的纯虚函数，表述一种is-a的概念。</p>
+<p>协议以关键字@protocol作为区块起始，@end结束，中间为方法列表。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@protocol Mutex - (void)lock; - (void)unlock; @end 
+</code></pre></td></tr></table>
+</div>
+</div><p>若要声明实现该协议，可以使用尖括号&lt;&gt;，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@interface SomeClass : SomeSuperClass &lt;Mutex&gt; @end 
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦SomeClass表明他采纳了Mutex协议，SomeClass就有义务实现Mutex协议中的两个方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@implementation SomeClass - (void)lock {  // 实现lock方法 } - (void)unlock {  // 实现unlock方法 } @end 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="动态类型">动态类型</h2>
+<p>类似于Smalltalk，Objective-C具备动态类型：即消息可以发送给任何对象实体，无论该对象实体的公开接口中有没有对应的方法。 虽然Objective-C具备动态类型的能力， 但编译期的静态类型检查依旧可以应用到变量上。 以下三种声明在运行时效力是完全相同的， 但是三种声明提供了一个比一个更明显的类型信息， 附加的类型信息让编译器在编译时可以检查变量类型，并对类型不符的变量提出警告。</p>
+<p>下面三个方法，差异仅在于参数的形态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- setMyValue1:(id) foo; - setMyValue2:(id &lt;aProtocol&gt;) foo; - setMyValue3:(NSNumber*) foo; 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Objective-C中的id类型类似于void指针，但是被严格限制只能使用在对象上。</p>
+</blockquote>
+<h2 id="消息转发">消息转发</h2>
+<p>一个对象收到消息之后，他有三种处理消息的可能手段，第一是回应该消息并运行方法，若无法回应， 则可以转发消息给其他对象，若以上两者均无，就要处理无法回应而抛出的例外。只要进行三者之其一， 该消息就算完成任务而被丢弃。若对&quot;nil”（空对象指针）发送消息，该消息通常会被忽略， 只不过对于某些编译器选项可能会抛出异常。</p>
+<p>Objective-C运行时在Object中定义了一对方法：</p>
+<p><strong>转发方法</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- (retval_t) forward:(SEL) sel :(arglist_t) args; // with GCC - (id) forward:(SEL) sel :(marg_list) args; // with NeXT/Apple systems 
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>响应方法</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- (retval_t) performv:(SEL) sel :(arglist_t) args;  // with GCC - (id) performv:(SEL) sel :(marg_list) args; // with NeXT/Apple systems 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>GCC和NeXT/Apple编译器的区别是返回值和参数类型不同。</p>
+</blockquote>
+<p>希望实现转发的对象只需用新的方法覆盖以上方法来定义其转发行为而无需重写响应方法<code>performv::</code>， 因为后者只是单纯的对响应对象发送消息并传递参数。其中，<code>SEL</code>类型是Objective-C中消息的类型。</p>
+<h2 id="类别category">类别(Category)</h2>
+<p>Objective-C借用并扩展了Smalltalk实现中的&quot;分类&quot;概念，用以帮助达到分解代码的目的。</p>
+<p>一个分类可以将方法的实现分解进一系列分离的文件。程序员可以将一组相关的方法放进一个分类， 使程序更具可读性。举例来讲，可以在字符串类中增加一个名为&quot;拼写检查&quot;的分类， 并将拼写检查的相关代码放进这个分类中。</p>
+<p>分类中的方法是在运行时被加入类中的，这一特性允许程序员向现存的类中增加方法， 而无需持有原有的代码， 或是重新编译原有的类。 例如若系统提供的字符串类的实现中不包含拼写检查的功能，可以增加这样的功能而无需更改原有的字符串类的代码。</p>
+<p>在运行时，分类中的方法与类原有的方法并无区别，其代码可以访问包括私有类成员变量在内的所有成员变量。 若分类声明了与类中原有方法同名的函数，则分类中的方法会被调用。因此分类不仅可以增加类的方法， 也可以代替原有的方法。这个特性可以用于修正原有代码中的错误，更可以从根本上改变程序中原有类的行为。 若两个分类中的方法同名，则被调用的方法是不可预测的。</p>
+<p>分类的声明如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@interface ClassName (CategoryName) @end 
+</code></pre></td></tr></table>
+</div>
+</div><p>下面是一个具体的例子，通过MyAdditions分类，动态的给NSString类中添加getCopyRightString方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#import &lt;Foundation/Foundation.h&gt; @interface NSString(MyAdditions) +(NSString *)getCopyRightString; @end @implementation NSString(MyAdditions) +(NSString *)getCopyRightString {   return @&#34;Copyright evilpan.com 2019&#34;; } @end int main(int argc, const char * argv[]) {   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];   NSString *copyrightString = [NSString getCopyRightString];   NSLog(@&#34;Accessing Category: %@&#34;, copyrightString);      [pool drain];   return 0; } 
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="小结">小结</h1>
+<p>现在，我们已经了解了Objective-C语言的基本语法和关键概念，可以开始自己编写简单的程序了。 一门语言只是一个工具，常用常新，如果不使用，学得再深也很容易遗忘。 当然，本文介绍的Objective-C特性只是一小部分，但我们仍然可以先用起来， 等遇到具体语法或者API时候再查阅文档（如spec、<a href="https://www.tutorialspoint.com/objective_c/objective_c_overview.htm" target="_blank" rel="noopener noreffer">tutorialspoint</a>等）即可。 使用得越多，需要查阅文档但频率也会越少，学习没有捷径可言。</p>
+</div>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/1-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/objective-c/">Objective-C</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/1/" class="prev" rel="prev" title="从身份证芯片的“秘密”谈谈网络信息搜索"><i class="fas fa-angle-left fa-fw"></i>从身份证芯片的“秘密”谈谈网络信息搜索</a>
+            <a href="/zh-cn/1-2/" class="next" rel="next" title="iOS应用构建与部署小结">iOS应用构建与部署小结<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-01T11:07:49+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"Objective-C笔记"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

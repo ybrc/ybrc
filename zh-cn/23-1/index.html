@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>汇编学习 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="汇编学习" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/23-1/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-22T20:47:36+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="汇编学习"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/23-1/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/23/" /><link rel="next" href="https://ybrc.github.io/zh-cn/23-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "汇编学习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/23-1\/"
+        },"genre": "posts","keywords": "汇编","wordcount":  3905 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/23-1\/","datePublished": "2021-12-22T20:47:36+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/23-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/23-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 1981868789 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  1981868789 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">汇编学习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E6%B1%87%E7%BC%96/"><i class="far fa-folder fa-fw"></i>汇编</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-22">2021-12-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3905 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#寄存器">寄存器</a>
+      <ul>
+        <li><a href="#通用寄存器">通用寄存器：</a>
+          <ul>
+            <li><a href="#数据寄存器">数据寄存器：</a></li>
+            <li><a href="#指针寄存器">指针寄存器：</a></li>
+            <li><a href="#变址寄存器">变址寄存器：</a></li>
+            <li><a href="#控制寄存器">控制寄存器：</a>
+              <ul>
+                <li><a href="#ip-instruction-pointer指令指针寄存器">IP (Instruction Pointer)：指令指针寄存器</a></li>
+                <li><a href="#flag标志寄存器">FLAG：标志寄存器</a>
+                  <ul>
+                    <li><a href="#条件标志">条件标志：</a></li>
+                    <li><a href="#控制标志">控制标志：</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#段寄存器">段寄存器：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#高频时钟">高频时钟</a></li>
+    <li><a href="#控制单元">控制单元</a></li>
+    <li><a href="#算术单元">算术单元</a></li>
+    <li><a href="#三大总线">三大总线</a>
+      <ul>
+        <li><a href="#数据总线">数据总线</a></li>
+        <li><a href="#控制总线">控制总线</a></li>
+        <li><a href="#地址总线">地址总线</a></li>
+      </ul>
+    </li>
+    <li><a href="#指令执行周期">指令执行周期</a></li>
+    <li><a href="#读取内存周期">读取内存周期</a></li>
+    <li><a href="#操作模式">操作模式</a></li>
+    <li><a href="#汇编语言基础">汇编语言基础</a>
+      <ul>
+        <li><a href="#整形常量">整形常量</a></li>
+        <li><a href="#字符常量">字符常量</a></li>
+        <li><a href="#字符常量-1">字符常量</a></li>
+        <li><a href="#保留字">保留字</a></li>
+        <li><a href="#标识符">标识符</a></li>
+        <li><a href="#伪指令">伪指令</a></li>
+        <li><a href="#指令">指令</a>
+          <ul>
+            <li><a href="#指令助记符">指令助记符</a></li>
+            <li><a href="#操作数">操作数</a></li>
+          </ul>
+        </li>
+        <li><a href="#执行过程">执行过程</a></li>
+        <li><a href="#定义数据">定义数据</a>
+          <ul>
+            <li><a href="#内部数据类型">内部数据类型</a></li>
+            <li><a href="#伪指令-1">伪指令</a></li>
+            <li><a href="#多初始值">多初始值</a>
+              <ul>
+                <li><a href="#dup">DUP</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#数据传送寻址和算术运算">数据传送、寻址和算术运算</a>
+      <ul>
+        <li><a href="#操作数-1">操作数</a></li>
+        <li><a href="#mov">MOV</a></li>
+        <li><a href="#整数的扩展">整数的扩展</a>
+          <ul>
+            <li><a href="#无符号扩展--movzx">无符号扩展 – MOVZX</a>
+              <ul>
+                <li><a href="#全零扩展并传送">全零扩展并传送:</a></li>
+              </ul>
+            </li>
+            <li><a href="#有符号扩展--movsx">有符号扩展 – MOVSX</a>
+              <ul>
+                <li><a href="#符号扩展并传送">符号扩展并传送:</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#数据交换--xchg">数据交换 – XCHG</a></li>
+        <li><a href="#加减法">加减法</a>
+          <ul>
+            <li><a href="#inc--dec">INC &amp;&amp; DEC</a></li>
+            <li><a href="#add--相加">ADD – 相加</a></li>
+            <li><a href="#sub--相减">SUB – 相减</a></li>
+            <li><a href="#neg--非将操作数转化为其二进制补码">NEG – 非(将操作数转化为其二进制补码)</a></li>
+          </ul>
+        </li>
+        <li><a href="#运算符和伪指令">运算符和伪指令</a></li>
+        <li><a href="#jmp和loop">JMP和LOOP</a>
+          <ul>
+            <li><a href="#jmp--无条件跳转到目的地址">JMP – 无条件跳转到目的地址</a></li>
+            <li><a href="#loop--循环">LOOP – 循环</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#过程">过程</a>
+      <ul>
+        <li><a href="#运行时堆栈32位">运行时堆栈(32位)</a>
+          <ul>
+            <li><a href="#入栈">入栈</a></li>
+            <li><a href="#出栈">出栈</a></li>
+          </ul>
+        </li>
+        <li><a href="#push--pop">PUSH &amp;&amp; POP</a>
+          <ul>
+            <li><a href="#push">PUSH</a></li>
+            <li><a href="#pop">POP</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#条件分支">条件分支</a>
+      <ul>
+        <li><a href="#布尔操作">布尔操作</a></li>
+        <li><a href="#cmp指令">CMP指令</a>
+          <ul>
+            <li><a href="#比较无符号数">比较无符号数</a></li>
+            <li><a href="#比较有符号数">比较有符号数</a></li>
+          </ul>
+        </li>
+        <li><a href="#条件跳转">条件跳转</a>
+          <ul>
+            <li><a href="#基于特定标志的跳转">基于特定标志的跳转</a></li>
+            <li><a href="#基于相等性的比较">基于相等性的比较</a></li>
+            <li><a href="#无符号的比较">无符号的比较</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#整数运算">整数运算</a>
+      <ul>
+        <li><a href="#逻辑移位和算术移位">逻辑移位和算术移位</a></li>
+        <li><a href="#乘法和除法">乘法和除法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">$(document).ready(function() {$("#begin_speak").click(function () {
+                let content = $("#text").text();
+                let msg = new SpeechSynthesisUtterance(content);
+                window.speechSynthesis.speak(msg);$("#pause_speak").show();$("#cancel_speak").show();});$("#cancel_speak").click(function () {
+                window.speechSynthesis.cancel();$("#pause_speak").hide();$("#resume_speak").hide();$(this).hide();
+});$("#pause_speak").click(function () {
+                window.speechSynthesis.pause();$("#resume_speak").show();
+            });$("#resume_speak").click(function () {
+                window.speechSynthesis.resume();$(this).hide();
+            });
+        });
+</script>
+   <body>
+      <div>
+         <input type="button" id="begin_speak"  value="朗读本文">
+         <input type="button" id="pause_speak"  style="display:none" value="暂停朗读">
+         <input type="button" id="cancel_speak" style="display:none" value="停止朗读">
+         <input type="button" id="resume_speak" style="display:none" value="继续朗读">
+      </div>
+      <div id="text">
+# 汇编学习
+<h1 id="ia-32处理器结构">IA-32处理器结构</h1>
+<h2 id="寄存器">寄存器</h2>
+<p>*<strong>寄存器进行信息存储*</strong></p>
+<p>AX，BX，CX，DX，SP，BP，SI，DI，IP，FLAG，CS，DS，SS，ES 共 14 个,均为16位</p>
+<p>而这 14 个寄存器分为通用寄存器，控制寄存器和段寄存器</p>
+<h3 id="通用寄存器">通用寄存器：</h3>
+<h4 id="数据寄存器">数据寄存器：</h4>
+<p>AX (Accumulator)：累加寄存器，也称之为累加器</p>
+<p>BX (Base)：基地址寄存器</p>
+<p>CX (Count)：计数器寄存器</p>
+<p>DX (Data)：数据寄存器</p>
+<p>*<strong>上面 4 个数据寄存器可以分为两个独立的 8 位寄存器*</strong></p>
+<h4 id="指针寄存器">指针寄存器：</h4>
+<p>SP (Stack Pointer)：堆栈指针寄存器</p>
+<p>BP (Base Pointer)：基指针寄存器</p>
+<h4 id="变址寄存器">变址寄存器：</h4>
+<p>SI (Source Index)：源变址寄存器</p>
+<p>DI (Destination Index)：目的变址寄存器</p>
+<h4 id="控制寄存器">控制寄存器：</h4>
+<h5 id="ip-instruction-pointer指令指针寄存器">IP (Instruction Pointer)：指令指针寄存器</h5>
+<h5 id="flag标志寄存器">FLAG：标志寄存器</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标志位（外语缩写）</th>
+<th style="text-align:left">标志位名称及外语全称</th>
+<th style="text-align:left">=1</th>
+<th style="text-align:left">=0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CF</td>
+<td style="text-align:left">进位标志/Carry Flag</td>
+<td style="text-align:left">CY/Carry/进位</td>
+<td style="text-align:left">NC/No Carry/无进位</td>
+</tr>
+<tr>
+<td style="text-align:left">PF</td>
+<td style="text-align:left">奇偶标志/Parity Flag</td>
+<td style="text-align:left">PE/Parity Even/偶</td>
+<td style="text-align:left">PO/Parity Odd/奇</td>
+</tr>
+<tr>
+<td style="text-align:left">AF</td>
+<td style="text-align:left">辅助进位标志/Auxiliary</td>
+<td style="text-align:left">Carry Flag AC/Auxiliary Carry/进位</td>
+<td style="text-align:left">NA/No Auxiliary Carry/无进位</td>
+</tr>
+<tr>
+<td style="text-align:left">ZF</td>
+<td style="text-align:left">零标志/Zero</td>
+<td style="text-align:left">Flag ZR/Zero/等于零</td>
+<td style="text-align:left">NZ/Not Zero/不等于零</td>
+</tr>
+<tr>
+<td style="text-align:left">SF</td>
+<td style="text-align:left">符号标志/Sign</td>
+<td style="text-align:left">Flag NG/Negative/负</td>
+<td style="text-align:left">PL/Positive/非负</td>
+</tr>
+<tr>
+<td style="text-align:left">TF</td>
+<td style="text-align:left">跟踪标志/Trace Flag</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">IF</td>
+<td style="text-align:left">中断标志/Interrupt</td>
+<td style="text-align:left">Flag EI/Enable Interrupt/允许</td>
+<td style="text-align:left">DI/Disable Interrupt/禁止</td>
+</tr>
+<tr>
+<td style="text-align:left">DF</td>
+<td style="text-align:left">方向标志/Direction</td>
+<td style="text-align:left">Flag DN/Down/减少</td>
+<td style="text-align:left">UP/增加</td>
+</tr>
+<tr>
+<td style="text-align:left">OF</td>
+<td style="text-align:left">溢出标志/Overflow</td>
+<td style="text-align:left">Flag OV/Overflow/溢出</td>
+<td style="text-align:left">NV/Not Overflow/未溢出</td>
+</tr>
+</tbody>
+</table>
+<p>　　</p>
+<h6 id="条件标志">条件标志：</h6>
+<ul>
+<li>进位标志：用于反映运算是否产生进位或借位如果运算结果的最高位产生一个进位或借位，则CF置1，否则置0运算结果的最高位包括字操作的第15位和字节操作的第7位移位指令也会将操作数的最高位或最低位移入CF</li>
+<li>奇偶标志：用于反映运算结果低8位中“1”的个数“1”的个数为偶数，则PF置1，否则置0</li>
+<li>辅助进位标志：算数操作结果的第三位（从0开始计数）如果产生了进位或者借位则将其置为1，否则置为0，常在BCD(binary-codedecimal)算术运算中被使用</li>
+<li>零标志：用于判断结果是否为0运算结果0，ZF置1，否则置0</li>
+<li>符号标志：用于反映运算结果的符号，运算结果为负，SF置1，否则置0因为有符号数采用补码的形式表示，所以SF与运算结果的最高位相同</li>
+<li>溢出标志：反映有符号数加减运算是否溢出如果运算结果超过了8位或者16位有符号数的表示范围，则OF置1，否则置0</li>
+</ul>
+<h6 id="控制标志">控制标志：</h6>
+<ul>
+<li>跟踪标志：当TF被设置为1时，CPU进入单步模式，所谓单步模式就是CPU在每执行一步指令后都产生一个单步中断主要用于程序的调试8086/8088中没有专门用来置位和清零TF的命令，需要用其他办法</li>
+<li>中断标志：决定CPU是否响应外部可屏蔽中断请求IF为1时，CPU允许响应外部的可屏蔽中断请求</li>
+<li>方向标志：决定串操作指令执行时有关指针寄存器调整方向当DF为1时，串操作指令按递减方式改变有关存储器指针值，每次操作后使SI、DI递减</li>
+</ul>
+<h4 id="段寄存器">段寄存器：</h4>
+<p>CS (Code Segment)：代码段寄存器</p>
+<p>DS (Data Segment)：数据段寄存器</p>
+<p>SS (Stack Segment)：堆栈段寄存器</p>
+<p>ES (Extra Segment)：附加段寄存器</p>
+<h2 id="高频时钟">高频时钟</h2>
+<p>进行同步</p>
+<h2 id="控制单元">控制单元</h2>
+<p>控制器控制各种器件进行工作</p>
+<h2 id="算术单元">算术单元</h2>
+<p>运算器进行信息处理</p>
+<h2 id="三大总线">三大总线</h2>
+<h3 id="数据总线">数据总线</h3>
+<p>CPU是通过地址总线指定存储单元，地址总线传送的能力决定了CPU对存储单元的寻址能力。(一般32位CPU，寻址能力为2^32=4G)</p>
+<h3 id="控制总线">控制总线</h3>
+<p>CPU通过数据总线来与内存等器件进行数据传送，数据总线的宽度决定了CPU和外界的数据传送速度</p>
+<h3 id="地址总线">地址总线</h3>
+<p>控制总线是一些不同控制的集合，CPU通过控制总线对外部器件的控制。控制总线的宽度决定了CPU对外部器件的控制能力</p>
+<h2 id="指令执行周期">指令执行周期</h2>
+<ul>
+<li>Fetch（取指），也就是从 PC 寄存器里找到对应的指令地址，根据指令地址从内存里把具体的指令，加载到指令寄存器中，然后把 PC 寄存器自增，好在未来执行下一条指令</li>
+<li>Decode（译码），也就是根据指令寄存器里面的指令，解析成要进行什么样的操作，是 R、I、J 中的哪一种指令，具体要操作哪些寄存器、数据或者内存地址</li>
+<li>Execute（执行），也就是实际运行对应的 R、I、J 这些特定的指令，进行算术逻辑操作、数据传输或者直接的地址跳转</li>
+</ul>
+<h2 id="读取内存周期">读取内存周期</h2>
+<ul>
+<li>地址总线: 将想要读取的值的地址放到地址总线上</li>
+<li>控制总线: 设置处理器RD引脚</li>
+<li>等待存储器响应</li>
+<li>数据总线: 将数据从数据总线复制到目标操作数</li>
+</ul>
+<h2 id="操作模式">操作模式</h2>
+<p>主要操作模式:</p>
+<ul>
+<li>保护模式</li>
+<li>实地址模式</li>
+<li>系统管理模式</li>
+</ul>
+<p>子模式:</p>
+<ul>
+<li>虚拟8086模式</li>
+</ul>
+<h2 id="汇编语言基础">汇编语言基础</h2>
+<h3 id="整形常量">整形常量</h3>
+<p>最后一位需要用基数来申明进制, 默认为10进制</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">基数</th>
+<th style="text-align:left">进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">h</td>
+<td style="text-align:left">16</td>
+</tr>
+<tr>
+<td style="text-align:left">q/o</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">d</td>
+<td style="text-align:left">10</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td style="text-align:left">2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符常量">字符常量</h3>
+<p>单引号或双引号包含的字符, 内存中保存的asc码</p>
+<h3 id="字符常量-1">字符常量</h3>
+<p>单引号或双引号包含的字符序列, 内存中保存的asc码</p>
+<h3 id="保留字">保留字</h3>
+<ul>
+<li>指令助记符</li>
+<li>寄存器名称</li>
+<li>伪指令</li>
+<li>属性</li>
+<li>运算符</li>
+<li>预定义符号</li>
+</ul>
+<h3 id="标识符">标识符</h3>
+<p>类似高级语言的变量名</p>
+<h3 id="伪指令">伪指令</h3>
+<p>嵌入源代码的命令,由汇编器识别、执行</p>
+<p>不在运行时执行,但可以定义变量、宏和子程序,为内存分派名称</p>
+<h3 id="指令">指令</h3>
+<ul>
+<li>标号(可选)</li>
+<li>指令助记符</li>
+<li>操作数</li>
+<li>注释(可选)</li>
+</ul>
+<h4 id="指令助记符">指令助记符</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mov</td>
+<td style="text-align:left">分配</td>
+<td style="text-align:left">mul</td>
+<td style="text-align:left">相乘</td>
+</tr>
+<tr>
+<td style="text-align:left">add</td>
+<td style="text-align:left">相加</td>
+<td style="text-align:left">jmp</td>
+<td style="text-align:left">跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">sub</td>
+<td style="text-align:left">相减</td>
+<td style="text-align:left">call</td>
+<td style="text-align:left">调用</td>
+</tr>
+</tbody>
+</table>
+<h4 id="操作数">操作数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">96</td>
+<td style="text-align:left">常量</td>
+</tr>
+<tr>
+<td style="text-align:left">2+4</td>
+<td style="text-align:left">表达式</td>
+</tr>
+<tr>
+<td style="text-align:left">eax</td>
+<td style="text-align:left">寄存器</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">内存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="执行过程">执行过程</h3>
+<ul>
+<li>编辑: 编辑源文件</li>
+<li>汇编: 读取源文件 -&gt; 目标文件</li>
+<li>链接: 读取并检查目标文件,链接器从链接库复制被请求的过程,与目标文件融合 -&gt; 可执行文件</li>
+<li>运行: 运行</li>
+</ul>
+<h3 id="定义数据">定义数据</h3>
+<h4 id="内部数据类型">内部数据类型</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">BYTE</td>
+<td style="text-align:left">8 位无符号整数，B 代表字节</td>
+</tr>
+<tr>
+<td style="text-align:left">SBYTE</td>
+<td style="text-align:left">8 位有符号整数，S 代表有符号</td>
+</tr>
+<tr>
+<td style="text-align:left">WORD</td>
+<td style="text-align:left">16 位无符号整数</td>
+</tr>
+<tr>
+<td style="text-align:left">SWORD</td>
+<td style="text-align:left">16 位有符号整数</td>
+</tr>
+<tr>
+<td style="text-align:left">DWORD</td>
+<td style="text-align:left">32 位无符号整数，D 代表双（字）</td>
+</tr>
+<tr>
+<td style="text-align:left">SDWORD</td>
+<td style="text-align:left">32 位有符号整数，SD 代表有符号双（字）</td>
+</tr>
+<tr>
+<td style="text-align:left">FWORD</td>
+<td style="text-align:left">48 位整数（保护模式中的远指针）</td>
+</tr>
+<tr>
+<td style="text-align:left">QWORD</td>
+<td style="text-align:left">64 位整数，Q 代表四（字）</td>
+</tr>
+<tr>
+<td style="text-align:left">TBYTE</td>
+<td style="text-align:left">80 位（10 字节）整数，T 代表 10 字节</td>
+</tr>
+<tr>
+<td style="text-align:left">REAL4</td>
+<td style="text-align:left">32 位（4 字节）IEEE 短实数</td>
+</tr>
+<tr>
+<td style="text-align:left">REAL8</td>
+<td style="text-align:left">64 位（8 字节）IEEE 长实数</td>
+</tr>
+<tr>
+<td style="text-align:left">REAL10</td>
+<td style="text-align:left">80 位（10 字节）IEEE 扩展实数</td>
+</tr>
+</tbody>
+</table>
+<h4 id="伪指令-1">伪指令</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DB</td>
+<td style="text-align:left">8 bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">DW</td>
+<td style="text-align:left">16 bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">DD</td>
+<td style="text-align:left">32 bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">DQ</td>
+<td style="text-align:left">64 bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">DT</td>
+<td style="text-align:left">80 bytes</td>
+</tr>
+</tbody>
+</table>
+<h4 id="多初始值">多初始值</h4>
+<h5 id="dup">DUP</h5>
+<p>为多个数据分配空间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">byte 20 dup(0)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="数据传送寻址和算术运算">数据传送、寻址和算术运算</h2>
+<h3 id="操作数-1">操作数</h3>
+<ul>
+<li>立即数: 数字文本表达式</li>
+<li>寄存器操作数: CPU内已命名的寄存器</li>
+<li>内存操作数: 引用内存位置</li>
+</ul>
+<h3 id="mov">MOV</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov des src
+</code></pre></td></tr></table>
+</div>
+</div><p>原则:</p>
+<ul>
+<li>操作数大小相同</li>
+<li>不能同时为内存操作数</li>
+<li>指令指针寄存器不能作为目标操作数</li>
+</ul>
+<p>*<strong>不能将数据从一个内存位置传送到另一个内存位置*</strong></p>
+<h3 id="整数的扩展">整数的扩展</h3>
+<h4 id="无符号扩展--movzx">无符号扩展 – MOVZX</h4>
+<h5 id="全零扩展并传送">全零扩展并传送:</h5>
+<p>将源操作数复制到目的操作数,并把目的操组数扩展到16或32位.</p>
+<h4 id="有符号扩展--movsx">有符号扩展 – MOVSX</h4>
+<h5 id="符号扩展并传送">符号扩展并传送:</h5>
+<p>将源操作数复制到目的操作数,并把目的操组数扩展到16或32位.</p>
+<h3 id="数据交换--xchg">数据交换 – XCHG</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">xchg des src
+</code></pre></td></tr></table>
+</div>
+</div><p>*<strong>处理不能使用立即数操作外,和MOV指令要求一致*</strong></p>
+<h3 id="加减法">加减法</h3>
+<h4 id="inc--dec">INC &amp;&amp; DEC</h4>
+<ul>
+<li>INC: 寄存器或内存操作数加一</li>
+<li>DEC: 寄存器或内存操作数减一</li>
+</ul>
+<p>*<strong>INC和DEC不影响进位标志*</strong></p>
+<h4 id="add--相加">ADD – 相加</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">add des src
+</code></pre></td></tr></table>
+</div>
+</div><p>规则和MOV指令相同</p>
+<p>*<strong>源操作数不变*</strong></p>
+<h4 id="sub--相减">SUB – 相减</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub des src
+</code></pre></td></tr></table>
+</div>
+</div><p>规则和MOV指令相同</p>
+<p>*<strong>源操作数不变*</strong></p>
+<h4 id="neg--非将操作数转化为其二进制补码">NEG – 非(将操作数转化为其二进制补码)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">neg des src
+</code></pre></td></tr></table>
+</div>
+</div><p>规则和MOV指令相同</p>
+<p>*<strong>源操作数不变*</strong></p>
+<h3 id="运算符和伪指令">运算符和伪指令</h3>
+<ul>
+<li>OFFSET: 返回变量和其所在段起始地址之间的距离</li>
+<li>PTR: 重写操作数默认的大小类型</li>
+<li>TYPE: 返回一个操作数或者数组中每个元素的大小</li>
+<li>LENGHOF: 返回数组中元素的个数</li>
+</ul>
+<h3 id="jmp和loop">JMP和LOOP</h3>
+<h4 id="jmp--无条件跳转到目的地址">JMP – 无条件跳转到目的地址</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmp des
+</code></pre></td></tr></table>
+</div>
+</div><p>世界上最浪漫的话</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmp 0x7C00
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="loop--循环">LOOP – 循环</h4>
+<p>ECX计数器循环</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">loop des
+</code></pre></td></tr></table>
+</div>
+</div><p>首先将ECX置于合适的值,每循环一次,ECX自动减一并与<code>0</code>对比是否相等,若等于零则退出循环</p>
+<h2 id="过程">过程</h2>
+<h3 id="运行时堆栈32位">运行时堆栈(32位)</h3>
+<h4 id="入栈">入栈</h4>
+<ul>
+<li>栈顶指针减4</li>
+<li>ESP寄存器指向最后压入堆栈的数据项</li>
+<li>内存中是从高地址向低地址扩展的</li>
+</ul>
+<h4 id="出栈">出栈</h4>
+<ul>
+<li>从堆栈删除数据</li>
+<li>栈顶指针增加</li>
+</ul>
+<h3 id="push--pop">PUSH &amp;&amp; POP</h3>
+<h4 id="push">PUSH</h4>
+<ul>
+<li>减少ESP的值</li>
+<li>将源数据复制到堆栈(16位减2,32位减4)</li>
+</ul>
+<h4 id="pop">POP</h4>
+<ul>
+<li>增加ESP的值</li>
+<li>将数据从堆栈复制到目的操作数(16位减2,32位减4)</li>
+</ul>
+<h2 id="条件分支">条件分支</h2>
+<h3 id="布尔操作">布尔操作</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AND</td>
+<td style="text-align:left">源操作数和目的操作数进行逻辑与操作</td>
+</tr>
+<tr>
+<td style="text-align:left">OR</td>
+<td style="text-align:left">源操作数和目的操作数进行逻辑或操作</td>
+</tr>
+<tr>
+<td style="text-align:left">XOR</td>
+<td style="text-align:left">源操作数和目的操作数进行逻辑异或操作</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT</td>
+<td style="text-align:left">对目标操作数进行逻辑非操作</td>
+</tr>
+<tr>
+<td style="text-align:left">TEST</td>
+<td style="text-align:left">源操作数和目的操作数进行逻辑与操作，并适当地设置 CPU 标志位</td>
+</tr>
+</tbody>
+</table>
+<p>*<strong>TEST指令不修改目标操作数*</strong></p>
+<h3 id="cmp指令">CMP指令</h3>
+<p>CMP指令执行从目的操作数中减去源操作数的隐含减法操作且不修改任何操作数</p>
+<h4 id="比较无符号数">比较无符号数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CMP结果</th>
+<th style="text-align:left">ZF</th>
+<th style="text-align:left">CF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">目的操作数&lt;源操作数</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">目的操作数&gt;源操作数</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">目的操作数=源操作数</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="比较有符号数">比较有符号数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CMP结果</th>
+<th style="text-align:left">标志位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">目的操作数&lt;源操作数</td>
+<td style="text-align:left">SF != OF</td>
+</tr>
+<tr>
+<td style="text-align:left">目的操作数&gt;源操作数</td>
+<td style="text-align:left">SF == OF</td>
+</tr>
+<tr>
+<td style="text-align:left">目的操作数=源操作数</td>
+<td style="text-align:left">ZF == 1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="条件跳转">条件跳转</h3>
+<h4 id="基于特定标志的跳转">基于特定标志的跳转</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">标志位/寄存器</th>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">标志位/寄存器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*<strong>JZ*</strong></td>
+<td style="text-align:left">为零跳转</td>
+<td style="text-align:left">ZF=1</td>
+<td style="text-align:left">JNO</td>
+<td style="text-align:left">无溢出跳转</td>
+<td style="text-align:left">OF=0</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>JNZ*</strong></td>
+<td style="text-align:left">非零跳转</td>
+<td style="text-align:left">ZF=0</td>
+<td style="text-align:left">JS</td>
+<td style="text-align:left">有符号跳转</td>
+<td style="text-align:left">SF=1</td>
+</tr>
+<tr>
+<td style="text-align:left">JC</td>
+<td style="text-align:left">进位跳转</td>
+<td style="text-align:left">CF=1</td>
+<td style="text-align:left">JNS</td>
+<td style="text-align:left">无符号跳转</td>
+<td style="text-align:left">SF=0</td>
+</tr>
+<tr>
+<td style="text-align:left">JNC</td>
+<td style="text-align:left">无进位跳转</td>
+<td style="text-align:left">CF=0</td>
+<td style="text-align:left">JP</td>
+<td style="text-align:left">偶校验跳转</td>
+<td style="text-align:left">PF=1</td>
+</tr>
+<tr>
+<td style="text-align:left">JO</td>
+<td style="text-align:left">溢出跳转</td>
+<td style="text-align:left">OF=1</td>
+<td style="text-align:left">JNP</td>
+<td style="text-align:left">奇校验跳转</td>
+<td style="text-align:left">PF=0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="基于相等性的比较">基于相等性的比较</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*<strong>JE*</strong></td>
+<td style="text-align:left">相等跳转 (leftOp=rightOp)</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>JNE*</strong></td>
+<td style="text-align:left">不相等跳转 (leftOp M rightOp)</td>
+</tr>
+<tr>
+<td style="text-align:left">JCXZ</td>
+<td style="text-align:left">CX=0 跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">JECXZ</td>
+<td style="text-align:left">ECX=0 跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">JRCXZ</td>
+<td style="text-align:left">RCX=0 跳转（64 位模式）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="无符号的比较">无符号的比较</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*<strong>JB*</strong></td>
+<td style="text-align:left">小于跳转（若 leftOp 小于 rightOp）</td>
+<td style="text-align:left">*<strong>JA*</strong></td>
+<td style="text-align:left">大于跳转(若 leftOp &gt; rightOp)</td>
+</tr>
+<tr>
+<td style="text-align:left">JNBE</td>
+<td style="text-align:left">不小于或等于跳转（与 JA 相同）</td>
+<td style="text-align:left">JNAE</td>
+<td style="text-align:left">不大于或等于跳转（与 JB 相同）</td>
+</tr>
+<tr>
+<td style="text-align:left">JAE</td>
+<td style="text-align:left">大于或等于跳转（若 leftOp ≥ rightOp）</td>
+<td style="text-align:left">JBE</td>
+<td style="text-align:left">小于或等于跳转（若 leftOp ≤ rightOp）</td>
+</tr>
+<tr>
+<td style="text-align:left">JNB</td>
+<td style="text-align:left">不小于跳转（与 JAE 相同）</td>
+<td style="text-align:left">JNA</td>
+<td style="text-align:left">不大于跳转（与 JBE 相同）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整数运算">整数运算</h2>
+<h3 id="逻辑移位和算术移位">逻辑移位和算术移位</h3>
+<ul>
+<li>逻辑移位: 空出来的位用0填充</li>
+<li>算术移位: 空出来的位用原数据符号位填充</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">指令</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">指令</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*<strong>SHL*</strong></td>
+<td style="text-align:left">左移</td>
+<td style="text-align:left">*<strong>ROR*</strong></td>
+<td style="text-align:left">循环右移</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>SHR*</strong></td>
+<td style="text-align:left">右移</td>
+<td style="text-align:left">*<strong>RCL*</strong></td>
+<td style="text-align:left">带进位的循环左移</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>SAL*</strong></td>
+<td style="text-align:left">算术左移</td>
+<td style="text-align:left">*<strong>RCR*</strong></td>
+<td style="text-align:left">带进位的循环右移</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>SAR*</strong></td>
+<td style="text-align:left">算术右移</td>
+<td style="text-align:left">SHLD</td>
+<td style="text-align:left">双精度左移</td>
+</tr>
+<tr>
+<td style="text-align:left">*<strong>ROL*</strong></td>
+<td style="text-align:left">循环左移</td>
+<td style="text-align:left">SHRD</td>
+<td style="text-align:left">双精度右移</td>
+</tr>
+</tbody>
+</table>
+<h3 id="乘法和除法">乘法和除法</h3>
+<ul>
+<li>无符号乘法 – MUL 指令</li>
+<li>有符号乘法 – IMUL 指令</li>
+<li>无符号除法 – DIV 指令</li>
+<li>有符号除法 – IDIV 指令</li>
+</ul>
+</div>
+<img src="https://tool.lu/netcard/">
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/99.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<div id="qrcode"></div> 
+<a id="download" download="qrcode.jpg"></a>
+<div id="btn" style="margin: 0 auto; text-align: center;">
+<button id="save"><b>手机扫一扫</b></button>
+</div>
+<script type="text/javascript">
+    jQuery('#qrcode').qrcode({ width: 96, height: 96, colorDark : "#000000",
+	colorLight : "#ffffff", text: window.location.href });$("#save").click(function () {
+        var canvas = $('#qrcode').find("canvas").get(0);
+        var url = canvas.toDataURL('image/jpeg');$("#download").attr('href', url).get(0).click();
+        return false;
+    });
+</script><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/23-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E6%B1%87%E7%BC%96/">汇编</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/23/" class="prev" rel="prev" title="事情总是做不完、一切毫无头绪、日子过得毫无条理……哪些瞬间你会觉得，自己的生活简直就是一团麻？"><i class="fas fa-angle-left fa-fw"></i>事情总是做不完、一切毫无头绪、日子过得毫无条理……哪些瞬间你会觉得，自己的生活简直就是一团麻？</a>
+            <a href="/zh-cn/23-2/" class="next" rel="next" title="如何在 VMware Fusion 中运行 macOS Monterey （12） Beta">如何在 VMware Fusion 中运行 macOS Monterey （12） Beta<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-12-22T20:47:36+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"汇编学习"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

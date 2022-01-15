@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git问题汇总 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="Git问题汇总" />
+<meta property="og:description" content="Git问题汇总" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/22-1/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-22T13:27:18+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Git问题汇总"/>
+<meta name="twitter:description" content="Git问题汇总"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/22-1/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/22/" /><link rel="next" href="https://ybrc.github.io/zh-cn/2021-10-21/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git问题汇总",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/22-1\/"
+        },"genre": "posts","keywords": "Git","wordcount":  4505 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/22-1\/","datePublished": "2021-10-22T13:27:18+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/22-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/22-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git问题汇总</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/git/"><i class="far fa-folder fa-fw"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-22">2021-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4505 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#初次配置用户名和邮箱">初次配置用户名和邮箱</a></li>
+    <li><a href="#修改usernameuseremail">修改user.name/user.email</a>
+      <ul>
+        <li><a href="#方式一通过命令修改">方式一：通过命令修改</a></li>
+        <li><a href="#方式二修改gitconfig文件">方式二：修改.gitconfig文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#gitignore文件的作用"><code>.gitignore</code>文件的作用</a></li>
+    <li><a href="#gitignore文件的语法"><code>.gitignore</code>文件的语法</a>
+      <ul>
+        <li><a href="#注释">注释</a></li>
+        <li><a href="#忽略文件文件夹">忽略文件/文件夹</a></li>
+        <li><a href="#不忽略文件文件夹">不忽略文件/文件夹</a></li>
+        <li><a href="#在指定文件夹里不忽略指定的文件">在指定文件夹里不忽略指定的文件</a></li>
+        <li><a href="#使用通配符及其他符号">使用通配符及其他符号</a></li>
+      </ul>
+    </li>
+    <li><a href="#gitignore怎么忽略已经被版本控制的文件">.gitignore怎么忽略已经被版本控制的文件</a>
+      <ul>
+        <li><a href="#方法一">方法一</a></li>
+        <li><a href="#方法二">方法二</a></li>
+        <li><a href="#关于git-rm---cached-filename的补充">关于<code>git rm --cached filename</code>的补充</a></li>
+      </ul>
+    </li>
+    <li><a href="#git---merge-refusing-to-merge-unrelated-histories">Git - Merge: refusing to merge unrelated histories</a>
+      <ul>
+        <li><a href="#场景">场景</a></li>
+        <li><a href="#解决方案">解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#warning-lf-will-be-replaced-by-crlf">warning: LF will be replaced by CRLF</a></li>
+    <li><a href="#统计代码提交行数">统计代码提交行数</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Git问题汇总</p>
+<h1 id="git问题汇总">Git问题汇总</h1>
+<h2 id="初次配置用户名和邮箱">初次配置用户名和邮箱</h2>
+<p>Git在push时需要使用到user.name和user.email，一般通过命令来进行配置或修改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash">查看user.name git config user.name 
+查看user.email git config user.email 
+配置user.name git config --global user.name <span class="s2">&#34;your user name&#34;</span> 
+配置user.email git config --global user.email <span class="s2">&#34;your user email&#34;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>这里需要注意的是，<strong>配置命令只能用于初次配置user.name/email，如果不小心配置错误，或者重复配置，不可以通过重复执行以上命令来修改user.name/email，否则可能或报错说无法重复配置，或者导致一个key配置了多个value。</strong></p>
+<h2 id="修改usernameuseremail">修改user.name/user.email</h2>
+<p>如果想要修改已经配置过的user.name或email，有两种方式，一种是通过命令来修改；一种是直接修改.gitconfig文件。</p>
+<h3 id="方式一通过命令修改">方式一：通过命令修改</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//修改user.name
+git config --global --replace-all user.name &#34;your user name&#34;
+
+//修改user.email
+git config --global --replace-all user.email&#34;your user email&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="方式二修改gitconfig文件">方式二：修改.gitconfig文件</h3>
+<ul>
+<li>该文件是隐藏文件，位于<code>C:\Users\{user}\.gitconfig</code>，直接修改里边的name或者email，如果有重复的name或email，可以将其删掉，只剩下一个就好。</li>
+<li>修改完，通过git bash输入git config –list可以查看是否修改成功了。</li>
+</ul>
+<h2 id="gitignore文件的作用"><code>.gitignore</code>文件的作用</h2>
+<p><code>.gitignore</code>文件用来忽略被指定的文件或文件夹的改动，被记录在<code>.gitignore</code>文件里的文件或文件夹，是无法被git跟踪到的，换句话说，被忽略的文件是不会被放入到远程仓库里的。</p>
+<p>也就是说，如果文件已经存在于远程仓库中，是无法通过<code>.gitignore</code>文件来忽略的。</p>
+<p><code>.gitignore</code>文件存放于git仓库的根目录下。</p>
+<h2 id="gitignore文件的语法"><code>.gitignore</code>文件的语法</h2>
+<h3 id="注释">注释</h3>
+<p><code>#</code>表示注释，如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code># Here is comment. </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="忽略文件文件夹">忽略文件/文件夹</h3>
+<p>直接写入文件或文件夹名即可，指定文件夹里的所有文件也会一起被忽略，如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 4 5 6 7 8 </code></th>
+<th><code># ignore target folder target/ # ignore Eclipse files .settings/ build/ .classpath .project </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="不忽略文件文件夹">不忽略文件/文件夹</h3>
+<p><code>!</code>表示不忽略指定的文件，如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 </code></th>
+<th><code># don't ignore src folder !src/ </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="在指定文件夹里不忽略指定的文件">在指定文件夹里不忽略指定的文件</h3>
+<p>通过<code>!</code>可以实现更加有意思的用法，如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 </code></th>
+<th><code># ignore scaffolds folder, but don't ignore draft.md under scaffolds folder. scaffolds/* !scaffolds/draft.md </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>**注意：这里必须在文件夹后面加上<code>/*</code>，否则是无法实现想要的效果的。并且被忽略的文件和想要不忽略的文件必须是同一路径，否则无法生效。**如下的写法就是不能生效的：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 </code></th>
+<th><code># ignore scaffolds folder, but don't ignore draft.md under scaffolds folder. scaffolds/* !scaffolds/test/draft.md </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>想要生效就要改成同一目录：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 </code></th>
+<th><code># ignore scaffolds folder, but don't ignore draft.md under scaffolds folder. scaffolds/test/* !scaffolds/test/draft.md </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用通配符及其他符号">使用通配符及其他符号</h3>
+<p>可以使用通配符及其他符号来指定复杂条件的文件，如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 4 </code></th>
+<th><code>*.log day_1?.txt hello[0-9].txt hi[^0-9].txt </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><code>*</code>表示匹配任意字符；</p>
+</li>
+<li>
+<p><code>?</code>表示匹配一个字符；</p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[]
+</code></pre></td></tr></table>
+</div>
+</div><p>表示匹配中括号内的单个字符：</p>
+<ul>
+<li>可以使用<code>-</code>来表示连贯的字符，比如<code>0-9</code>，<code>a-z</code>，<code>A-Z</code>等，<code>[0-9]</code>表示匹配从0到9的单个字符。</li>
+<li>可以使用<code>^</code>来表示除外，比如<code>[^0-9]</code>表示除0到9之外的单个字符。</li>
+</ul>
+</li>
+</ul>
+<h2 id="gitignore怎么忽略已经被版本控制的文件">.gitignore怎么忽略已经被版本控制的文件</h2>
+<p>如果某个文件已经存在于远程仓库了，也就是说某个文件已经被版本控制了，如果将该文件添加到<code>.gitignore</code>中，是无法生效的。因为<code>.gitignore</code>是用来控制尚未被纳入版本控制的文件，如果文件已经存在于远程库中，自然也就无法生效了。</p>
+<p>于是就此衍生了一个问题：<code>.gitignore</code>怎么忽略已经被版本控制的文件？</p>
+<h3 id="方法一">方法一</h3>
+<p>直接在远程库里将想要忽略的文件删除掉，再将该文件写入<code>.gitignore</code>中即可。</p>
+<p><strong>这种做法的前提是，你确定该文件是允许从远程库删除掉的</strong>，然而有些时候，这种做法是不可能的。要么没权限去远程库删掉该文件，要么该文件是必须的。</p>
+<h3 id="方法二">方法二</h3>
+<p>使用命令<code>git rm --cached filename</code>，然后将该文件写入<code>.gitignore</code>中即可。</p>
+<p>该命令表示从git仓库中将文件移除，不再进行版本控制，但保留工作区的该文件。</p>
+<p>需要注意的是，该命令其实和方法一差不多。<code>git rm</code>表示移除某个文件，<code>--cached</code>表示从暂存区中移除，如果不加该参数就是直接从工作区移除了。</p>
+<p>工作区就是指的Working Tree，暂存区就是指的Stage。工作区就是我们的磁盘，被版本控制的文件都存放于工作区。如果改动了某个文件，首先要将该文件添加到暂存区(Stage)，然后再提交(commit)到本地仓库，最后才推送(push)到远程库。</p>
+<p><code>git rm --cached filename</code>并不会从物理上删除文件，只是从暂存区中将文件删除。由于该文件原本已经被版本控制了，使用了该命令后，虽然保留了工作区的该文件，但是却会在暂存区中生成一个删除了该文件的记录，如果此时进行commit，就会把版本库里的该文件给删掉了，如果push到远程库，也会被删掉。<strong>最终还是走的方法一的路子。</strong></p>
+<h3 id="关于git-rm---cached-filename的补充">关于<code>git rm --cached filename</code>的补充</h3>
+<p>看到有篇文章举例很详细，如下：</p>
+<ul>
+<li>
+<p>新建文件1.txt，未被跟踪(Untracked files)，提交到暂存区(Changed to be committed)，未提交到版本库。 使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git rm —cached 1.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>：</p>
+<ul>
+<li>把文件恢复到未被跟踪的状态，即删除暂存区中的1.txt；</li>
+</ul>
+</li>
+<li>
+<p>文件1.txt，已经提交到版本库，工作区，暂存区都是干净的。使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git rm —cached 1.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>：</p>
+<ul>
+<li>把工作区的文件1.txt置为了”未跟踪”状态，即Untracked files</li>
+<li>暂存区生成一个deleted 1.txt的记录，如果提交了，就是把版本库中的1.txt删除。</li>
+<li>不影响工作区中的文件。</li>
+</ul>
+</li>
+<li>
+<p>文件1.txt, 已经提交到版本库，修改1.txt，并且提交到了暂存区。使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git rm —cached 1.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>：</p>
+<ul>
+<li>把工作区的文件1.txt置为了”未跟踪”状态，即Untracked files。</li>
+<li>暂存区生成一个deleted 1.txt的记录，如果提交了，就是把版本库中的1.txt删除。</li>
+<li>不影响工作区中的文件。还是修改后的1.txt</li>
+</ul>
+</li>
+<li>
+<p>文件1.txt, 已经提交到版本库，修改1.txt，提交到暂存区，继续修改1.txt。使用<code>git rm —cached 1.txt</code> 会报错，不能执行操作。</p>
+</li>
+</ul>
+<h2 id="git---merge-refusing-to-merge-unrelated-histories">Git - Merge: refusing to merge unrelated histories</h2>
+<h3 id="场景">场景</h3>
+<p>我在本地有个代码仓库local-A，本地仓库local-A已经和一个远程仓库remote-A关联了。</p>
+<p>接着我又在GitHub上新建了一个仓库remote-B，我希望将本地仓库local-A的本地dev分支push到这个新建的远程库remote-B。我的想法是这样的：</p>
+<ol>
+<li>在本地仓库local-A里添加刚刚新建的远程库remote-B</li>
+<li>检出(check out)并切换到remote-B的master分支</li>
+<li>将本地dev分支merge到当前的master分支</li>
+<li>解决可能发生的冲突后，将改动全部commit并push到远程库remote-B的master分支上</li>
+</ol>
+<p>接着当我做到第三步的时候，发现报错如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code>Merge: refusing to merge unrelated histories </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>看到报错，我又重新操作了一遍，依然是同样的错误。记得以前我也做过类似的操作，但是却没有现在的问题，百度了下，发现可能是git升级之后造成的。</p>
+<h3 id="解决方案">解决方案</h3>
+<p>因为两个仓库是不同的项目(本地仓库已经跟踪了另外一个远程库了)，git默认不允许不相干的项目进行push等操作。如果想要进行这些操作，就需要加入<code>--allow-unrelated-histories</code>参数才可以合并两个不同的项目：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code>git merge --squash dev --allow-unrelated-histories </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>这句命令表示将<code>dev</code>分支合并到当前分支，这里的两个本地分支各自追踪不同的远程库，需要加入<code>--allow-unrelated-histories</code>参数才能够完成合并操作而不报错，至于<code>--squash</code>参数是为了压缩<code>dev</code>分支原本的commit历史，可以将原本所有的commit历史合成一个commit，以避免当前分支在合并之后掺入了其他项目的commit历史。</p>
+<h2 id="warning-lf-will-be-replaced-by-crlf">warning: LF will be replaced by CRLF</h2>
+<p>这个问题由不同平台的换行符不同所造成：</p>
+<ul>
+<li>CR是回车，CarriageReturn，即<code>\r</code>（return）。LF是换行，LineFeed，即<code>\n</code>（newline）。</li>
+<li>Dos和Windows平台使用CRLF来结束一行。</li>
+<li>Mac和Linux平台使用LF来结束一行。（最早Mac以CR来结束一行，后改为了LF）</li>
+</ul>
+<p><strong>影响：</strong></p>
+<ul>
+<li>Unix/Mac系统下的文件在Windows里打开，所有文字会变成一行。</li>
+<li>Windows的文件在Unix/Mac下打开，在每行的结尾可能会多出一个<code>^M</code>符号。</li>
+<li>Linux保存的文件在windows上用记事本查看会出现黑点。</li>
+</ul>
+<p><strong>解决方法：</strong></p>
+<p>为了避免git管理的项目中出现混合的换行符，通常会将项目的换行符设置为<code>LF</code>。</p>
+<p>对于Windows平台，git的客户端默认设置为<code>core.autocrlf=true</code>。在提交文件时，会自动将换行符转换为<code>LF</code>，在检出文件时则自动转为<code>CRLF</code>。</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code>git config --global core.autocrlf true </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>对于Mac和Linux平台，可以将配置设置为<code>input</code>。这样在提交文件时会转为<code>LF</code>，检出时则不转换。</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code>git config --global core.autocrlf input </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>如果只使用Windows平台进行开发并运行项目，可以设置为<code>false</code>，来取消git自动转换换行符的功能。</p>
+<table>
+<thead>
+<tr>
+<th><code>1 </code></th>
+<th><code>git config --global core.autocrlf false </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>还可以配置<code>core.safecrlf</code>来改变git对于换行符的检查行为：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 4 5 6 7 8 </code></th>
+<th><code>#拒绝提交包含混合换行符的文件 git config --global core.safecrlf true    #允许提交包含混合换行符的文件 git config --global core.safecrlf false    #提交包含混合换行符的文件时给出警告 git config --global core.safecrlf warn </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>可以通过以下命令来查询Git的配置：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 4 5 </code></th>
+<th><code>// 查询配置 git config -l // 查询全局配置 git config -l  --global </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="统计代码提交行数">统计代码提交行数</h2>
+<p>可以在<code>git bash</code>里用<code>git log</code>命令来统计，部分参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 4 5 6 7 8 9 10 11 12</code></th>
+<th><code>--author   指定作者 --stat   显示每次更新的文件修改统计信息，会列出具体文件列表 --shortstat    统计每个commit 的文件修改行数，包括增加，删除，但不列出文件列表 --numstat   统计每个commit 的文件修改行数，包括增加，删除，并列出文件列表 --pretty 使用其他格式显示历史提交信息 --pretty=tformat	可以定制要显示的记录格式 --since, --after 仅显示指定时间之后的提交 --until, --before 仅显示指定时间之前的提交 -w 显示字数 -c 显示Bytes数 -l 显示行数 </code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>统计某段时间内的提交：</p>
+<p>| <code>1 </code> | <code>git log --since ==2021-09-01 --until=2021-10-05 | wc -l </code> |
+| &mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- |
+|      |                                                            |</p>
+<p>统计当前用户的代码提交量，包括增加、删除：</p>
+<p>| <code>1 </code> | <code>git log --author=&quot;$(git config --get user.name)&quot; --pretty=tformat: --numstat | gawk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf &quot;added lines: %s removed lines : %s total lines: %s\n&quot;,add,subs,loc }' </code> |
+| &mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; |
+|      |                                                              |</p>
+<p>统计仓库排名前五的提交：</p>
+<p>| <code>1 2 3 4 </code> | <code>git log --pretty='%aN' | sort | uniq -c | sort -k1 -n -r | head -n 5 --按照邮箱来统计排名前五的提交（邮箱名不同，但是用户名可以相同） git log --pretty=format:%ae | gawk -- '{ ++c[$0]; } END { for(cc in c) printf &quot;%5d %s\n&quot;,c[cc],cc; }' | sort -u -n -r | head -n 5 </code> |
+| &mdash;&mdash;&mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; |
+|            |                                                              |</p>
+<p>贡献者统计：</p>
+<p>| <code>1 </code> | <code>git log --pretty='%aN' | sort -u | wc -l </code> |
+| &mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- |
+|      |                                             |</p>
+<p>提交数统计：</p>
+<p>| <code>1 </code> | <code>git log --oneline | wc -l </code> |
+| &mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- |
+|      |                              |</p>
+<p>添加或修改的代码行数：</p>
+<p>| <code>1 </code> | <code>git log --stat|perl -ne 'END { print $c } $c += $1 if /(\d+) insertions/;' </code> |
+| &mdash;- | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; |
+|      |                                                              |</p>
+<h1 id="mryang-常用">Mr·Yang 常用</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git init
+git remote add origin https://exmpler.com
+git branch -M main
+git add .
+git commit -m &#34;Mr·Yang&#34;
+git push origin main
+git branch -vv
+git clone
+git clone  -b 
+git branch -r
+git branch -a
+git branch -D
+git branch -b main origin/site
+git checkout --orphan laster
+git submodule add https://exmpler.com
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://my.oschina.net/longyuan/blog/521098" target="_blank" rel="noopener noreffer">.gitignore 规则写法 - 在已忽略文件夹中不忽略指定文件、文件夹【注意项】</a></li>
+<li><a href="https://blog.csdn.net/zhangjs0322/article/details/37658669" target="_blank" rel="noopener noreffer">.gitignore无效，不能过滤某些文件</a></li>
+<li><a href="https://blog.csdn.net/songtaiwu/article/details/79447572" target="_blank" rel="noopener noreffer">git rm - - cached filename</a></li>
+<li><a href="https://segmentfault.com/q/1010000000430426" target="_blank" rel="noopener noreffer">git忽略已经被提交的文件</a></li>
+<li><a href="https://blog.csdn.net/m0_37402140/article/details/72801372" target="_blank" rel="noopener noreffer">如何去解决fatal: refusing to merge unrelated histories</a></li>
+<li><a href="https://segmentfault.com/q/1010000002477106" target="_blank" rel="noopener noreffer">git merge –no-ff是什么意思</a></li>
+<li><a href="https://www.jianshu.com/p/450cd21b36a4" target="_blank" rel="noopener noreffer">关于git提示“warning: LF will be replaced by CRLF”终极解答</a></li>
+<li><a href="https://blog.csdn.net/carterslam/article/details/81162463" target="_blank" rel="noopener noreffer">用git统计代码提交行数</a></li>
+</ul>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@Music/ybc2.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/22-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/git/">Git</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/22/" class="prev" rel="prev" title="计算机网络基础"><i class="fas fa-angle-left fa-fw"></i>计算机网络基础</a>
+            <a href="/zh-cn/2021-10-21/" class="next" rel="next" title="Mac OS 上的平铺窗口管理工具 yabai ">Mac OS 上的平铺窗口管理工具 yabai <i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-10-22T13:27:18+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"Git问题汇总"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

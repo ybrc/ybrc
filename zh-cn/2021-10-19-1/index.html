@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>重学C语言的基本语法 - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="重学C语言的基本语法" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/2021-10-19-1/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-19T12:29:45+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="重学C语言的基本语法"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/2021-10-19-1/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/2021-10-19/" /><link rel="next" href="https://ybrc.github.io/zh-cn/%E5%A3%B0%E6%98%8E/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "重学C语言的基本语法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/2021-10-19-1\/"
+        },"genre": "posts","keywords": "开发, 编程, 语言, C\/C\u002b\u002b","wordcount":  3962 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/2021-10-19-1\/","datePublished": "2021-10-19T12:29:45+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/2021-10-19-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/2021-10-19-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">重学C语言的基本语法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-19">2021-10-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3962 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#目录">目录</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#1标识符与关键字">1、标识符与关键字</a></li>
+    <li><a href="#2常量和符号常量">2、常量和符号常量</a>
+      <ul>
+        <li><a href="#1常量和常量符号">（1）常量和常量符号</a></li>
+        <li><a href="#2变量">（2）变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#3c语言数据类型">3、C语言数据类型</a>
+      <ul>
+        <li><a href="#1整型常量">（1）整型常量</a>
+          <ul>
+            <li><a href="#整型变量">整型变量</a></li>
+            <li><a href="#原码反码和补码">原码、反码和补码</a></li>
+          </ul>
+        </li>
+        <li><a href="#2实型数据">(2)实型数据</a>
+          <ul>
+            <li><a href="#实型常量">实型常量</a></li>
+            <li><a href="#实型变量">实型变量</a></li>
+            <li><a href="#实型变量的定义以及初始化">实型变量的定义以及初始化</a></li>
+          </ul>
+        </li>
+        <li><a href="#3字符型数据">(3)字符型数据</a>
+          <ul>
+            <li><a href="#ascii码">ASCII码</a></li>
+            <li><a href="#字符型变量">字符型变量</a></li>
+            <li><a href="#转义字符字符">转义字符字符</a></li>
+            <li><a href="#字符串常量">字符串常量</a></li>
+            <li><a href="#字符串变量">字符串变量</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇文章主要讲解C语言 基本语法,这里提供简单的示例和代码来详细讲解C语言的基本语法，开始学习C语言的朋友可以看一下，希望能够给你带来帮助</p>
+<h5 id="目录">目录</h5>
+<ul>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_label0" target="_blank" rel="noopener noreffer">1、标识符与关键字</a></p>
+</li>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_label1" target="_blank" rel="noopener noreffer">2、常量和符号常量</a></p>
+</li>
+<li>
+<ul>
+<li><a href="https://www.jb51.net/article/223413.htm#_lab2_1_0" target="_blank" rel="noopener noreffer">（1）常量和常量符号</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_lab2_1_1" target="_blank" rel="noopener noreffer">（2）变量</a></li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_label2" target="_blank" rel="noopener noreffer">3、C语言数据类型</a></p>
+</li>
+<li>
+<ul>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_lab2_2_2" target="_blank" rel="noopener noreffer">（1）整型常量</a></p>
+</li>
+<li>
+<ul>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_2_0" target="_blank" rel="noopener noreffer">整型变量</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_2_1" target="_blank" rel="noopener noreffer">原码、反码和补码</a></li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_lab2_2_3" target="_blank" rel="noopener noreffer">(2)实型数据</a></p>
+</li>
+<li>
+<ul>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_3_2" target="_blank" rel="noopener noreffer">实型常量</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_3_3" target="_blank" rel="noopener noreffer">实型变量</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_3_4" target="_blank" rel="noopener noreffer">实型变量的定义以及初始化</a></li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_lab2_2_4" target="_blank" rel="noopener noreffer">(3)字符型数据</a></p>
+</li>
+<li>
+<ul>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_4_5" target="_blank" rel="noopener noreffer">ASCII码</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_4_6" target="_blank" rel="noopener noreffer">字符型变量</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_4_7" target="_blank" rel="noopener noreffer">转义字符字符</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_4_8" target="_blank" rel="noopener noreffer">字符串常量</a></li>
+<li><a href="https://www.jb51.net/article/223413.htm#_label3_2_4_9" target="_blank" rel="noopener noreffer">字符串变量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.jb51.net/article/223413.htm#_label3" target="_blank" rel="noopener noreffer">总结</a></p>
+</li>
+</ul>
+<h2 id="1标识符与关键字">1、标识符与关键字</h2>
+<p>给变量所取的名字叫变量名，定义变量的名字需要遵循标识符的命名规则。
+标识符是用来标识变量、符号常量、数组、函数、文件等名字的有效字符序列。</p>
+<p><strong>标识符的命名规则：</strong></p>
+<p>1.只能由字母、数字和下划线组成（例如：Score1，Stu_name）</p>
+<p>2.第一个字符必须为字母或下划线</p>
+<p>3.区分大小写字母</p>
+<p>4.C语言内部规定的标识符（即关键字）不能作为用户标识</p>
+<p><strong>C语言的关键字：</strong></p>
+<p>C语言的关键字，是保留的一些特殊作用的词语，一共32个关键字</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">关键字</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">auto</td>
+<td style="text-align:left">声明自动变量</td>
+</tr>
+<tr>
+<td style="text-align:left">break</td>
+<td style="text-align:left">跳出当前循环</td>
+</tr>
+<tr>
+<td style="text-align:left">case</td>
+<td style="text-align:left">开关语句分支</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">声明字符型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">const</td>
+<td style="text-align:left">定义常量，如果一个变量被 const 修饰，那么它的值就不能再被改变</td>
+</tr>
+<tr>
+<td style="text-align:left">continue</td>
+<td style="text-align:left">结束当前循环，开始下一轮循环</td>
+</tr>
+<tr>
+<td style="text-align:left">default</td>
+<td style="text-align:left">开关语句中的&quot;其它&quot;分支</td>
+</tr>
+<tr>
+<td style="text-align:left">do</td>
+<td style="text-align:left">循环语句的循环体</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">声明双精度浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">enum</td>
+<td style="text-align:left">声明枚举类型</td>
+</tr>
+<tr>
+<td style="text-align:left">extern</td>
+<td style="text-align:left">声明变量或函数是在其它文件或本文件的其他位置定义</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">声明浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">for</td>
+<td style="text-align:left">一种循环语句</td>
+</tr>
+<tr>
+<td style="text-align:left">goto</td>
+<td style="text-align:left">无条件跳转语句</td>
+</tr>
+<tr>
+<td style="text-align:left">if</td>
+<td style="text-align:left">条件语句</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">声明整型变量或函数</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:left">声明长整型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">register</td>
+<td style="text-align:left">声明寄存器变量</td>
+</tr>
+<tr>
+<td style="text-align:left">return</td>
+<td style="text-align:left">子程序返回语句（可以带参数，也可不带参数）</td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned</td>
+<td style="text-align:left">声明无符号类型变量或函数</td>
+</tr>
+<tr>
+<td style="text-align:left">union</td>
+<td style="text-align:left">声明共用体类型</td>
+</tr>
+<tr>
+<td style="text-align:left">void</td>
+<td style="text-align:left">声明函数无返回值或无参数，声明无类型指针</td>
+</tr>
+<tr>
+<td style="text-align:left">volatile</td>
+<td style="text-align:left">说明变量在程序执行中可被隐含地改变</td>
+</tr>
+<tr>
+<td style="text-align:left">while</td>
+<td style="text-align:left">循环语句的循环条件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>C99新建关键字：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="n">_Bool</span> <span class="err">`、`</span><span class="n">_Complex</span><span class="err">`</span> <span class="err">、`</span><span class="n">_Imaginary</span><span class="err">`</span> <span class="err">、`</span><span class="kr">inline</span> <span class="err">`、`</span><span class="kr">restrict</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>C11新建关键字：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="n">_Alignas</span> <span class="err">`、`</span><span class="n">_Alignof</span> <span class="err">`、`</span><span class="n">_Atomic</span> <span class="err">`、`</span><span class="n">_Generic</span> <span class="err">`、`</span><span class="n">_Noreturn</span><span class="err">`、`</span><span class="n">_Static_assert</span> <span class="err">`、`</span><span class="n">_Thread_local</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2常量和符号常量">2、常量和符号常量</h2>
+<p>常量：在程序运行过程中，其值不会发送变化的量。</p>
+<p>变量：在程序运行过程中，其值可以发送变化的量</p>
+<h3 id="1常量和常量符号">（1）常量和常量符号</h3>
+<p>C语言提供的常量类型有整型常量、实型常量、字符常量、字符串常量和符号常量。</p>
+<p>用一个标识符来代表一个常量，该标识符叫做符号常量，其一般形式为：</p>
+<p>#define 标识符 常量</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#define PI 3.1415926
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>关于typede和defin的用法与区别：</strong></p>
+<p>1.#defien是预处理指令，在编译预处理时进行简单替换，不作正确性检查，不管含义是否正确照样带入，只要在编译器已被展开的源程序时才会发现可能的错误并报错。</p>
+<p>例如：#define PI 3.1415926</p>
+<p>程序：area = PIrr替换3.1415926r</p>
+<p>2.rtypedef是在编译时处理的，通常是用于对已有数据类型取别名，而#define只是简单地替换。</p>
+<p>例如：typedef unsigned int uint;</p>
+<p>这样就为unsigned int型引入新助记符uint，以后使用uint直接代表unsigned int型。</p>
+<p>例如：typedef PI 3.1515926；</p>
+<p>编译器会直接报错，原因PI并非已存在类型，其次“3.1515926”不符合命名规则。</p>
+<h3 id="2变量">（2）变量</h3>
+<p>1.变量在内存中占用一定的储存单元，在该储存单元中存放变量值。</p>
+<p>2.程序中用到的所有变量都必须有一个变量名</p>
+<p>3.变量名和变量值是两个不同的概念</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241337.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241337.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241337.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241337.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241337.jpg"
+        title="请添加图片描述"
+    /></p>
+<p>4.不同类型的变量在内存中占据储存单元的数量及储存的格式不相同，例如：char ch = ‘1';int i = 1;</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241338.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241338.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241338.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241338.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241338.jpg"
+        title="请添加图片描述"
+    /></p>
+<p>5.变量必须“先定义后使用”，这样做的目的是：</p>
+<p>1、便于编译程序程序检测对该变量的运算是否合法。例如：整型变量可以进行求模（余数）运算，实型变量不可以进行求模运算。</p>
+<p>2、程序中变量名的正确使用</p>
+<h2 id="3c语言数据类型">3、C语言数据类型</h2>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241339.png"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241339.png, https://img.jbzj.com/file_images/article/202109/2021091814241339.png 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241339.png 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241339.png"
+        title="请添加图片描述"
+    /></p>
+<h3 id="1整型常量">（1）整型常量</h3>
+<p>整型常量就是整数，有3种表示形式</p>
+<p>1.十进制整常数：就是通常整数的写法，数码取值为0-9。例如：25、-623、0等</p>
+<p>2.八进制整数：以0为前缀，数码取值0-7，</p>
+<p>例如：</p>
+<p>020（十六进制16）</p>
+<p>016（十六进制14）</p>
+<p>0177777（十六进制65535）</p>
+<p>-010（十进制数-8）</p>
+<p><strong>几种不合法的八进制数：</strong></p>
+<p>256（无前缀0）</p>
+<p>079（包含了非八进制数码9）</p>
+<p>3.十六进制整型常数：以数字和字母0x开头，即0x作为前缀，数码的取值为0-9和A-F（或字母a-f）</p>
+<p>几种合法的十六进制数：</p>
+<p>0x2A（十进制数42）</p>
+<p>0x1AB0（十进制数6832）</p>
+<p>几个不合法 的十六进制数：</p>
+<p>5A（无前缀）、0x2H（包含了非十六进制数码H）</p>
+<h4 id="整型变量">整型变量</h4>
+<p>整型变量分为：基本整型、长整型、短整型、无符号型</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241340.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241340.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241340.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241340.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241340.jpg"
+        title="请添加图片描述"
+    /></p>
+<p><strong>整型变量的定义及初始化：</strong></p>
+<p>定义变量及初始化的一般形式 为：</p>
+<p>类型说明符 变量名1 = 值1</p>
+<p><strong>例如：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">int</span><span class="o">`</span><span class="w"> </span><span class="o">`</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span><span class="w"> </span><span class="o">``//</span><span class="err">定义</span><span class="n">a</span><span class="err">，</span><span class="n">b</span><span class="err">，</span><span class="n">c为整型变量</span><span class="o">``</span><span class="k">long</span><span class="o">`</span><span class="w"> </span><span class="o">`</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">  </span><span class="o">``//</span><span class="err">定义</span><span class="n">x为长整型变量</span><span class="err">，并附初值</span><span class="mi">10</span><span class="o">``</span><span class="k">unsigned</span><span class="w"> </span><span class="o">``</span><span class="kt">int</span><span class="o">`</span><span class="w"> </span><span class="o">`</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">q</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="o">``//</span><span class="err">定义</span><span class="n">p</span><span class="err">，</span><span class="n">q</span><span class="err">，</span><span class="n">m为无符号整型变量</span><span class="err">。</span><span class="n">p赋初值为2</span><span class="err">，</span><span class="n">q赋初值为5</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>整型变量需要注意：
+1、允许在一个类型说明符后，定义多个相同类型变量，类型说明符与变量名之间至少用一个空格间隔，各变量名之间用逗号间隔
+2、最后一个变量名后面用“；”号结尾
+3、变量定义必须放在变量使用之前，一般放在函数体开头
+4、没有给变量赋初值，并不意味着该变量中没有数值，只表面给变量中没有确定的值，因此直接使用这种变量的话可能产生莫名其妙的结果，有可能导致运算错误</p>
+</blockquote>
+<p><strong>例程：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;``void` `main(``void``)``{``  ``int` `a = 3, b = 5, c, d;``  ``c = a+b;``  ``d = a-b;``  ``printf``(``&#34;a+b=%d,a-b=%d\n&#34;``,c,d);``}</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="原码反码和补码">原码、反码和补码</h4>
+<p>计算机中数分为有符号和无符号。他们是以二进制形式表示的，有三种表示方法，即原码和补码。</p>
+<p>三种表示方式由符号位和数值位两部分构成</p>
+<p><strong>符号位在最高位，用0表示“正”，1表示“负”。</strong></p>
+<p>取余位为数值位</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241341.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241341.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241341.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241341.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241341.jpg"
+        title="请添加图片描述"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241342.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241342.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241342.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241342.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241342.jpg"
+        title="请添加图片描述"
+    /></p>
+<p>原码：按照二进制的方法来表示数的绝对值，用这个方法得到的就是数的原码。</p>
+<p>反码：正数的反码与其原码相同，负数的反码为其原码除符号位以外的各位 按为取反。</p>
+<p>补码：正数的补码与其原码相同，负数的补码是将其原码除符号位之外的各位求反之后，在末位再加1</p>
+<p>正数的原码、反码。补码相同；负数的原码、反码、补码不同。<strong>数值在计算机中以补码形式存放。</strong></p>
+<p>例如：求-127的补码</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241443.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241443.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241443.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241443.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241443.jpg"
+        title="请添加图片描述"
+    /></p>
+<h3 id="2实型数据">(2)实型数据</h3>
+<p>实型数据又称为实数或浮点数，指是带有小数部分的非整数数值。</p>
+<h4 id="实型常量">实型常量</h4>
+<p>在C语言中，实数常量只能用十进制数表示，有两种表示方法：</p>
+<p>1.小数形式：由数字0~9和小数点组成，当小数部分为零时，小数点不能省略。例如：0.0/24.4、-56.33等均为合法的实型常量</p>
+<p>2.指数形式：由十进制数、加阶码标志小写字母“e”（或大写字母“E”）和阶码（必须是整数）组成。</p>
+<p>例如：2.3E5（相当于2.3 x 10^5）</p>
+<p>以下是不合法的实型常量：</p>
+<p>123（无小数点）</p>
+<p>E4（阶码“E”之前无数字）</p>
+<p>23.-E3（负号的位置不对）</p>
+<p>2.7E（无阶码）</p>
+<h4 id="实型变量">实型变量</h4>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241444.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241444.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241444.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241444.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241444.jpg"
+        title="请添加图片描述"
+    />
+<img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241445.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241445.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241445.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241445.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241445.jpg"
+        title="请添加图片描述"
+    /></p>
+<h4 id="实型变量的定义以及初始化">实型变量的定义以及初始化</h4>
+<p><strong>例如：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">float</span><span class="o">`</span><span class="w"> </span><span class="o">`</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span><span class="w">      </span><span class="o">``//</span><span class="err">定义</span><span class="n">a</span><span class="err">，</span><span class="n">b</span><span class="err">，</span><span class="n">c为单精度实型变量</span><span class="o">``</span><span class="kt">double</span><span class="o">`</span><span class="w"> </span><span class="o">`</span><span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span><span class="w">   </span><span class="o">``//</span><span class="err">定义</span><span class="n">m</span><span class="err">，</span><span class="n">n为双精度实型变量</span><span class="err">，并分别赋值</span><span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="err">和</span><span class="mi">5</span><span class="p">.</span><span class="mi">6</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3字符型数据">(3)字符型数据</h3>
+<p>字符常量是用一对单引号括起来的一个字符</p>
+<p>例</p>
+<p>如：‘b'、‘z'、‘='、‘?'、‘5'</p>
+<p>字符常量特点：</p>
+<p>1.字符常量只能是单个字符，不能是多个字符</p>
+<p>2.字符常量是以ASCII码形式储存，一个字符常量占用一个字节空间。</p>
+<h4 id="ascii码">ASCII码</h4>
+<p>ASCII码表示American Standrd Code for Information Interchange。ASCII编码能表示数据范围是00000000~11111111共2^8即256个数据</p>
+<p>标准的ASCII码有128个字符，其中：</p>
+<p>1.0-31为控制字符，例如，回车换行、文件结束标志、字符串结束标志</p>
+<p>2.10个阿拉伯‘0'~‘9&rsquo;的码值是连续的</p>
+<p>3.26个大写字母‘A'-‘Z&rsquo;是连续的，26和大小写字母‘a'-‘z&rsquo;是连续的</p>
+<p>4.字符常量也可以参与各种运算，如：‘B'-‘A&rsquo;值为1（字符‘B&rsquo;的ASCII码值减去66字符‘A&rsquo;的ASCII码值65结果为1）</p>
+<h4 id="字符型变量">字符型变量</h4>
+<p>1.字符型变量在内存中占用1个字节，只能存放一个字符，并以该字符的ASCII码的值的形式存放</p>
+<p>2.在C语言中，一个字符型数据可以按照它的ASCII码进行数据运算</p>
+<p>字符型数据储存空间和值范围</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">字节数</th>
+<th style="text-align:left">取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-128~127</td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned char</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0~255</td>
+</tr>
+</tbody>
+</table>
+<p>例程：给字符变量赋整数值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;``int` `main()``{``  ``char` `ch1=65,ch2=66;``  ``printf``(``&#34;%c,%c\n&#34;``,ch1,ch2);``  ``printf``(``&#34;%d,%d\n&#34;``,ch1,ch2);``}</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="转义字符字符">转义字符字符</h4>
+<p>转义字符：是由一个反斜杠“&ldquo;后跟规定，具有特定含义的字符</p>
+<p>常用转义字符如下表</p>
+<p><img
+        class="lazyload"
+        data-src="https://img.jbzj.com/file_images/article/202109/2021091814241446.jpg"
+        data-srcset="https://img.jbzj.com/file_images/article/202109/2021091814241446.jpg, https://img.jbzj.com/file_images/article/202109/2021091814241446.jpg 1.5x, https://img.jbzj.com/file_images/article/202109/2021091814241446.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.jbzj.com/file_images/article/202109/2021091814241446.jpg"
+        title="请添加图片描述"
+    /></p>
+<p>转义字符使用如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;``int` `main()``{``  ``printf``(``&#34;\&#34;china\&#34;\n&#34;``);``  ``printf``(``&#34;My \tCountry.\n&#34;``);``  ``printf``(``&#34;I am hap\160\x79.\n&#34;``);``}</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="字符串常量">字符串常量</h4>
+<p>字符串常量是简称字符串，是用一对双撇号（西方双引号英文）括起来的一串字符，包含字符的个数和字符长度
+例如：“Hello World”。“a”，“C语言”都是字符串常量。</p>
+<p>字符串常量和字符常量区别：</p>
+<p>1.字符常量是右边单引号括起来的字符，而字符串常量是由双引号括起来的字符。尽管‘a&rsquo;与“a”都包含一个字符，但在C程序中，它们都具有不同的含义</p>
+<p>2.字符常量只能是一个字符，字符串常量可以是多个字符</p>
+<p>3.可以把一个字符串常量赋值一个字符变量，但不能把一个字符常量赋值一个字符变量。</p>
+<h4 id="字符串变量">字符串变量</h4>
+<p>在C语言中没有专门的字符串类型，我们只能使用数组或者指针来间接地存储字符串。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">char</span><span class="err">`</span> <span class="err">`</span><span class="n">str1</span><span class="p">[]</span> <span class="o">=</span> <span class="err">``</span><span class="s">&#34;Hello World!&#34;</span><span class="err">``</span><span class="kt">char</span><span class="err">`</span> <span class="err">`</span><span class="o">*</span><span class="n">str2</span> <span class="o">=</span> <span class="err">``</span><span class="s">&#34;你好世界！&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>str1 和 str2 是字符串的名字，后边的[]和前边的*是固定的写法。初学者暂时可以认为这两种存储方式是等价的，它们都可以通过专用的 puts 函数和通用的 printf 函数输出。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;``int` `main()``{``  ``char` `web_url[] = ``&#34;hHello World!&#34;``;``  ``char` `*web_name = ``&#34;你好世界&#34;``;``  ``puts``(web_url);``  ``puts``(web_name);``  ``printf``(``&#34;%s\n%s\n&#34;``, web_url, web_name);``  ``return` `0;``}</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>本篇文章就到这里了，希望能够给你带来帮助</p><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/2021-10-19-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E5%BC%80%E5%8F%91/">开发</a>,&nbsp;<a href="/zh-cn/tags/%E7%BC%96%E7%A8%8B/">编程</a>,&nbsp;<a href="/zh-cn/tags/%E8%AF%AD%E8%A8%80/">语言</a>,&nbsp;<a href="/zh-cn/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/2021-10-19/" class="prev" rel="prev" title="重学C语言关键字"><i class="fas fa-angle-left fa-fw"></i>重学C语言关键字</a>
+            <a href="/zh-cn/%E5%A3%B0%E6%98%8E/" class="next" rel="next" title="声明">声明<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-10-19T12:29:45+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"重学C语言的基本语法"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

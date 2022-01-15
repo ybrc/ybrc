@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SIM 编程② - Mr·Yang</title><meta name="Description" content="Mr·Yang"><meta property="og:title" content="SIM 编程②" />
+<meta property="og:description" content="此文为加密收费内容添加我微信支付后可看:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ybrc.github.io/zh-cn/19-3/" /><meta property="og:image" content="https://ybrc.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-19T13:00:44+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:17:06+08:00" /><meta property="og:site_name" content="Mr·Yang" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ybrc.github.io/logo.png"/>
+
+<meta name="twitter:title" content="SIM 编程②"/>
+<meta name="twitter:description" content="此文为加密收费内容添加我微信支付后可看:"/>
+<meta name="application-name" content="Mr·Yang">
+<meta name="apple-mobile-web-app-title" content="Mr·Yang"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://ybrc.github.io/zh-cn/19-3/" /><link rel="prev" href="https://ybrc.github.io/zh-cn/19-2/" /><link rel="next" href="https://ybrc.github.io/zh-cn/20/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SIM 编程②",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ybrc.github.io\/zh-cn\/19-3\/"
+        },"genre": "posts","keywords": "编程","wordcount":  1733 ,
+        "url": "https:\/\/ybrc.github.io\/zh-cn\/19-3\/","datePublished": "2021-11-19T13:00:44+08:00","dateModified": "2022-01-02T18:17:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Mr·Yang"},"author": {
+                "@type": "Person",
+                "name": "Mr·Yang"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                        </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                        </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                        </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                        </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                        </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                        </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                        </a>   
+                        <div class="dropdown">
+                            <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                            </a>
+                            <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                        </div>
+                    <span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/19-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Mr·Yang"><span class="header-title-pre"><i class='far fa-edit fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/"><i class='fas fa-archive fa-fw'></i> 所有文章 
+                    </a><a class="menu-item" href="/zh-cn/tags/"><i class='fas fa-tags fa-fw'></i> 标签 
+                    </a><a class="menu-item" href="/zh-cn/categories/"><i class='fas fa-th-list fa-fw'></i> 分类 
+                    </a><a class="menu-item" href="/zh-cn/timeline/"><i class='fas fa-user-astronaut fa-fw'></i> 时间线 
+                    </a><a class="menu-item" href="/zh-cn/sources/"><i class='fas fa-door-closed fa-fw'></i> 资源 
+                    </a><a class="menu-item" href="/zh-cn/loveu/" title="表白"><i class='fas fa-heart fa-fw'></i> 表白 
+                    </a><a class="menu-item" href="https://ybrc.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  
+                    </a>   
+                    <div class="dropdown">
+                        <a href="/zh-cn/about/" class="menu-item menu-more dropbtn" title="关于" ><i class='fas fa-user-secret fa-fw'></i> 关于 
+                        </a>
+                        <div class="menu-more-content dropdown-content"><a href="/zh-cn/books/" title="书籍文献" ><i class='fas fa-charging-station fa-fw'></i> 书籍文献 </a><a href="/zh-cn/talk/" title="在线聊天" ><i class='fas fa-user-secret fa-fw'></i> 在线聊天 </a><a href="/zh-cn/exppoc/" title="渗透测试" ><i class='fas fa-tag fa-fw'></i> ExpPOC </a><a href="/zh-cn/mryang/" title="前方高能♂ 小心外放！" ><i class='fas fa-dizzy fa-fw'></i> 燥起来！  </a></div>
+                    </div>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/19-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><script>
+			(function(){
+				if( 19860424 ){
+					if (prompt('此文为加密收费内容添加我微信支付索取密码后可看:') !=  19860424 ){
+						alert('密码错误！');
+						if (history.length === 1) {
+							window.opener = null;
+							window.open('', '_self');
+							window.close();
+						} else {
+							history.back();
+						}
+					}
+				}
+			})();
+		</script><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">SIM 编程②</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Mr·Yang</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-19">2021-11-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1733 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#linux-pysim"><strong>Linux pysim</strong></a></li>
+        <li><a href="#windows">Windows</a></li>
+        <li><a href="#参考">参考：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>此文为加密收费内容添加我微信支付后可看:</strong></p>
+<p><img
+        class="lazyload"
+        data-src="https://tool.lu/netcard/"
+        data-srcset="https://tool.lu/netcard/, https://tool.lu/netcard/ 1.5x, https://tool.lu/netcard/ 2x"
+        data-sizes="auto"
+        alt="https://tool.lu/netcard/"
+        title="IP定位"
+    /></p>
+<h1 id="sim-编程">SIM 编程②</h1>
+<p>SIM 卡，用户身份模块（Subscriber Identity Module，SIM），是主要用于存储用户身份识别数据、短信数据和电话号码的智能卡。</p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2020/11/dsc03961.jpg?w=723"
+        data-srcset="https://cn0xroot.files.wordpress.com/2020/11/dsc03961.jpg?w=723, https://cn0xroot.files.wordpress.com/2020/11/dsc03961.jpg?w=723 1.5x, https://cn0xroot.files.wordpress.com/2020/11/dsc03961.jpg?w=723 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2020/11/dsc03961.jpg?w=723"
+        title="img"
+    /></p>
+<p>USIM 卡：UMTS 用户身份模块（UMTS Subscriber Identity Module），是用于 UMTS 网络中的用户身份识别模块。USIM 卡还可以储存使用者资料、电话号码、认证资料、密钥、加密算法以及为短信提供储存空间。USIM 卡通常被认为是 SIM 卡的升级版，在 LTE（4G）网络中必须使用 USIM 卡，同时 USIM 卡向下兼容 2G、3G 网络。</p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/android.png?w=757"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/android.png?w=757, https://cn0xroot.files.wordpress.com/2021/07/android.png?w=757 1.5x, https://cn0xroot.files.wordpress.com/2021/07/android.png?w=757 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/android.png?w=757"
+        title="img"
+    /></p>
+<p>ICCID：
+Integrated Circuit Card Identification，智能卡识别序列号码，用以标识 USIM 卡；
+IMSI：
+International Mobile Subscriber Identity，国际用户识别码，全球唯一的用户识别码；</p>
+<p>Ki：鉴权密钥，用于用户身份的鉴权。</p>
+<p>OP：鉴权密钥，用于用户身份的鉴权。</p>
+<p>OPc：鉴权密钥，使用 OP 和 Ki 分散计算得出。</p>
+<p>在osmocom购买的测试卡，发货时还会提供 IMSI、ICCID、ACC、PIN1、PUK1、PIN2、PUK2、Ki、OPC、ADM1、KIC1、KID1、KIK1等参数</p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/05/xnip2021-05-11_11-08-39.png?w=723"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/05/xnip2021-05-11_11-08-39.png?w=723, https://cn0xroot.files.wordpress.com/2021/05/xnip2021-05-11_11-08-39.png?w=723 1.5x, https://cn0xroot.files.wordpress.com/2021/05/xnip2021-05-11_11-08-39.png?w=723 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/05/xnip2021-05-11_11-08-39.png?w=723"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/2021-07-22-18-07-50e5b18fe5b995e688aae59bbe.png?w=873"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/2021-07-22-18-07-50e5b18fe5b995e688aae59bbe.png?w=873, https://cn0xroot.files.wordpress.com/2021/07/2021-07-22-18-07-50e5b18fe5b995e688aae59bbe.png?w=873 1.5x, https://cn0xroot.files.wordpress.com/2021/07/2021-07-22-18-07-50e5b18fe5b995e688aae59bbe.png?w=873 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/2021-07-22-18-07-50e5b18fe5b995e688aae59bbe.png?w=873"
+        title="img"
+    /></p>
+<p>将SIM密钥写入MME数据库后，当基站启动、SIM卡入网鉴权时，核心网将对数据库中的密钥采用特定算法进行运算，如果运算结果与SIM卡侧运算结果相同，则正常入网使用，反之，则入网失败。</p>
+<h3 id="linux-pysim"><strong>Linux pysim</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git clone https://github.com/osmocom/pysim``sudo apt-get install python3-pyscard python3-serial python3-cmd2 python3-pip python3-yaml``sudo pip3 install pytlv jsonpath-ng construct bidict gsm0338``cd pysim``sudo pip3 install -r requirements.txt``sudo apt install pcsc-tools pcscd #安装PCSC 智能卡软件
+sudo systemctl start pcscd``sudo systemctl enable pcscd
+</code></pre></td></tr></table>
+</div>
+</div><p>lsusb</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Bus 001 Device 012: ID 076b:6632 OmniKey AG
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image.png?w=1024"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image.png?w=1024, https://cn0xroot.files.wordpress.com/2021/07/image.png?w=1024 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image.png?w=1024 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image.png?w=1024"
+        title="img"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo pcsc_scan``PC/SC device scanner``V 1.5.2 (c) 2001-2017, Ludovic Rousseau &lt;ludovic.rousseau@free.fr&gt;``Using reader plug&#39;n play mechanism``Scanning present readers...``0: HID Global OMNIKEY 6121 Smart Card Reader [OMNIKEY 6121 Smart Card Reader] 00 00` `Thu Jul 22 16:54:49 2021`` ``Reader 0: HID Global OMNIKEY 6121 Smart Card Reader [OMNIKEY 6121 Smart Card Reader] 00 00`` ``Card state: Card inserted,`` ``ATR: 3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5` `ATR: 3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5``+ TS = 3B --&gt; Direct Convention``+ T0 = 9F, Y(1): 1001, K: 15 (historical bytes)`` ``TA(1) = 96 --&gt; Fi=512, Di=32, 16 cycles/ETU``  ``250000 bits/s at 4 MHz, fMax for Fi = 5 MHz =&gt; 312500 bits/s`` ``TD(1) = 80 --&gt; Y(i+1) = 1000, Protocol T = 0``-----`` ``TD(2) = 1F --&gt; Y(i+1) = 0001, Protocol T = 15 - Global interface bytes following``-----`` ``TA(3) = C7 --&gt; Clock stop: no preference - Class accepted by the card: (3G) A 5V B 3V C 1.8V``+ Historical bytes: 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01`` ``Category indicator byte: 80 (compact TLV data object)``  ``Tag: 3, len: 1 (card service data byte)``   ``Card service data byte: A0``    ``- Application selection: by full DF name``    ``- BER-TLV data objects available in EF.DIR``    ``- EF.DIR and EF.ATR access services: by GET RECORD(s) command``    ``- Card with MF``  ``Tag: 7, len: 3 (card capabilities)``   ``Selection methods: BE``    ``- DF selection by full DF name``    ``- DF selection by path``    ``- DF selection by file identifier``    ``- Implicit DF selection``    ``- Short EF identifier supported``    ``- Record number supported``   ``Data coding byte: 21``    ``- Behaviour of write functions: proprietary``    ``- Value &#39;FF&#39; for the first byte of BER-TLV tag fields: invalid``    ``- Data unit in quartets: 2``   ``Command chaining, length fields and logical channels: 13``    ``- Logical channel number assignment: by the card``    ``- Maximum number of logical channels: 4``  ``Tag: 6, len: 7 (pre-issuing data)``   ``Data: 43 20 07 18 00 00 01``+ TCK = A5 (correct checksum)` `Possibly identified card (using /usr/share/pcsc/smartcard_list.txt):``3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5``  ``sysmoUSIM-SJS1 (Telecommunication)``  ``http://www.sysmocom.de/products/sysmousim-sjs1-sim-usim`` ``\
+</code></pre></td></tr></table>
+</div>
+</div><p>操作</p>
+<p>读取SIM卡信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo ./pySim-read.py --pcsc-device=0
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image-2.png?w=931"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image-2.png?w=931, https://cn0xroot.files.wordpress.com/2021/07/image-2.png?w=931 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image-2.png?w=931 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image-2.png?w=931"
+        title="img"
+    /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Using PC/SC reader interface``Reading ...``Autodetected card type: sysmoUSIM-SJS1``ICCID: 8988211000000268030``IMSI: 901700000026803``GID1: ffffffffffffffffffff``GID2: ffffffffffffffffffff``SMSP: ffffffffffffffffffffffffffffffffffffffffffffffffe1ffffffffffffffffffffffff0581005155f5ffffffffffff000000``SPN: Not available``Show in HPLMN: False``Hide in OPLMN: False``PLMNsel: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff``PLMNwAcT:``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused` `OPLMNwAcT:``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused` `HPLMNAcT:``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused``  ``ffffffffff # unused` `ACC: 0008``MSISDN: Can&#39;t read file -- Length of MSISDN (136 bytes) is out of range``Administrative data: 00000002``  ``MS operation mode: normal``  ``Ciphering Indicator: disabled``SIM Service Table: ff3fffff3f003f1ff00c00c0f00000``  ``Service 1 - CHV1 disable function``  ``Service 2 - Abbreviated Dialling Numbers (ADN)``  ``Service 3 - Fixed Dialling Numbers (FDN)``  ``Service 4 - Short Message Storage (SMS)``  ``Service 5 - Advice of Charge (AoC)``  ``Service 6 - Capability Configuration Parameters (CCP)``  ``Service 7 - PLMN selector``  ``Service 8 - RFU``  ``Service 9 - MSISDN``  ``Service 10 - Extension1``  ``Service 11 - Extension2``  ``Service 12 - SMS Parameters``  ``Service 13 - Last Number Dialled (LND)``  ``Service 14 - Cell Broadcast Message Identifier``  ``Service 17 - Service Provider Name``  ``Service 18 - Service Dialling Numbers (SDN)``  ``Service 19 - Extension3``  ``Service 20 - RFU``  ``Service 21 - VGCS Group Identifier List (EFVGCS and EFVGCSS)``  ``Service 22 - VBS Group Identifier List (EFVBS and EFVBSS)``  ``Service 23 - enhanced Multi-Level Precedence and Pre-emption Service``  ``Service 24 - Automatic Answer for eMLPP``  ``Service 25 - Data download via SMS-CB``  ``Service 26 - Data download via SMS-PP``  ``Service 27 - Menu selection``  ``Service 28 - Call control``  ``Service 29 - Proactive SIM``  ``Service 30 - Cell Broadcast Message Identifier Ranges``  ``Service 31 - Barred Dialling Numbers (BDN)``  ``Service 32 - Extension4``  ``Service 33 - De-personalization Control Keys``  ``Service 34 - Co-operative Network List``  ``Service 35 - Short Message Status Reports``  ``Service 36 - Network&#39;s indication of alerting in the MS``  ``Service 37 - Mobile Originated Short Message control by SIM``  ``Service 38 - GPRS``  ``Service 49 - MExE``  ``Service 50 - Reserved and shall be ignored``  ``Service 51 - PLMN Network Name``  ``Service 52 - Operator PLMN List``  ``Service 53 - Mailbox Dialling Numbers``  ``Service 54 - Message Waiting Indication Status``  ``Service 57 - Multimedia Messaging Service (MMS)``  ``Service 58 - Extension 8``  ``Service 59 - MMS User Connectivity Parameters` `USIM Service Table: 9e6b1dfc67f6580000``  ``Service 2 - Fixed Dialling Numbers (FDN)``  ``Service 3 - Extension 2``  ``Service 4 - Service Dialling Numbers (SDN)``  ``Service 5 - Extension3``  ``Service 8 - Outgoing Call Information (OCI and OCT)``  ``Service 9 - Incoming Call Information (ICI and ICT)``  ``Service 10 - Short Message Storage (SMS)``  ``Service 12 - Short Message Service Parameters (SMSP)``  ``Service 14 - Capability Configuration Parameters 2 (CCP2)``  ``Service 15 - Cell Broadcast Message Identifier``  ``Service 17 - Group Identifier Level 1``  ``Service 19 - Service Provider Name``  ``Service 20 - User controlled PLMN selector with Access Technology``  ``Service 21 - MSISDN``  ``Service 27 - GSM Access``  ``Service 28 - Data download via SMS-PP``  ``Service 29 - Data download via SMS-CB``  ``Service 30 - Call Control by USIM``  ``Service 31 - MO-SMS Control by USIM``  ``Service 32 - RUN AT COMMAND command``  ``Service 33 - shall be set to 1``  ``Service 34 - Enabled Services Table``  ``Service 35 - APN Control List (ACL)``  ``Service 38 - GSM security context``  ``Service 39 - CPBCCH Information``  ``Service 42 - Operator controlled PLMN selector with Access Technology``  ``Service 43 - HPLMN selector with Access Technology``  ``Service 45 - PLMN Network Name``  ``Service 46 - Operator PLMN List``  ``Service 47 - Mailbox Dialling Numbers``  ``Service 48 - Message Waiting Indication Status``  ``Service 52 - Multimedia Messaging Service (MMS)``  ``Service 53 - Extension 8``  ``Service 55 - MMS User Connectivity Parameters` `Done !
+sudo ./pySim-prog.py --pcsc-device=0 --type sysmoUSIM-SJS1 --pin-adm=60971626 --mcc=901 --mnc=71 --imsi=901700000026803  --iccid=8988211000000268030 --opc=6435204EA840E6BFA826A34E2AEE26DE --ki=D284801D28866964BE90D51EAFAC1555;
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image-3.png?w=1024"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image-3.png?w=1024, https://cn0xroot.files.wordpress.com/2021/07/image-3.png?w=1024 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image-3.png?w=1024 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image-3.png?w=1024"
+        title="img"
+    /></p>
+<p>Pysim-shell</p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image-4.png?w=1024"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image-4.png?w=1024, https://cn0xroot.files.wordpress.com/2021/07/image-4.png?w=1024 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image-4.png?w=1024 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image-4.png?w=1024"
+        title="img"
+    /></p>
+<h3 id="windows">Windows</h3>
+<p>SIM Explorer 、 USIM_Explorer、SIM Personalize tools</p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image-5.png?w=684"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image-5.png?w=684, https://cn0xroot.files.wordpress.com/2021/07/image-5.png?w=684 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image-5.png?w=684 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image-5.png?w=684"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/image-6.png?w=1024"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/image-6.png?w=1024, https://cn0xroot.files.wordpress.com/2021/07/image-6.png?w=1024 1.5x, https://cn0xroot.files.wordpress.com/2021/07/image-6.png?w=1024 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/image-6.png?w=1024"
+        title="img"
+    /></p>
+<p><img
+        class="lazyload"
+        data-src="https://cn0xroot.files.wordpress.com/2021/07/sim-personalize-tools.jpg?w=1000"
+        data-srcset="https://cn0xroot.files.wordpress.com/2021/07/sim-personalize-tools.jpg?w=1000, https://cn0xroot.files.wordpress.com/2021/07/sim-personalize-tools.jpg?w=1000 1.5x, https://cn0xroot.files.wordpress.com/2021/07/sim-personalize-tools.jpg?w=1000 2x"
+        data-sizes="auto"
+        alt="https://cn0xroot.files.wordpress.com/2021/07/sim-personalize-tools.jpg?w=1000"
+        title="img"
+    /></p>
+<h3 id="参考">参考：</h3>
+<p><a href="https://irp-cdn.multiscreensite.com/db714ead/files/uploaded/SIMExplorer.pdf" target="_blank" rel="noopener noreffer">https://irp-cdn.multiscreensite.com/db714ead/files/uploaded/SIMExplorer.pdf</a></p>
+<p><a href="https://www.sysmocom.de/manuals/sysmousim-manual.pdf" target="_blank" rel="noopener noreffer">https://www.sysmocom.de/manuals/sysmousim-manual.pdf</a></p>
+<iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" title="《SIM卡编程》—Mr·Yang 0x13694 | RadioHub | IoT RF Hardware Hacking | 博观而约取 厚积而薄发" src="http://192.168.0.103/zh-cn/loveu/" data-secret="VRq7wA9E29" width="600" height="200" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: inherit; margin-bottom: 24px; margin-top: 24px; max-width: 100%;"></iframe>
+<p><a href="https://cyberloginit.com/2018/05/14/eastcompeace-usim-exploit-and-notes-on-smart-card-pentest-for-linux.html" target="_blank" rel="noopener noreffer">https://cyberloginit.com/2018/05/14/eastcompeace-usim-exploit-and-notes-on-smart-card-pentest-for-linux.html</a></p>
+<p><a href="https://github.com/cn0xroot/BTS_Research" target="_blank" rel="noopener noreffer">https://github.com/cn0xroot/BTS_Research</a></p>
+<meting-js url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/24.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" theme="#448aff" fixed="true" autoplay="true" volume="100"></meting-js>
+<img src="https://tool.lu/netcard/"><div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+	
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/weplay.jpg">
+        
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        
+        <img class="image" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/AliPlay.png">
+        
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02&nbsp;<a class="git-hash" href="https://github.com/ybrc/ybrc.github.io/commit/7ebe9aaea52d6821a3aebcf43486a90329d9222c" target="_blank" title="commit by CreatorYBCBrainOut013694(CreatorYBCBrainOut013694@outlook.com) 7ebe9aaea52d6821a3aebcf43486a90329d9222c: 2022/01/02">
+                                    <i class="fas fa-hashtag fa-fw"></i>7ebe9aa</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/19-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/%E7%BC%96%E7%A8%8B/">编程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/19-2/" class="prev" rel="prev" title="SIM卡编程"><i class="fas fa-angle-left fa-fw"></i>SIM卡编程</a>
+            <a href="/zh-cn/20/" class="next" rel="next" title="iOS应用逆向工程资料">iOS应用逆向工程资料<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">欢迎👏来到Mr·Yang的博客</div><div class="footer-line">
+                    <div class="footer-line">
+                        <span id="run-time"></span>
+                    </div>由 <a href="https://ybrc.github.io/" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.91.2">Mr·Yang</a> 强力驱动 | 主题 - <a href="https://ybrc.github.io" target="_blank" rel="noopener noreffer" title="Mr·Yang 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> KissU</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span id="busuanzi_container_site_pv">
+                本站访问量：<font color="red"><span id="busuanzi_value_site_pv"></span></font>次
+</span>
+            &nbsp;
+            <span id="busuanzi_container_site_uv">
+                您是本站第：<font color="red"><span id="busuanzi_value_site_uv"></span></font>位访问者
+</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Mr·Yang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":9},"comment":{"gitalk":{"admin":["ybrc"],"clientID":"f63ed115f939ee05777b","clientSecret":"8932e1a5ea8769617e1767f45deb9cdc256d1beb","id":"2021-11-19T13:00:44+08:00","owner":"ybrc","repo":"ybrc.github.io","title":"SIM 编程②"}},"data":{"id-1":"[Root@Mr·Yang]#\u003e_","id-2":"[Root@Mr·Yang]#\u003e_"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><div class="pjax-assets"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/gitalk/gitalk.min.css">
+    <noscript><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"></noscript></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script nonce="random123" src='https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js'></script>
+<script nonce="strict-dynamic" src='https://cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js'></script>
+<script nonce="random123" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+
+
+<script>
+	 
+	var $cdnPrefix = "https://imgapi.cn/api.php";
+</script><script type="text/javascript" nonce="strict-dynamic" src="/js/custom.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><div class="GalMenu GalDropDown">
+	      <div class="circle" id="gal">
+	        <div class="ring"><a href="/" 
+			  target="_blank"style="background-image:url(https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/img/tusiji.jpg);"class="menuItem">首页</a><a href="/zh-cn/music-moive/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu2.jpg);"class="menuItem">音乐影视</a><a href="/zh-cn/mryang/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu3.jpg);"class="menuItem">前方高能</a><a href="/zh-cn/ybc/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu4.jpg);"class="menuItem">秘密通道</a><a href="/zh-cn/talk/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu5.jpg);"class="menuItem">即时文献</a><a href="/zh-cn/sources/" 
+			  target="_blank"style="background-image:url(https://imgapi.cn/api.php/images/rightmenu/rightmenu6.jpg);"class="menuItem">装机资源</a></div></div>
+	</div>
+	<script type="text/javascript">
+	var items = document.querySelectorAll('.menuItem'); 
+	for (var i = 0, l = items.length; i < l; i++) {
+        items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+        items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+      }
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/css/GalMenu.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/GalMenu.js"></script>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+        $('body').GalMenu({
+          'menu': 'GalDropDown'
+        })
+      });
+	</script><script src="https://cdn.jsdelivr.net/npm/timelinejs-slider@0.1.0/dist/js/timeline.min.js"></script>
+
+<script nonce="strict-dynamic" src="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/js/sakura.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
