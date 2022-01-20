@@ -1,4 +1,4 @@
-# Win11安装跳过TPM的方法
+# Mac终端命令汇总
 
 
 <!--more-->
@@ -24,95 +24,81 @@
          <input type="button" id="resume_speak" style="display:none" value="继续朗读">
       </div>
       <div id="text">
-# Win11安装跳过TPM的方法
+# Mac终端命令汇总
 
-微软新一代操作系统Windows11已经公布了，目前Win11预览版也已经向公众推送，新的操作系统在带来全新的界面和更多功能升级的同时，对于硬件的要求也有一定的提升，其中最令大家困扰的就是新系统需要支持TPM2.0的问题，下面就为大家带来Win11安装跳过TPM的详细教程吧。
+最近经常看到与终端命令有关的Mac小技巧，发现使用终端命令可以实现很多Mac隐藏功能。可是使用的时候总是会忘记一些功能怎么写，所以本篇文章中就为大家做相关汇总。
 
-![https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z328.png](https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z328.png)
+[![img](https://macjpeg.macsc.com/macdown/pic/201911/13160659_99b3176282.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160659_99b3176282.jpeg)
 
-　　虽然微软一直都在强调 TPM 2.0 芯片是 Windows 11 的最基础需求，但事实证明，各大 PC 厂商依然有很大的自主权，甚至可以灵活地决定其 Win11 电脑是否出厂配备 TPM 模块。
+### Finder显示隐藏文件
 
-　　从目前的情况来看，即使电脑不支持 TPM 2.0 也是可以安装使用 Windows 11 的。本文给大家总结目前已知的绕过 TPM 2.0 方法。
+显示隐藏文件，在“终端”中输入下面的命令：
 
-　　**方法一、替换 appraiserres.dll 文件**
+> *defaults write com.apple.finder AppleShowAllFiles TRUE（回车）*
+>
+> *killall Finder（回车）*
 
-　　找到 Win10 ISO 的 sources 文件夹下的appraiserres.dll 文件，替换 Win11 ISO 同位置的同名文件。（文件我已经单独提取出来了，放在 Win11 的镜像下载链接里，后台回复“win11”即可获取。）
+恢复隐藏文件，在“终端”中输入下面的命令：
 
-　　完成后，需要使用第三方工具（如 Rufus或 AnyBurn）重新创建 ISO 镜像，然后再次运行安装文件。或者先制作启动盘后再替换也可以。
+> *defaults write com.apple.finder AppleShowAllFiles -bool false（回车）*
+>
+> *killall Finder（回车）*
 
-![https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z328-50.png](https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z328-50.png)
+*
+*
 
-　　**二、修改[注册表](http://www.xitongzhijia.net/zt/zcbbjq/)**
+### 去掉窗口截屏的阴影
 
-　　1、如果是直接运行 Setup.exe 来直接更新到 Windows 11 系统，可以修改当前系统的注册表，来屏蔽 “The PC must support TPM 2.0” 提示。
+窗口进行截屏的时候(*快捷键Command Shift 4，然后空格*)，得到的图片周围会自动被加上一圈阴影。
 
-　　快捷键 Win+R，输入 regedit，然后定位到如下的位置：
+如果你不喜欢，可以把它去掉，在“终端”中输入下面的命令：
 
-　　HKEY_LOCAL_MACHINE\SYSTEM\Setup
+> *defaults write com.apple.screencapture disable-shadow -bool true（回车）*
+>
+> *killall SystemUIServer（回车）*
 
-　　接着新建 LabConfig 的项，在 LabConfig 下创建两个 DWORD 值：
+恢复窗口阴影，在“终端”中输入下面的命令：
 
-　　BypassTPMCheck，值：00000001
+> *defaults write com.apple.screencapture disable-shadow -bool false（回车）*
+>
+> *killall SystemUIServer（回车）*
 
-　　BypassSecureBootCheck，值：00000001
+*
+*
 
-![https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z329.png](https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z329.png)
+### 改变截屏图片的保存位置
 
-　　2、如果是从U盘或其它介质启动，在进行镜像安装时，Win11 会提示“该电脑无法运行 Win11”。
+Mac提供了非常方便的截屏快捷键，可以让我们非常快速的对整个屏幕、部分屏幕或者应用程序窗口进行截屏。不过系统默认把截屏图片保存到桌面。如果我们截取的图片特别多，就会让桌面显得特别凌乱。想要修改截图的保存位置，只要在“终端” 中输入下面的命令：
 
-![https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z329.jpg](https://www.xitongzhijia.net/uploads/allimg/210713/136-210G30Z329.jpg)
+> *defaults write com.apple.screencapture location 存放位置（回车）*
+>
+> *killall SystemUIServer（回车）*
 
-　　不要慌，在这个界面按 Shift+F10，打开命令行界面，输入 regedit 打开注册表，后面的操作和上面相同，也是定位到同样的注册表位置：
+在输入命令的时候，将“存放位置”替换成真正的文件夹就可以了。
 
-　　HKEY_LOCAL_MACHINE\SYSTEM\Setup
+### 目录操作 [![img](https://macjpeg.macsc.com/macdown/pic/201911/13160537_2d24312dba.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160537_2d24312dba.jpeg)
 
-　　创建一个名为“LabConfig”的项，接着在“LabConfig”下创建两个 DWORD 值：
+### 文件操作
 
-　　键为“BypassTPMCheck”，值为“00000001”
+### [![img](https://macjpeg.macsc.com/macdown/pic/201911/13160558_85808967f3.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160558_85808967f3.jpeg)
 
-　　键为“BypassSecureBootCheck”，值为“00000001”
+### 安全操作
 
-　　保存退出后，上图的提示就消失了，大家就可以正常安装 Win11。
+### [![img](https://macjpeg.macsc.com/macdown/pic/201911/13160612_8396609e68.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160612_8396609e68.jpeg)
 
-　　**方法三、强制升级（开启安全启动）**
+### 时间操作
 
-　　升级之前你需要使用 UEFI + GPT 的方式安装系统（基本上预装 Win8、Win10 的电脑都是这种方式），在 BIOS 里打开安全启动（Secure Boot），即可用 ISO 文件直接升级。
+### [![img](https://macjpeg.macsc.com/macdown/pic/201911/13160621_f7b10ed5c3.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160621_f7b10ed5c3.jpeg)
 
-　　**附：强制开启DEV通道的方法**
+### 其他操作
 
-　　没有达到 Windows 11 的硬件要求，可能无法顺利加入 Insider 计划，也就是无法获得 Windows 11 测试版的推送。下面给大家提供修改注册表的方式，强制加入 DEV 通道，这样也能获得推送了。
-
-　　快捷键 Win+R，输入 regedit，然后定位到如下的位置：
-
-　　HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsSelfHost\UI\Selection
-
-　　把 UIBranch 的值更改为 Dev
-
-　　把 ContentType 的值更改为 Mainline
-
-　　把 Ring 的文本更改为 External
-
-　　接着注册表定位到如下的位置：
-
-　　HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsSelfHost\Applicability
-
-　　把 BranchName 的值更改为 Dev
-
-　　把 ContentType 的值更改为 Mainline
-
-　　把 Ring 的值更改为 External
-
-　　注册表修改好后，重启系统然后进入设置应用 - 系统更新，点击左侧的 Windows Insider 选项检查所处通道，显示为 Dev 就是成功了。
-
-　　最后再为大家介绍一种最简单直接的安装方法，使用PE安装Win11 ISO镜像，因为PE安装时直接会读取win11系统iso镜像，这样就可以直接跳过TPM2.0的检测了。
-
-![img](https://tool.lu/netcard/)
+[![img](https://macjpeg.macsc.com/macdown/pic/201911/13160642_882452d19c.jpeg)](https://macjpeg.macsc.com/macdown/pic/201911/13160642_882452d19c.jpeg)
 </div>
 <img src="https://tool.lu/netcard/">
 
 
 
-{{<music url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/97.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" fixed="true" volume="100" loop="all" autoplay="true" preload="auto" >}}
+{{<music url="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@source/Music/.mp3" name="" artist="Mr·Yang" cover="https://cdn.jsdelivr.net/gh/ybrc/ybrc.github.io@img/avatar.png" fixed="true" volume="100" loop="all" autoplay="true" preload="auto" >}}
 <script type='text/javascript' src="//libs.cdnjs.net/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 <div id="qrcode"></div> 
 <a id="download" download="qrcode.jpg"></a>
